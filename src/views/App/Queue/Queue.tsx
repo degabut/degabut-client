@@ -95,10 +95,12 @@ export const Queue: Component = () => {
 										<Icon name="forward" extraClass="w-4 h-4 fill-current" />
 										<div>Skip</div>
 									</Button>
-									<Button rounded>
-										<Icon name="list" extraClass="w-4 h-4 fill-current" />
-										<Link href={`/app/video/${track.video.id}`}>Related</Link>
-									</Button>
+									<Link href={`/app/video/${track.video.id}`}>
+										<Button rounded>
+											<Icon name="list" extraClass="w-4 h-4 fill-current" />
+											<div>Related</div>
+										</Button>
+									</Link>
 								</div>
 							</div>
 						)}
