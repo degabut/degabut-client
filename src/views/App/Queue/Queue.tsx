@@ -1,4 +1,4 @@
-import { ITrack, IVideoCompact, orderTrack, removeTrack } from "@api";
+import { addTrack, ITrack, IVideoCompact, orderTrack, removeTrack } from "@api";
 import { Icon } from "@components";
 import { Button } from "@components/Button";
 import { Video } from "@components/Video";
@@ -65,7 +65,7 @@ export const Queue: Component = () => {
 	const onAddToQueue = async (video: IVideoCompact) => {
 		setIsLoading(true);
 		setFreezeTrack(true);
-		await removeTrack(video.id);
+		await addTrack(video.id);
 		setIsLoading(false);
 	};
 
