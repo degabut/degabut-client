@@ -28,7 +28,7 @@ export const App: Component = () => {
 
 				<div class="h-full flex-grow flex flex-col overflow-y-auto p-3 lg:p-8 pb-48 lg:pb-8 bg-gradient-to-b from-neutral-800 to-neutral-900">
 					<Show
-						when={!queueStore.data()}
+						when={queueStore.data()}
 						fallback={
 							<div class="flex flex-col flex-grow items-center justify-center w-full h-full space-y-4">
 								{queueStore.data.loading ? (
