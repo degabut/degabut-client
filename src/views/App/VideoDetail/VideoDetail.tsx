@@ -17,7 +17,7 @@ export const VideoDetail: Component = () => {
 		<Show when={video.data()}>
 			{(video) => (
 				<div class="flex flex-col">
-					<Video.List video={video} />
+					<Video.List video={video} onAddToQueue={onAddToQueue} />
 
 					<div class="my-3 w-full border-b border-neutral-600" />
 

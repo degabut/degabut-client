@@ -1,4 +1,4 @@
-import { ITrack } from "@api";
+import { ITrack, IVideoCompact } from "@api";
 import { closestCenter, DragDropProvider, DragDropSensors, SortableProvider } from "@thisbeyond/solid-dnd";
 import { Component, For } from "solid-js";
 import { SortableVideo } from "./SortableVideo";
@@ -11,6 +11,7 @@ type Props = {
 	onDragTrackStart?: () => void;
 	onDragTrackEnd?: () => void;
 	onChangeTrackOrder?: (fromIndex: number, toIndex: number, id: string) => void;
+	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
 };
 
 export const TrackList: Component<Props> = (props) => {
@@ -33,7 +34,13 @@ export const TrackList: Component<Props> = (props) => {
 			<div class="space-y-4">
 				<SortableProvider ids={ids()}>
 					<For each={props.tracks}>
-						{(track) => <SortableVideo track={track as ITrack} onRemove={props.onRemoveTrack} />}
+						{(track) => (
+							<SortableVideo
+								track={track as ITrack}
+								onRemove={props.onRemoveTrack}
+								onAddToQueue={props.onAddToQueue}
+							/>
+						)}
 					</For>
 				</SortableProvider>
 			</div>

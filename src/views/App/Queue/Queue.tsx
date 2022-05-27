@@ -1,4 +1,4 @@
-import { ITrack, orderTrack, removeTrack } from "@api";
+import { ITrack, IVideoCompact, orderTrack, removeTrack } from "@api";
 import { Icon } from "@components";
 import { Button } from "@components/Button";
 import { Video } from "@components/Video";
@@ -62,6 +62,13 @@ export const Queue: Component = () => {
 		setIsLoading(false);
 	};
 
+	const onAddToQueue = async (video: IVideoCompact) => {
+		setIsLoading(true);
+		setFreezeTrack(true);
+		await removeTrack(video.id);
+		setIsLoading(false);
+	};
+
 	return (
 		<>
 			<h1 class="text-2xl font-medium">Queue</h1>
@@ -82,7 +89,7 @@ export const Queue: Component = () => {
 						{(track) => (
 							<div class="mt-4 lg:mt-8 space-y-4">
 								<div class="text-xl font-normal">Now Playing</div>
-								<Video.List {...track} />
+								<Video.List {...track} onAddToQueue={onAddToQueue} />
 								<div class="flex flex-row space-x-4">
 									<Button rounded onClick={onSkip}>
 										<Icon name="forward" extraClass="w-4 h-4 fill-neutral-300" />
@@ -110,6 +117,7 @@ export const Queue: Component = () => {
 								onDragTrackEnd={() => setIsDragging(false)}
 								onChangeTrackOrder={onChangeTrackOrder}
 								onRemoveTrack={onRemoveTrack}
+								onAddToQueue={onAddToQueue}
 							/>
 						</div>
 					</div>

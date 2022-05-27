@@ -1,10 +1,11 @@
-import { ITrack } from "@api";
+import { ITrack, IVideoCompact } from "@api";
 import { Icon, Video, VideoContextMenuItem } from "@components";
 import { createSortable } from "@thisbeyond/solid-dnd";
 import { Component } from "solid-js";
 
 type Props = {
 	track: ITrack;
+	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
 	onRemove?: (track: ITrack) => void;
 };
 
@@ -28,6 +29,7 @@ export const SortableVideo: Component<Props> = (props) => {
 							onClick: () => props.onRemove?.(props.track),
 						},
 					]}
+					onAddToQueue={props.onAddToQueue}
 					variant="small"
 				/>
 			</div>
