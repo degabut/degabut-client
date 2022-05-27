@@ -1,4 +1,4 @@
-import { addTrack, type IVideoCompact } from "@api";
+import { addTrack, IVideo, type IVideoCompact } from "@api";
 import { Video } from "@components";
 import { useVideo } from "@hooks";
 import { useParams } from "solid-app-router";
@@ -14,22 +14,20 @@ export const VideoDetail: Component = () => {
 	};
 
 	return (
-		<Show when={video.data()}>
-			{(video) => (
-				<div class="flex flex-col">
-					<Video.List video={video} onAddToQueue={onAddToQueue} />
+		<Show when={video.data() && !video.data.loading} fallback={"Loading..."}>
+			<div class="flex flex-col">
+				<Video.List video={video.data() as IVideo} onAddToQueue={onAddToQueue} />
 
-					<div class="my-3 w-full border-b border-neutral-600" />
+				<div class="my-3 w-full border-b border-neutral-600" />
 
-					<div class="text-lg font-medium my-4">Related Video</div>
+				<div class="text-lg font-medium my-4">Related Video</div>
 
-					<div class="space-y-8">
-						<For each={video.related || []}>
-							{(video) => <Video.List video={video} onAddToQueue={onAddToQueue} />}
-						</For>
-					</div>
+				<div class="space-y-8">
+					<For each={video.data()?.related || []}>
+						{(video) => <Video.List video={video} onAddToQueue={onAddToQueue} />}
+					</For>
 				</div>
-			)}
+			</div>
 		</Show>
 	);
 };
