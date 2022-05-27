@@ -1,0 +1,9 @@
+export { default as audioPlaylist } from "./audio-playlist.svg";
+export { default as ellipsis } from "./ellipsis.svg";
+export { default as forward } from "./forward.svg";
+export { default as heart } from "./heart.svg";
+export { default as list } from "./list-square-bullet.svg";
+export { default as plus } from "./plus.svg";
+export { default as search } from "./search.svg";
+export { default as sortArrows } from "./sort-arrows.svg";
+export { default as trashBin } from "./trash-bin.svg";
