@@ -4,8 +4,8 @@ Web client example for [Degabut](https://github.com/SuspiciousLookingOwl/degabut
 
 ![img](https://i.imgur.com/nlGO55G.png)
 
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
-	<img src="https://i.imgur.com/ibYXEHi.png">
-	<img src="https://i.imgur.com/XyeTPQ3.png">
-	<img src="https://i.imgur.com/xoijio8.png">
+<div>
+	<img src="https://i.imgur.com/ibYXEHi.png" width="33%">
+	<img src="https://i.imgur.com/XyeTPQ3.png" width="33%">
+	<img src="https://i.imgur.com/xoijio8.png" width="33%">
 </div>
