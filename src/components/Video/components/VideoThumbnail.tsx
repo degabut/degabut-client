@@ -20,15 +20,13 @@ export const VideoThumbnail: Component<Props> = (props) => {
 			</div>
 		</a>
 	) : (
-		<div class="bg-black flex text-center">
-			<a class="mx-auto" href={youtubeUrl()} target="_blank">
-				<div class="relative sm:w-[16rem] sm:h-[9rem]">
-					<img src={thumbnail()?.url} alt={props.video.title} />
-					<div class="absolute bottom-0 right-0 text-sm bg-black bg-opacity-90 py-1 px-2">
-						{secondsToTime(props.video.duration)}
-					</div>
-				</div>
-			</a>
-		</div>
+		<a class="relative flex bg-black" href={youtubeUrl()} target="_blank">
+			<div class="sm:w-[16rem] sm:h-[10rem] mx-auto">
+				<img src={thumbnail()?.url} alt={props.video.title} class="h-full object-cover " />
+			</div>
+			<div class="absolute bottom-0 right-0 text-sm bg-black bg-opacity-90 py-1 px-2">
+				{secondsToTime(props.video.duration)}
+			</div>
+		</a>
 	);
 };
