@@ -35,7 +35,7 @@ export const VideoList: Component<Props> = (props) => {
 					{props.video.title}
 				</a>
 				<div class="flex flex-row space-x-3 text-sm">
-					<div class="text-neutral-300">{secondsToTime(props.video.duration)}</div>
+					<div class="text-neutral-400">{secondsToTime(props.video.duration)}</div>
 					{props.requestedBy && <div>Requested by {props.requestedBy.displayName}</div>}
 				</div>
 			</div>

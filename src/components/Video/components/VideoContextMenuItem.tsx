@@ -12,7 +12,7 @@ export const VideoContextMenuItem: Component<Props> = (props) => {
 		<div class="flex flex-row space-x-6 items-center">
 			<Icon
 				name={props.icon}
-				extraClass="fill-current text-neutral-500"
+				extraClass="fill-current text-neutral-400"
 				extraClassList={{
 					"h-4 w-4": props.label !== "large",
 					"h-5 w-4": props.label === "large",

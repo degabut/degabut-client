@@ -17,7 +17,7 @@ export const MobileLink: Component<Props> = ({ icon, label, path }) => {
 			class="flex flex-col flex-grow h-full space-y-1 fill-current items-center justify-center text-center cursor-pointer"
 			classList={{
 				"text-neutral-400 hover:bg-white hover:bg-opacity-5": !isActive(),
-				"text-neutral-50 bg-white bg-opacity-5 font-medium": !!isActive(),
+				"text-neutral-100 bg-white bg-opacity-5 font-medium": !!isActive(),
 			}}
 		>
 			<div class="pt-1">
