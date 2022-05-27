@@ -1,5 +1,5 @@
 import { ITrack } from "@api";
-import { Icon, Video } from "@components";
+import { Icon, Video, VideoContextMenuItem } from "@components";
 import { createSortable } from "@thisbeyond/solid-dnd";
 import { Component } from "solid-js";
 
@@ -22,7 +22,9 @@ export const SortableVideo: Component<Props> = (props) => {
 					{...props.track}
 					extraContextMenuItems={[
 						{
-							label: "Remove from Queue",
+							element: () => (
+								<VideoContextMenuItem icon="trashBin" label="Remove from Queue" iconSize="large" />
+							),
 							onClick: () => props.onRemove?.(props.track),
 						},
 					]}

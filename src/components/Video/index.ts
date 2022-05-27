@@ -5,3 +5,5 @@ export const Video = {
 	List: VideoList,
 	Card: VideoCard,
 };
+
+export { VideoContextMenuItem } from "./components";

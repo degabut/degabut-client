@@ -28,11 +28,8 @@ export const ContextMenuProvider: Component<ParentProps> = (props) => {
 	};
 
 	onMount(() => {
-		window.addEventListener("popstate", (e) => {
-			if (isShowContextMenu()) {
-				e.preventDefault();
-				setIsShowContextMenu(false);
-			}
+		window.addEventListener("popstate", () => {
+			if (isShowContextMenu()) setIsShowContextMenu(false);
 		});
 	});
 
@@ -55,10 +52,10 @@ export const ContextMenuProvider: Component<ParentProps> = (props) => {
 						<For each={params().items}>
 							{(item) => (
 								<div
-									class="cursor-pointer hover:bg-neutral-900 py-2 px-3"
+									class="cursor-pointer hover:bg-neutral-900 py-2 px-4"
 									onClick={() => onClick(item)}
 								>
-									{item.label}
+									{item.element || item.label}
 								</div>
 							)}
 						</For>
@@ -73,10 +70,10 @@ export const ContextMenuProvider: Component<ParentProps> = (props) => {
 							<For each={params().items}>
 								{(item) => (
 									<div
-										class="cursor-pointer hover:bg-neutral-900 px-8 py-4"
+										class="cursor-pointer hover:bg-neutral-900 px-6 py-4"
 										onClick={() => onClick(item)}
 									>
-										{item.label}
+										{item.element || item.label}
 									</div>
 								)}
 							</For>
