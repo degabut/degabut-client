@@ -64,7 +64,7 @@ export const ContextMenuProvider: Component<ParentProps> = (props) => {
 					<div class="block lg:hidden absolute w-screen h-screen top-0 left-0 bg-black bg-opacity-80 z-50">
 						<div
 							use:clickOutside={() => setIsShowContextMenu(false)}
-							class="absolute bottom-0 w-full bg-neutral-900 pb-8 z-50 min-h-[50vh] px-2"
+							class="absolute bottom-0 w-full bg-neutral-900 pb-8 z-50 px-2 min-h-[50vh] max-h-full overflow-y-auto"
 						>
 							{params().header}
 							<For each={params().items}>
