@@ -1,5 +1,5 @@
 import { clickOutside } from "@directives";
-import { Component, createContext, createSignal, For, JSX, onMount, ParentProps } from "solid-js";
+import { Component, createContext, createEffect, createSignal, For, JSX, onMount, ParentProps } from "solid-js";
 
 export type ContextMenuItem = {
 	label?: string;
@@ -19,6 +19,7 @@ export const ContextMenuContext = createContext<ContextMenuContextStore>();
 export const ContextMenuProvider: Component<ParentProps> = (props) => {
 	clickOutside;
 
+	let contextMenuElement!: HTMLDivElement;
 	const [isShowContextMenu, setIsShowContextMenu] = createSignal(false);
 	const [params, setParams] = createSignal<ShowParams>({ x: 0, y: 0, items: [], header: null });
 
@@ -38,16 +39,36 @@ export const ContextMenuProvider: Component<ParentProps> = (props) => {
 		setIsShowContextMenu(false);
 	};
 
+	createEffect(() => {
+		if (params() && contextMenuElement) {
+			const rect = contextMenuElement.getBoundingClientRect();
+			if (rect.x + rect.width > window.innerWidth) {
+				setParams({
+					...params(),
+					x: window.innerWidth - rect.width,
+				});
+			}
+
+			if (rect.y + rect.height > window.innerHeight) {
+				setParams({
+					...params(),
+					y: window.innerHeight - rect.height,
+				});
+			}
+		}
+	});
+
 	return (
 		<ContextMenuContext.Provider value={{ show }}>
 			{isShowContextMenu() && (
-				<div use:clickOutside={() => setIsShowContextMenu(false)}>
+				<div use:clickOutside={() => setIsShowContextMenu(false)} class="">
 					<div
+						ref={contextMenuElement}
 						style={{
 							left: params().x + "px",
 							top: params().y + "px",
 						}}
-						class="hidden lg:block absolute bg-black z-50 min-w-[12rem]"
+						class="hidden lg:block absolute bg-black z-50 min-w-[12rem] w-max"
 					>
 						<For each={params().items}>
 							{(item) => (
@@ -64,13 +85,13 @@ export const ContextMenuProvider: Component<ParentProps> = (props) => {
 					<div class="block lg:hidden absolute w-screen h-screen top-0 left-0 bg-black bg-opacity-80 z-50">
 						<div
 							use:clickOutside={() => setIsShowContextMenu(false)}
-							class="absolute bottom-0 w-full bg-neutral-900 pb-8 z-50 px-2 min-h-[50vh] max-h-full overflow-y-auto"
+							class="absolute bottom-0 w-full bg-neutral-900 pb-8 z-50 min-h-[50vh] max-h-full overflow-y-auto"
 						>
-							{params().header}
+							<div class="px-2">{params().header}</div>
 							<For each={params().items}>
 								{(item) => (
 									<div
-										class="cursor-pointer hover:bg-neutral-900 px-6 py-4"
+										class="cursor-pointer hover:bg-neutral-800 px-8 py-4"
 										onClick={() => onClick(item)}
 									>
 										{item.element || item.label}

@@ -34,7 +34,7 @@ export const SortableVideo: Component<Props> = (props) => {
 				/>
 			</div>
 			<div use:sortable>
-				<Icon name="sortArrows" extraClass="fill-neutral-500 w-4 h-4" />
+				<Icon name="sortArrows" extraClass="fill-neutral-500 w-4 h-4 cursor-pointer" />
 			</div>
 		</div>
 	);

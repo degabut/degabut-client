@@ -91,12 +91,12 @@ export const Queue: Component = () => {
 								<div class="text-xl font-normal">Now Playing</div>
 								<Video.List {...track} onAddToQueue={onAddToQueue} />
 								<div class="flex flex-row space-x-4">
-									<Button rounded onClick={onSkip}>
-										<Icon name="forward" extraClass="w-4 h-4 fill-neutral-300" />
+									<Button rounded onClick={onSkip} disabled={freezeTracks()}>
+										<Icon name="forward" extraClass="w-4 h-4 fill-current" />
 										<div>Skip</div>
 									</Button>
 									<Button rounded>
-										<Icon name="list" extraClass="w-4 h-4 fill-neutral-300" />
+										<Icon name="list" extraClass="w-4 h-4 fill-current" />
 										<Link href={`/app/video/${track.video.id}`}>Related</Link>
 									</Button>
 								</div>
