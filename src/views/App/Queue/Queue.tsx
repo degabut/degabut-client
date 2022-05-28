@@ -39,33 +39,21 @@ export const Queue: Component = () => {
 		updatedItems.splice(toIndex, 0, ...updatedItems.splice(fromIndex, 1));
 		setTracks(updatedItems);
 
-		setIsLoading(true);
-		setFreezeTrack(true);
-		await orderTrack(trackId, toIndex + 1);
-		setIsLoading(false);
-	};
-
-	const onSkip = async () => {
-		const trackId = nowPlaying()?.id;
-		if (!trackId) return;
-
-		setIsLoading(true);
-		setFreezeTrack(true);
-		await removeTrack(trackId);
-		setIsLoading(false);
+		await modifyTrack(() => orderTrack(trackId, toIndex + 1));
 	};
 
 	const onRemoveTrack = async (track: ITrack) => {
-		setIsLoading(true);
-		setFreezeTrack(true);
-		await removeTrack(track.id);
-		setIsLoading(false);
+		await modifyTrack(() => removeTrack(track.id));
 	};
 
 	const onAddToQueue = async (video: IVideoCompact) => {
+		await modifyTrack(() => addTrack(video.id));
+	};
+
+	const modifyTrack = async (fn: () => Promise<unknown>) => {
 		setIsLoading(true);
 		setFreezeTrack(true);
-		await addTrack(video.id);
+		await fn();
 		setIsLoading(false);
 	};
 
@@ -91,7 +79,7 @@ export const Queue: Component = () => {
 								<div class="text-xl font-normal">Now Playing</div>
 								<Video.List {...track} onAddToQueue={onAddToQueue} />
 								<div class="flex flex-row space-x-4">
-									<Button rounded onClick={onSkip} disabled={freezeTracks()}>
+									<Button rounded onClick={() => onRemoveTrack(track)} disabled={freezeTracks()}>
 										<Icon name="forward" extraClass="w-4 h-4 fill-current" />
 										<div>Skip</div>
 									</Button>
