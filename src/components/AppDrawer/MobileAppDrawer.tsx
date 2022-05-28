@@ -10,7 +10,7 @@ export const MobileAppDrawer: Component = () => {
 		<div class="flex flex-col w-full h-full">
 			<Show when={nowPlaying()}>
 				{({ video }) => (
-					<div class="absolute bottom-16 bg-neutral-900 w-full p-1.5">
+					<div class="bg-neutral-900 w-full p-1.5">
 						<SolidLink
 							href="/app/queue"
 							class="relative flex flex-row space-x-3 p-2 rounded bg-gray-800 cursor-pointer items-center"

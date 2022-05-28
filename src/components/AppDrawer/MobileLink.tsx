@@ -20,7 +20,7 @@ export const MobileLink: Component<Props> = ({ icon, label, path }) => {
 				"text-neutral-100 bg-white bg-opacity-10 font-medium": !!isActive(),
 			}}
 		>
-			<div class="pt-1">
+			<div class="pt-2">
 				<Icon name={icon} size="md" />
 			</div>
 			<div>{label}</div>

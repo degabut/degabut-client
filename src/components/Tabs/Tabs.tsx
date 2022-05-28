@@ -27,18 +27,22 @@ export const Tabs: Component<Props> = (props) => {
 
 	return (
 		<div class="flex flex-col">
-			<div class={`flex flex-row items-center w-full ${props.extraTabsClass}`}>
+			<div class={`flex flex-row items-center w-full border-b border-neutral-700 ${props.extraTabsClass}`}>
 				<For each={props.items}>
 					{(item) => (
 						<div
-							class="flex-grow lg:flex-grow-0 text-center cursor-pointer px-2 lg:px-12 py-2 min-w-max rounded-t-lg"
-							classList={{
-								"border-b border-neutral-100 bg-white bg-opacity-10": item.id === activeItem().id,
-								"bg-neutral-800 hover:bg-white hover:bg-opacity-5 ": item.id !== activeItem().id,
-							}}
+							class="flex-grow lg:flex-grow-0 cursor-pointer bg-neutral-800"
 							onClick={() => onChange(item)}
 						>
-							{item.label({ isActive: item.id === activeItem().id })}
+							<div
+								class="px-2 lg:px-12 py-2"
+								classList={{
+									"border-b border-neutral-100 bg-white bg-opacity-10": item.id === activeItem().id,
+									" hover:bg-white hover:bg-opacity-5 ": item.id !== activeItem().id,
+								}}
+							>
+								{item.label({ isActive: item.id === activeItem().id })}
+							</div>
 						</div>
 					)}
 				</For>

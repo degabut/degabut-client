@@ -95,7 +95,7 @@ export const Queue: Component = () => {
 
 					<Tabs
 						extraContainerClass="pt-4 lg:pt-8"
-						extraTabsClass="border-b border-neutral-700 w-full space-x-1"
+						extraTabsClass="w-full sticky top-0 z-30"
 						items={[
 							{
 								id: "trackList",

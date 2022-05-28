@@ -1,5 +1,5 @@
 import { addTrack, type IVideoCompact } from "@api";
-import { Video } from "@components";
+import { Input, Video } from "@components";
 import { debounce } from "@directives";
 import { searchStore } from "@stores";
 import { useSearchParams } from "solid-app-router";
@@ -28,9 +28,8 @@ export const Search: Component = () => {
 
 	return (
 		<div class="flex flex-col space-y-4 lg:space-y-6">
-			<input
+			<Input
 				type="text"
-				class="w-full lg:max-w-[32rem] bg-white rounded-full py-2 px-4 outline-0 text-black"
 				placeholder="Never gonna give you up"
 				ref={searchInput}
 				use:debounce={250}
