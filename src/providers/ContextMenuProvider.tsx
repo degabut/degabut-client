@@ -73,7 +73,7 @@ export const ContextMenuProvider: Component<ParentProps> = (props) => {
 						<For each={params().items}>
 							{(item) => (
 								<div
-									class="cursor-pointer hover:bg-neutral-800 py-2 px-4"
+									class="cursor-pointer hover:bg-white hover:bg-opacity-10 py-2 px-4"
 									onClick={() => onClick(item)}
 								>
 									{item.element || item.label}
@@ -91,7 +91,7 @@ export const ContextMenuProvider: Component<ParentProps> = (props) => {
 							<For each={params().items}>
 								{(item) => (
 									<div
-										class="cursor-pointer hover:bg-neutral-800 px-8 py-4"
+										class="cursor-pointer hover:bg-white hover:bg-opacity-10 px-8 py-4"
 										onClick={() => onClick(item)}
 									>
 										{item.element || item.label}
