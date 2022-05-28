@@ -1,3 +1,4 @@
+import { Icon } from "@components/Icon";
 import { queueStore } from "@stores";
 import { Link as SolidLink } from "solid-app-router";
 import { Component, createMemo, Show } from "solid-js";
@@ -21,7 +22,7 @@ export const AppDrawer: Component = () => {
 				{({ video, requestedBy }) => (
 					<SolidLink
 						href="/app/queue"
-						class="flex flex-col space-y-3 px-2 py-4 cursor-pointer"
+						class="relative flex flex-col space-y-3 px-2 py-4 cursor-pointer"
 						title={video.title}
 					>
 						<div class="text-lg font-medium">Now Playing</div>
@@ -35,6 +36,8 @@ export const AppDrawer: Component = () => {
 								</div>
 							</div>
 						</div>
+
+						<Icon name="musicNote" extraClass="absolute bottom-2 right-2 w-24 h-24 fill-white opacity-10" />
 					</SolidLink>
 				)}
 			</Show>

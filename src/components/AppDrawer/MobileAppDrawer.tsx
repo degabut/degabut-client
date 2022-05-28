@@ -1,3 +1,5 @@
+import { Icon } from "@components";
+import { VideoThumbnail } from "@components/Video/components";
 import { queueStore } from "@stores";
 import { Link as SolidLink } from "solid-app-router";
 import { Component, createMemo, Show } from "solid-js";
@@ -13,14 +15,16 @@ export const MobileAppDrawer: Component = () => {
 					<div class="bg-neutral-900 w-full p-1.5">
 						<SolidLink
 							href="/app/queue"
-							class="relative flex flex-row space-x-3 p-2 rounded bg-gray-800 cursor-pointer items-center"
+							class="flex flex-row space-x-3 p-2 rounded bg-gray-800 cursor-pointer items-center"
 							title={video.title}
 						>
-							<img class="object-cover h-10 w-10" src={video.thumbnails[0].url} alt={video.title} />
+							<VideoThumbnail video={video} variant="small" />
 							<div class="flex flex-col truncate">
 								<div class="truncate">{video.title}</div>
 								<div class="truncate text-sm text-neutral-400">{video.channel.name}</div>
 							</div>
+
+							<Icon name="musicNote" extraClass="absolute right-4 w-12 h-12 fill-white opacity-10" />
 						</SolidLink>
 					</div>
 				)}
