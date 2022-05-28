@@ -7,6 +7,7 @@ type OnDragEnd = Parameters<typeof DragDropProvider>[0]["onDragEnd"];
 
 type Props = {
 	tracks: ITrack[];
+	isFreezed: boolean;
 	onRemoveTrack?: (track: ITrack) => void;
 	onDragTrackStart?: () => void;
 	onDragTrackEnd?: () => void;
@@ -14,7 +15,7 @@ type Props = {
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
 };
 
-export const TrackList: Component<Props> = (props) => {
+export const QueueTrackList: Component<Props> = (props) => {
 	const ids = () => props.tracks.map((t) => t.id);
 
 	const onDragStart = () => props.onDragTrackStart?.();
@@ -29,21 +30,27 @@ export const TrackList: Component<Props> = (props) => {
 	};
 
 	return (
-		<DragDropProvider onDragStart={onDragStart} onDragEnd={onDragEnd} collisionDetector={closestCenter}>
-			<DragDropSensors />
-			<div class="space-y-4">
-				<SortableProvider ids={ids()}>
-					<For each={props.tracks}>
-						{(track) => (
-							<SortableVideo
-								track={track as ITrack}
-								onRemove={props.onRemoveTrack}
-								onAddToQueue={props.onAddToQueue}
-							/>
-						)}
-					</For>
-				</SortableProvider>
+		<div class="space-y-4">
+			{!props.tracks.length && <div>Empty</div>}
+
+			<div classList={{ "opacity-50 pointer-events-none": props.isFreezed }}>
+				<DragDropProvider onDragStart={onDragStart} onDragEnd={onDragEnd} collisionDetector={closestCenter}>
+					<DragDropSensors />
+					<div class="space-y-4">
+						<SortableProvider ids={ids()}>
+							<For each={props.tracks}>
+								{(track) => (
+									<SortableVideo
+										track={track as ITrack}
+										onRemove={props.onRemoveTrack}
+										onAddToQueue={props.onAddToQueue}
+									/>
+								)}
+							</For>
+						</SortableProvider>
+					</div>
+				</DragDropProvider>
 			</div>
-		</DragDropProvider>
+		</div>
 	);
 };
