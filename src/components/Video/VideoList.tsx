@@ -28,8 +28,8 @@ export const VideoList: Component<Props> = (props) => {
 	});
 
 	return props.variant === "small" ? (
-		<div class="flex flex-row items-center lg:space-x-3 w-full" use:contextMenu={contextMenuProps()}>
-			<VideoThumbnail video={props.video} variant={props.variant} />
+		<div class="flex flex-row items-center space-x-1.5 lg:space-x-3 w-full" use:contextMenu={contextMenuProps()}>
+			<VideoThumbnail video={props.video} variant={props.variant} extraContainerClass="flex-shrink-0" />
 			<div class="flex flex-col flex-grow flex-shrink lg:space-y-1 pt-1 pr-1 truncate">
 				<a href={youtubeUrl()} target="_blank" class="truncate">
 					{props.video.title}
