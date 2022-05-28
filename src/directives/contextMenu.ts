@@ -10,8 +10,8 @@ export const contextMenu = (el: HTMLElement, accessor: Accessor<ContextMenuDirec
 		const onContextMenu = (e: MouseEvent) => {
 			e.preventDefault();
 			contextMenu.show({
-				x: e.clientX,
-				y: e.clientY,
+				x: e.pageX,
+				y: e.pageY,
 				...params,
 			});
 		};
@@ -32,8 +32,8 @@ export const buttonContextMenu = (el: HTMLElement, accessor: Accessor<ContextMen
 			e.stopPropagation();
 			navigate("#");
 			contextMenu.show({
-				x: e.clientX,
-				y: e.clientY,
+				x: e.pageX,
+				y: e.pageY,
 				...params,
 			});
 		};
