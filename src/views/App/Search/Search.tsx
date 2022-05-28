@@ -1,5 +1,5 @@
 import { addTrack, type IVideoCompact } from "@api";
-import { Video } from "@components/Video";
+import { Video } from "@components";
 import { debounce } from "@directives";
 import { searchStore } from "@stores";
 import { useSearchParams } from "solid-app-router";

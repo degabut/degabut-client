@@ -18,8 +18,8 @@ render(
 				<Route path="/oauth" element={<OAuth />} />
 				<Route path="/app" element={<App />}>
 					<Route path="/" element={<Queue />} />
-					<Route path="/video/:id" element={<VideoDetail />} />
 					<Route path="/queue" element={<Queue />} />
+					<Route path="/video/:id" element={<VideoDetail />} />
 					<Route path="/recommended" element={<Recommend />} />
 					<Route path="/search" element={<Search />} />
 				</Route>

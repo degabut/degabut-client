@@ -1,7 +1,5 @@
 import { addTrack, ITrack, IVideoCompact, orderTrack, removeTrack } from "@api";
-import { Icon } from "@components";
-import { Button } from "@components/Button";
-import { Video } from "@components/Video";
+import { Button, Icon, Video } from "@components";
 import { queueStore } from "@stores";
 import { Link } from "solid-app-router";
 import { Component, createEffect, createMemo, createSignal, Show } from "solid-js";

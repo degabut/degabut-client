@@ -1,5 +1,4 @@
-import { AppDrawer } from "@components/AppDrawer";
-import { MobileAppDrawer } from "@components/AppDrawer/MobileAppDrawer";
+import { AppDrawer, MobileAppDrawer } from "@components";
 import { ContextMenuProvider } from "@providers";
 import { queueStore } from "@stores";
 import { Outlet, useLocation, useNavigate } from "solid-app-router";
