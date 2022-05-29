@@ -14,11 +14,11 @@ export const SortableVideo: Component<Props> = (props) => {
 
 	return (
 		<div
-			class="flex flex-row-reverse justify-end items-center"
+			use:sortable
+			class="flex flex-row-reverse justify-end items-center touch-none"
 			classList={{ "opacity-75": sortable.isActiveDraggable }}
 		>
-			{/* Hacky way to make only part of the element clickable for sort */}
-			<div class="ml-2 truncate flex-grow" use:sortable onMouseDown={(e) => e.stopPropagation()}>
+			<div class="ml-2 truncate flex-grow" onMouseDown={(e) => e.stopPropagation()}>
 				<Video.List
 					{...props.track}
 					extraContextMenuItems={[
@@ -33,9 +33,7 @@ export const SortableVideo: Component<Props> = (props) => {
 					variant="small"
 				/>
 			</div>
-			<div use:sortable>
-				<Icon name="sortArrows" extraClass="fill-neutral-500 w-4 h-4 cursor-pointer" />
-			</div>
+			<Icon name="sortArrows" extraClass="fill-neutral-500 w-4 h-4 cursor-pointer" />
 		</div>
 	);
 };
