@@ -4,13 +4,14 @@ import { Component, createMemo } from "solid-js";
 import { ChannelThumbnail, ContextMenuButton, VideoThumbnail } from "./components";
 import { getVideoContextMenu } from "./utils/videoContextMenu";
 
+contextMenu;
+
 type Props = {
 	video: IVideoCompact;
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
 };
 
 export const VideoCard: Component<Props> = (props) => {
-	contextMenu;
 	const youtubeUrl = createMemo(() => `https://youtu.be/${props.video.id}`);
 
 	return (

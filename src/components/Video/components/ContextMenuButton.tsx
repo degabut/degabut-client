@@ -3,13 +3,13 @@ import { buttonContextMenu } from "@directives";
 import { ContextMenuDirectiveParams } from "@providers";
 import { Component } from "solid-js";
 
+buttonContextMenu;
+
 type Props = {
 	contextMenu: ContextMenuDirectiveParams;
 };
 
 export const ContextMenuButton: Component<Props> = (props) => {
-	buttonContextMenu;
-
 	return (
 		<div
 			use:buttonContextMenu={props.contextMenu}

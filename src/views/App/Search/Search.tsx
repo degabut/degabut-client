@@ -5,9 +5,9 @@ import { searchStore } from "@stores";
 import { useSearchParams } from "solid-app-router";
 import { Component, For, Match, onMount, Switch } from "solid-js";
 
-export const Search: Component = () => {
-	debounce;
+debounce;
 
+export const Search: Component = () => {
 	const [query, setQuery] = useSearchParams<{ keyword: string }>();
 	const { keyword, setKeyword, data: videos } = searchStore;
 	let searchInput!: HTMLInputElement;

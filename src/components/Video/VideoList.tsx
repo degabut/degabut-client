@@ -6,6 +6,8 @@ import { Component, createMemo } from "solid-js";
 import { ChannelThumbnail, ContextMenuButton, VideoThumbnail } from "./components";
 import { getVideoContextMenu } from "./utils/videoContextMenu";
 
+contextMenu;
+
 type Props = {
 	video: IVideoCompact;
 	requestedBy?: IGuildMember;
@@ -16,7 +18,6 @@ type Props = {
 };
 
 export const VideoList: Component<Props> = (props) => {
-	contextMenu;
 	const youtubeUrl = createMemo(() => `https://youtu.be/${props.video.id}`);
 
 	const contextMenuProps = createMemo(() => {

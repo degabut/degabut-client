@@ -1,6 +1,8 @@
 import { clickOutside } from "@directives";
 import { Component, createContext, createEffect, createSignal, For, JSX, onMount, ParentProps } from "solid-js";
 
+clickOutside;
+
 export type ContextMenuItem = {
 	label?: string;
 	element?: JSX.Element;
@@ -17,8 +19,6 @@ type ContextMenuContextStore = {
 export const ContextMenuContext = createContext<ContextMenuContextStore>();
 
 export const ContextMenuProvider: Component<ParentProps> = (props) => {
-	clickOutside;
-
 	let contextMenuElement!: HTMLDivElement;
 	const [isShowContextMenu, setIsShowContextMenu] = createSignal(false);
 	const [params, setParams] = createSignal<ShowParams>({ x: 0, y: 0, items: [], header: null });
