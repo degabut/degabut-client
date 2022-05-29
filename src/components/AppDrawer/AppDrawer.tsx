@@ -9,6 +9,7 @@ export const AppDrawer: Component = () => {
 
 	return (
 		<div class="flex flex-col h-full w-[16rem] bg-black overflow-y-auto overflow-x-hidden">
+			<Icon name="musicNote" extraClass="absolute top-0 left-2 w-24 h-24 fill-white opacity-10" />
 			<div class="px-6 font-semibold text-2xl truncate py-8" title="Regular Voice">
 				Degabut
 			</div>
