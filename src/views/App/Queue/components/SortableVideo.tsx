@@ -1,7 +1,7 @@
 import { ITrack, IVideoCompact } from "@api";
 import { Icon, Video, VideoContextMenuItem } from "@components";
 import { createSortable } from "@thisbeyond/solid-dnd";
-import { Component } from "solid-js";
+import { Component, createSignal, onMount } from "solid-js";
 
 type Props = {
 	track: ITrack;
@@ -9,16 +9,46 @@ type Props = {
 	onRemove?: (track: ITrack) => void;
 };
 
+type Pos = {
+	x: number;
+	y: number;
+};
+
 export const SortableVideo: Component<Props> = (props) => {
 	const sortable = createSortable(props.track.id);
+	let draggerElement!: HTMLDivElement;
+	const [dragPosition, setDragPosition] = createSignal<Pos>({ x: 0, y: 0 });
+
+	onMount(() => {
+		const observer = new MutationObserver((mutations) => {
+			mutations.forEach(onDragMove);
+		});
+
+		observer.observe(draggerElement, { attributes: true, attributeFilter: ["style"] });
+	});
+
+	const onDragMove = () => {
+		const position = draggerElement.style.transform.split("(")[1]?.split(",", 2);
+		if (position) {
+			const [x, y] = position.map((p) => +p.replace(/[^0-9-]/g, ""));
+			setDragPosition({ x: +x, y: +y });
+		} else {
+			setDragPosition({ x: 0, y: 0 });
+		}
+	};
 
 	return (
-		<div
-			use:sortable
-			class="flex flex-row-reverse justify-end items-center touch-none"
-			classList={{ "opacity-75": sortable.isActiveDraggable }}
-		>
-			<div class="ml-2 truncate flex-grow" onMouseDown={(e) => e.stopPropagation()}>
+		<div class="flex justify-end items-stretch" classList={{ "opacity-50": sortable.isActiveDraggable }}>
+			<div ref={draggerElement} use:sortable class="touch-none flex items-center cursor-pointer">
+				<div class="mx-2 lg:ml-0">
+					<Icon name="sortArrows" extraClass="fill-neutral-500 w-4 h-4" />
+				</div>
+			</div>
+
+			<div
+				class="truncate flex-grow"
+				style={{ transform: `translate(${dragPosition().x}px, ${dragPosition().y}px)` }}
+			>
 				<Video.List
 					{...props.track}
 					extraContextMenuItems={[
@@ -33,7 +63,6 @@ export const SortableVideo: Component<Props> = (props) => {
 					variant="small"
 				/>
 			</div>
-			<Icon name="sortArrows" extraClass="fill-neutral-500 w-4 h-4 cursor-pointer" />
 		</div>
 	);
 };
