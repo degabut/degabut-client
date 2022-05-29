@@ -1,4 +1,4 @@
-import { addTrack, ITrack, IVideoCompact, orderTrack, removeTrack } from "@api";
+import { addTrackByVideoId, ITrack, IVideoCompact, orderTrack, removeTrack } from "@api";
 import { Button, Icon, Tabs, Video } from "@components";
 import { TabLabel } from "@components/Tabs/TabLabel";
 import { queueStore } from "@stores";
@@ -46,7 +46,7 @@ export const Queue: Component = () => {
 	};
 
 	const onAddToQueue = async (video: IVideoCompact) => {
-		await modifyTrack(() => addTrack(video.id));
+		await modifyTrack(() => addTrackByVideoId(video.id));
 	};
 
 	const modifyTrack = async (fn: () => Promise<unknown>) => {

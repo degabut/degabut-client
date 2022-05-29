@@ -1,4 +1,4 @@
-import { addTrack, type IVideoCompact } from "@api";
+import { addTrackByVideoId, type IVideoCompact } from "@api";
 import { Video } from "@components";
 import { useVideo } from "@hooks";
 import { useRecommendations } from "@hooks/useRecommendations";
@@ -42,7 +42,7 @@ export const Recommend: Component = () => {
 	});
 
 	const onAddToQueue = async (video: IVideoCompact) => {
-		await addTrack(video.id);
+		await addTrackByVideoId(video.id);
 	};
 
 	return (

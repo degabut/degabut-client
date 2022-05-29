@@ -1,4 +1,4 @@
-import { addTrack, IVideo, type IVideoCompact } from "@api";
+import { addTrackByVideoId, IVideo, type IVideoCompact } from "@api";
 import { Video } from "@components";
 import { useVideo } from "@hooks";
 import { useParams } from "solid-app-router";
@@ -10,7 +10,7 @@ export const VideoDetail: Component = () => {
 	const video = useVideo({ videoId });
 
 	const onAddToQueue = async (video: IVideoCompact) => {
-		await addTrack(video.id);
+		await addTrackByVideoId(video.id);
 	};
 
 	return (

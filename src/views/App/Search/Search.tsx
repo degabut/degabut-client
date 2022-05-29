@@ -1,4 +1,4 @@
-import { addTrack, type IVideoCompact } from "@api";
+import { addTrackByVideoId, type IVideoCompact } from "@api";
 import { Input, Video } from "@components";
 import { debounce } from "@directives";
 import { searchStore } from "@stores";
@@ -18,7 +18,7 @@ export const Search: Component = () => {
 	});
 
 	const onAddToQueue = async (video: IVideoCompact) => {
-		await addTrack(video.id);
+		await addTrackByVideoId(video.id);
 	};
 
 	const onInput = (value: string) => {
