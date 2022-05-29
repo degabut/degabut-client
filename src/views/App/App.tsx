@@ -1,4 +1,4 @@
-import { AppDrawer, MobileAppDrawer } from "@components";
+import { AppDrawer, MobileAppDrawer, QuickAddModal } from "@components";
 import { ContextMenuProvider } from "@providers";
 import { queueStore } from "@stores";
 import { Outlet, useLocation, useNavigate } from "solid-app-router";
@@ -55,6 +55,8 @@ export const App: Component = () => {
 					<MobileAppDrawer />
 				</div>
 			</div>
+
+			<QuickAddModal />
 		</div>
 	);
 };
