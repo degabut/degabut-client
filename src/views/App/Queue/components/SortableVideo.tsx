@@ -47,7 +47,7 @@ export const SortableVideo: Component<Props> = (props) => {
 
 			<div
 				class="truncate flex-grow"
-				style={{ transform: `translate(${dragPosition().x}px, ${dragPosition().y}px)` }}
+				style={{ transform: `translate3d(${dragPosition().x}px, ${dragPosition().y}px, 0px)` }}
 			>
 				<Video.List
 					{...props.track}

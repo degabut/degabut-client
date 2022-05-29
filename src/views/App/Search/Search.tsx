@@ -47,7 +47,7 @@ export const Search: Component = () => {
 				</Switch>
 			</div>
 
-			<div class="space-y-8">
+			<div class="space-y-8 max-w-[86rem]">
 				<For each={videos()}>{(video) => <Video.List video={video} onAddToQueue={onAddToQueue} />}</For>
 			</div>
 		</div>

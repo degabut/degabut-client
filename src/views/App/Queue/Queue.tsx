@@ -76,7 +76,11 @@ export const Queue: Component = () => {
 						{(track) => (
 							<div class="mt-4 lg:mt-8 space-y-4">
 								<div class="text-xl font-normal">Now Playing</div>
-								<Video.List {...track} onAddToQueue={onAddToQueue} />
+								<Video.List
+									{...track}
+									onAddToQueue={onAddToQueue}
+									extraContainerClass="!bg-transparent"
+								/>
 								<div class="flex flex-row space-x-4">
 									<Button rounded onClick={() => onRemoveTrack(track)} disabled={isTrackFreezed()}>
 										<Icon name="forward" extraClass="w-4 h-4 fill-current" />

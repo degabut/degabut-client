@@ -15,11 +15,11 @@ export const VideoThumbnail: Component<Props> = (props) => {
 	const youtubeUrl = createMemo(() => `https://youtu.be/${props.video.id}`);
 
 	return props.variant === "small" ? (
-		<a href={youtubeUrl()} target="_blank" class={`relative ${props.extraContainerClass}`}>
+		<a href={youtubeUrl()} target="_blank" class={`relative bg-black ${props.extraContainerClass}`}>
 			<img
 				src={thumbnail()?.url}
 				alt={props.video.title}
-				class="pt-0.5 h-12 w-12 lg:w-[6rem] lg:h-[3.375rem] object-cover"
+				class="h-12 w-12 lg:w-[6rem] lg:h-[3.375rem] object-cover"
 			/>
 		</a>
 	) : (

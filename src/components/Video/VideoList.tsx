@@ -12,6 +12,7 @@ type Props = {
 	variant?: "small" | "normal";
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
 	extraContextMenuItems?: ContextMenuItem[];
+	extraContainerClass?: string;
 };
 
 export const VideoList: Component<Props> = (props) => {
@@ -28,9 +29,12 @@ export const VideoList: Component<Props> = (props) => {
 	});
 
 	return props.variant === "small" ? (
-		<div class="flex flex-row items-center space-x-1.5 lg:space-x-3 w-full" use:contextMenu={contextMenuProps()}>
+		<div
+			class={`flex flex-row items-center space-x-1.5 lg:space-x-3 w-full hover:bg-white hover:bg-opacity-5 ${props.extraContainerClass}`}
+			use:contextMenu={contextMenuProps()}
+		>
 			<VideoThumbnail video={props.video} variant={props.variant} extraContainerClass="flex-shrink-0" />
-			<div class="flex flex-col flex-grow flex-shrink lg:space-y-1 pt-1 pr-1 truncate">
+			<div class="flex flex-col flex-grow flex-shrink lg:space-y-1 pr-1 py-1 truncate">
 				<a href={youtubeUrl()} target="_blank" class="truncate">
 					{props.video.title}
 				</a>
@@ -43,23 +47,19 @@ export const VideoList: Component<Props> = (props) => {
 		</div>
 	) : (
 		<div
-			class="flex flex-col flex-grow sm:flex-row sm:space-x-4 space-y-2 lg:space-y-0"
+			class={`flex flex-col sm:flex-row sm:space-x-2 space-y-2 lg:space-y-0 hover:bg-white hover:bg-opacity-5 ${props.extraContainerClass}`}
 			use:contextMenu={contextMenuProps()}
 		>
 			<VideoThumbnail video={props.video} variant={props.variant} />
-			<div class="flex flex-col space-y-2 ">
-				<div class="flex flex-row">
-					<div class="flex flex-grow truncate ">
-						<a href={youtubeUrl()} target="_blank" class="font-medium truncate">
-							{props.video.title}
-						</a>
-					</div>
+			<div class="flex flex-col space-y-2 w-full truncate p-2">
+				<div class="flex flex-row items-center truncate">
+					<a href={youtubeUrl()} target="_blank" class=" flex-grow font-medium truncate">
+						{props.video.title}
+					</a>
 
-					<div class="block sm:hidden mt-0.5">
-						<ContextMenuButton
-							contextMenu={getVideoContextMenu({ video: props.video, onAddToQueue: props.onAddToQueue })}
-						/>
-					</div>
+					<ContextMenuButton
+						contextMenu={getVideoContextMenu({ video: props.video, onAddToQueue: props.onAddToQueue })}
+					/>
 				</div>
 				<div class="space-y-1">
 					<div class="text-neutral-400 text-sm">{props.video.viewCount?.toLocaleString("id")} views</div>
