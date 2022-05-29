@@ -56,7 +56,7 @@ export const QuickAddModal: Component = () => {
 				/>
 
 				<div class="flex flex-row justify-between space-x-8">
-					<Button class="border-0 hover:bg-transparent" onClick={() => setIsModalOpen(false)}>
+					<Button type="button" class="border-0 hover:bg-transparent" onClick={() => setIsModalOpen(false)}>
 						<div class="underline">Cancel</div>
 					</Button>
 
