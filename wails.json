@@ -1,0 +1,12 @@
+{
+  "name": "Degabut",
+  "outputfilename": "degabut",
+  "frontend:install": "pnpm i",
+  "frontend:build": "pnpm build",
+  "frontend:dev:watcher": "pnpm dev",
+  "frontend:dev:serverUrl": "http://localhost:3000",
+  "author": {
+    "name": "SuspiciousLookingOwl",
+    "email": "32597776+SuspiciousLookingOwl@users.noreply.github.com"
+  }
+}
