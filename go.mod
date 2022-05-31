@@ -1,8 +1,11 @@
-module changeme
+module github.com/suspiciouslookingowl/degabut-web
 
-go 1.17
+go 1.18
 
-require github.com/wailsapp/wails/v2 v2.0.0-beta.37
+require (
+	github.com/wailsapp/wails/v2 v2.0.0-beta.37
+	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce
+)
 
 require (
 	github.com/go-ole/go-ole v1.2.6 // indirect
