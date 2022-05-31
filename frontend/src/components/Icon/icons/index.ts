@@ -8,4 +8,7 @@ export { default as musicNote } from "./music-note.svg";
 export { default as plus } from "./plus.svg";
 export { default as search } from "./search.svg";
 export { default as sortArrows } from "./sort-arrows.svg";
+export { default as soundFull } from "./sound-full.svg";
+export { default as soundMedium } from "./sound-medium.svg";
+export { default as soundOff } from "./sound-off.svg";
 export { default as trashBin } from "./trash-bin.svg";
