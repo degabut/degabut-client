@@ -1,4 +1,5 @@
 export * from "./debounce";
+export * from "./throttle";
 
 export const secondsToTime = (totalSeconds: number) => {
 	const hours = Math.floor(totalSeconds / 3600);
