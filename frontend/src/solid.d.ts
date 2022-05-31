@@ -6,6 +6,7 @@ declare module "solid-js" {
 		interface Directives {
 			sortable: boolean;
 			clickOutside: () => void;
+			doubleClick: () => void;
 			contextMenu: ContextMenuDirectiveParams;
 			buttonContextMenu: ContextMenuDirectiveParams;
 		}
