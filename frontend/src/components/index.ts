@@ -1,4 +1,5 @@
 export * from "./AppDrawer";
+export * from "./AppMenuBar";
 export * from "./Button";
 export * from "./Icon";
 export * from "./Input";
