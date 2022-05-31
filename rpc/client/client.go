@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"os"
 
 	"github.com/suspiciouslookingowl/degabut-web/rpc/ipc"
 )
@@ -12,7 +13,7 @@ type Client struct {
 }
 
 // Login sends a handshake in the socket and returns an error or nil
-func (c *Client) Login(accessToken string) error {
+func (c *Client) Authenticate(accessToken string) error {
 	if c.logged {
 		return nil
 	}
@@ -33,7 +34,7 @@ func (c *Client) Login(accessToken string) error {
 	return nil
 }
 
-func (c *Client) Logout() {
+func (c *Client) Close() {
 	c.logged = false
 
 	err := c.socket.Close()
@@ -50,6 +51,21 @@ func (c *Client) SetUserVoiceSettings(args SetUserVoiceSettingsCommandArgs) erro
 	payload, _ := json.Marshal(Payload[SetUserVoiceSettingsCommandArgs]{
 		"SET_USER_VOICE_SETTINGS",
 		args,
+		getNonce(),
+	})
+
+	// TODO: parse response
+	c.socket.Send(1, string(payload))
+	return nil
+}
+
+func (c *Client) SetActivity(args Activity) error {
+	payload, _ := json.Marshal(Payload[SetActivityCommandArgs]{
+		"SET_ACTIVITY",
+		SetActivityCommandArgs{
+			Pid:      os.Getpid(),
+			Activity: args,
+		},
 		getNonce(),
 	})
 

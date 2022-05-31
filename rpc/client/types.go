@@ -26,3 +26,27 @@ type SetUserVoiceSettingsCommandArgs struct {
 	Mute   bool   `json:"mute"`
 	Pan    Pan    `json:"pan"`
 }
+
+type SetActivityCommandArgs struct {
+	Pid      int      `json:"pid"`
+	Activity Activity `json:"activity"`
+}
+
+type Assets struct {
+	LargeImage string `json:"large_image,omitempty"`
+	LargeText  string `json:"large_text,omitempty"`
+	SmallImage string `json:"small_image,omitempty"`
+	SmallText  string `json:"small_text,omitempty"`
+}
+
+type Timestamps struct {
+	Start int `json:"start,omitempty"`
+	End   int `json:"end,omitempty"`
+}
+
+type Activity struct {
+	State      string     `json:"state"`
+	Details    string     `json:"details"`
+	Timestamps Timestamps `json:"timestamps,omitempty"`
+	Assets     Assets     `json:"assets,omitempty"`
+}
