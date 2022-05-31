@@ -25,7 +25,7 @@ export const App: Component = () => {
 					<AppDrawer />
 				</div>
 
-				<div class="relative h-full flex-grow flex flex-col overflow-y-auto overflow-x-hidden px-2 lg:px-8 ">
+				<div class="relative h-full flex-grow flex flex-col overflow-y-auto overflow-x-hidden">
 					<div class="absolute top-0 left-0 lg:hidden w-full h-32 bg-gradient-to-b from-gray-800 to-transparent" />
 
 					<Show
@@ -44,7 +44,7 @@ export const App: Component = () => {
 						}
 					>
 						<ContextMenuProvider>
-							<div class="z-10 py-8 lg:pt-4 pb-32">
+							<div class="z-10 py-8 px-2 lg:px-8 pb-32">
 								<Outlet />
 							</div>
 						</ContextMenuProvider>
