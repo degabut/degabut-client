@@ -24,7 +24,7 @@ export const MobileAppDrawer: Component = () => {
 								<div class="truncate text-sm text-neutral-400">{video.channel.name}</div>
 							</div>
 
-							<Icon name="musicNote" extraClass="absolute right-4 w-12 h-12 fill-white opacity-10" />
+							<Icon name="musicNote" extraClass="absolute right-4 w-12 h-12 fill-white/10" />
 						</SolidLink>
 					</div>
 				)}

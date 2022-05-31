@@ -1,11 +1,11 @@
-import { Icon } from "@components/Icon";
+import { Icon } from "@components";
 import { queueStore } from "@stores";
 import { Link as SolidLink } from "solid-app-router";
 import { Component, createMemo, Show } from "solid-js";
 import { Link } from "./Link";
 
 const MusicNoteIcon: Component<{ extraClass: string }> = (props) => (
-	<Icon name="musicNote" extraClass={`w-24 h-24 fill-white opacity-10 pointer-events-none ${props.extraClass}`} />
+	<Icon name="musicNote" extraClass={`w-24 h-24 fill-white/10 pointer-events-none ${props.extraClass}`} />
 );
 
 export const AppDrawer: Component = () => {
@@ -24,7 +24,7 @@ export const AppDrawer: Component = () => {
 				<Link icon="heart" label="For You" path="/app/recommended" />
 			</div>
 
-			<div class="flex flex-col px-2 py-4 space-y-4">
+			<div class="flex flex-col p-4 space-y-4">
 				<Show when={nowPlaying()}>
 					{({ video, requestedBy }) => (
 						<SolidLink href="/app/queue" class="flex flex-col space-y-3 cursor-pointer" title={video.title}>

@@ -37,8 +37,9 @@ export const Tabs: Component<Props> = (props) => {
 							<div
 								class="px-2 lg:px-12 py-2"
 								classList={{
-									"border-b border-neutral-100 bg-white bg-opacity-10": item.id === activeItem().id,
-									" hover:bg-white hover:bg-opacity-5 ": item.id !== activeItem().id,
+									"border-b-neutral-100 border-t-bg-neutral-800 bg-white/10":
+										item.id === activeItem().id,
+									" hover:bg-white/5": item.id !== activeItem().id,
 								}}
 							>
 								{item.label({ isActive: item.id === activeItem().id })}

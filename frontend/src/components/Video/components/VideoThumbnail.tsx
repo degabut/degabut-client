@@ -27,7 +27,7 @@ export const VideoThumbnail: Component<Props> = (props) => {
 			<div class="sm:w-[16rem] sm:h-[10rem] mx-auto">
 				<img src={thumbnail()?.url} alt={props.video.title} class="h-full object-cover " />
 			</div>
-			<div class="absolute bottom-0 right-0 text-sm bg-black bg-opacity-90 py-1 px-2">
+			<div class="absolute bottom-0 right-0 text-sm bg-black/90 py-1 px-2">
 				{secondsToTime(props.video.duration)}
 			</div>
 		</a>

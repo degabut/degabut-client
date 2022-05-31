@@ -16,8 +16,8 @@ export const Link: Component<Props> = ({ icon, label, path }) => {
 			href={path}
 			class="flex flex-row fill-current items-center space-x-4 cursor-pointer px-6 py-3 transition-colors"
 			classList={{
-				"text-neutral-400 hover:bg-white hover:bg-opacity-5": !isActive(),
-				"text-neutral-100 bg-white bg-opacity-10 font-medium": !!isActive(),
+				"text-neutral-400 hover:bg-white/5": !isActive(),
+				"text-neutral-100 bg-white/10 font-medium": !!isActive(),
 			}}
 		>
 			<Icon name={icon} size="lg" />
