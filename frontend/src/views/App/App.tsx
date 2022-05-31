@@ -19,7 +19,7 @@ export const App: Component = () => {
 	onCleanup(() => clearInterval(interval));
 
 	return (
-		<div class="w-screen h-screen bg-gradient-to-b from-neutral-800 to-neutral-900">
+		<div class="h-full bg-gradient-to-b from-neutral-800 to-neutral-900">
 			<div class="flex flex-col lg:flex-row  h-full">
 				<div class="lg:block hidden z-30">
 					<AppDrawer />
