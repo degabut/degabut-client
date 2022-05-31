@@ -1,11 +1,9 @@
 import { addTrackByVideoId, type IVideoCompact } from "@api";
 import { Input, Video } from "@components";
-import { debounce } from "@directives";
 import { searchStore } from "@stores";
+import { debounce } from "@utils/debounce";
 import { useSearchParams } from "solid-app-router";
 import { Component, For, Match, onMount, Switch } from "solid-js";
-
-debounce;
 
 export const Search: Component = () => {
 	const [query, setQuery] = useSearchParams<{ keyword: string }>();
@@ -21,7 +19,9 @@ export const Search: Component = () => {
 		await addTrackByVideoId(video.id);
 	};
 
-	const onInput = (value: string) => {
+	const onInput = (ev: InputEvent) => {
+		const value = (ev.target as HTMLInputElement).value;
+
 		setKeyword(value);
 		setQuery({ keyword: value });
 	};
@@ -32,9 +32,8 @@ export const Search: Component = () => {
 				type="text"
 				placeholder="Never gonna give you up"
 				ref={searchInput}
-				use:debounce={250}
 				value={keyword()}
-				onInput={(e) => onInput(e.currentTarget.value)}
+				onInput={debounce(onInput, 250)}
 			/>
 
 			<div class="text-neutral-100">

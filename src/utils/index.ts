@@ -1,3 +1,5 @@
+export * from "./debounce";
+
 export const secondsToTime = (totalSeconds: number) => {
 	const hours = Math.floor(totalSeconds / 3600);
 	totalSeconds %= 3600;
