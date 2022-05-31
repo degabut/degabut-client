@@ -1,9 +1,3 @@
-node_modules
-dist
-
-.env*
-!.env.example
-
 public/netlify.toml
 .netlify
 
