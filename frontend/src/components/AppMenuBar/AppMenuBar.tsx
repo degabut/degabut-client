@@ -24,7 +24,6 @@ export const AppMenuBar = () => {
 	let isDragging = false;
 
 	const toggleMaximize = () => {
-		console.log("toggling");
 		isMaximized = !isMaximized;
 		isMaximized ? WindowMaximise() : WindowUnmaximise();
 	};
