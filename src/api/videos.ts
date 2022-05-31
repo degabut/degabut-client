@@ -32,6 +32,8 @@ export type IChannel = {
 };
 
 export async function searchVideos(keyword: string): Promise<IVideoCompact[]> {
+	if (!keyword) return [];
+
 	const response = await client.get("/videos", {
 		params: { keyword },
 	});
