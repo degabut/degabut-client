@@ -4,13 +4,17 @@ import { Link as SolidLink } from "solid-app-router";
 import { Component, createMemo, Show } from "solid-js";
 import { Link } from "./Link";
 
+const MusicNoteIcon: Component<{ extraClass: string }> = (props) => (
+	<Icon name="musicNote" extraClass={`w-24 h-24 fill-white opacity-10 pointer-events-none ${props.extraClass}`} />
+);
+
 export const AppDrawer: Component = () => {
 	const nowPlaying = createMemo(() => queueStore.data()?.tracks[0] || null);
 
 	return (
-		<div class="flex flex-col h-full w-[16rem] bg-black overflow-y-auto overflow-x-hidden">
-			<Icon name="musicNote" extraClass="absolute top-0 left-2 w-24 h-24 fill-white opacity-10" />
-			<div class="px-6 font-semibold text-2xl truncate py-8" title="Regular Voice">
+		<div class="relative flex flex-col h-full w-[16rem] bg-black overflow-y-auto overflow-x-hidden">
+			<MusicNoteIcon extraClass="absolute top-0 left-2" />
+			<div class="px-6 font-semibold text-2xl py-8" title="Regular Voice">
 				Degabut
 			</div>
 			<div class="flex-grow text-lg">
@@ -37,11 +41,10 @@ export const AppDrawer: Component = () => {
 								</div>
 							</div>
 						</div>
-
-						<Icon name="musicNote" extraClass="absolute bottom-2 right-2 w-24 h-24 fill-white opacity-10" />
 					</SolidLink>
 				)}
 			</Show>
+			<MusicNoteIcon extraClass="absolute bottom-2 right-2" />
 		</div>
 	);
 };
