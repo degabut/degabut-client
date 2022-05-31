@@ -1,5 +1,5 @@
 import type { IVideoCompact } from "@api";
-import { contextMenu } from "@directives/contextMenu";
+import { contextMenu } from "@directives";
 import { Component, createMemo } from "solid-js";
 import { ChannelThumbnail, ContextMenuButton, VideoThumbnail } from "./components";
 import { getVideoContextMenu } from "./utils/videoContextMenu";
