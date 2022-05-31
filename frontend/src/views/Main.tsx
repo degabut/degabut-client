@@ -8,11 +8,12 @@ import { Search } from "@views/App/Search";
 import { VideoDetail } from "@views/App/VideoDetail";
 import { Route, Routes, useLocation, useNavigate } from "solid-app-router";
 import { Component, onMount } from "solid-js";
+import { IS_DESKTOP } from "../constants";
 
 export const Main: Component = () => {
 	return (
 		<div class="flex flex-col w-screen h-screen">
-			<AppMenuBar />
+			{IS_DESKTOP && <AppMenuBar />}
 			<div class="flex-grow overflow-x-auto overflow-y-auto w-full">
 				<Routes>
 					<Route path="/" element={<Landing />} />
