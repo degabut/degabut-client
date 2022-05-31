@@ -11,6 +11,10 @@ import { Component, onMount } from "solid-js";
 import { IS_DESKTOP } from "../constants";
 
 export const Main: Component = () => {
+	onMount(() => {
+		if (IS_DESKTOP) document.addEventListener("contextmenu", (e) => e.preventDefault());
+	});
+
 	return (
 		<div class="flex flex-col w-screen h-screen">
 			{IS_DESKTOP && <AppMenuBar />}
