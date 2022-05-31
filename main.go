@@ -21,12 +21,12 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:     "Degabut",
-		Width:     1048,
-		Height:    768,
-		MinWidth:  1048,
-		MinHeight: 768,
-		// Frameless: true,
+		Title:            "Degabut",
+		Width:            1048,
+		Height:           768,
+		MinWidth:         1048,
+		MinHeight:        768,
+		Frameless:        true,
 		WindowStartState: options.Minimised,
 		Assets:           assets,
 		OnStartup:        app.startup,
