@@ -6,7 +6,8 @@
 		"start": "vite",
 		"dev": "vite",
 		"build": "vite build --mode prod",
-		"serve": "vite preview"
+		"serve": "vite preview",
+		"lint": "eslint --fix && prettier --write src"
 	},
 	"license": "MIT",
 	"devDependencies": {
