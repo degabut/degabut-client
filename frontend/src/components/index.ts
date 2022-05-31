@@ -4,5 +4,6 @@ export * from "./Icon";
 export * from "./Input";
 export * from "./Modal";
 export * from "./QuickAddModal";
+export * from "./Slider";
 export * from "./Tabs";
 export * from "./Video";
