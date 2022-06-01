@@ -5,7 +5,6 @@ export const doubleClick = (el: HTMLElement, handler: Accessor<() => void>) => {
 
 	const onClick = () => {
 		if (Date.now() - lastClick < 500) {
-			console.log("double click");
 			handler()?.();
 		}
 		lastClick = Date.now();
