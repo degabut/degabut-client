@@ -16,14 +16,14 @@ export const RPCContext = createContext<RPCContextStore>({
 export const RPCProvider: ParentComponent = (props) => {
 	if (IS_BROWSER) return props.children;
 
-	let activityUpdaterTimeout: NodeJS.Timeout;
+	let activityUpdaterTimer: NodeJS.Timer;
 
 	onMount(async () => {
 		const token = await auth.getAccessToken();
 		rpc.Authenticate(token);
 	});
 	onCleanup(() => {
-		clearTimeout(activityUpdaterTimeout);
+		clearInterval(activityUpdaterTimer);
 	});
 
 	const setListeningActivity = async (title: string, channelName: string) => {
@@ -38,7 +38,7 @@ export const RPCProvider: ParentComponent = (props) => {
 	};
 
 	const startActivityUpdater = async (queue: QueueContextStore) => {
-		activityUpdaterTimeout = setTimeout(() => {
+		activityUpdaterTimer = setInterval(() => {
 			const nowPlaying = queue.data()?.nowPlaying;
 			if (!nowPlaying) return;
 			setListeningActivity(nowPlaying.video.title, nowPlaying.video.channel.name);
