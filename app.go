@@ -3,8 +3,12 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"io"
 	"io/ioutil"
+	"net/http"
 	"os"
+
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 var userHomeDir, _ = os.UserHomeDir()
@@ -29,6 +33,9 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
+
+	http.HandleFunc("/oauth", a.oauthHandler)
+	http.ListenAndServe(":39821", nil)
 }
 
 // Greet returns a greeting for the given name
@@ -57,4 +64,9 @@ func (a *App) GetAccessToken() string {
 	json.Unmarshal([]byte(configJson), &config)
 
 	return config.AccessToken
+}
+
+func (a *App) oauthHandler(w http.ResponseWriter, req *http.Request) {
+	accessToken, _ := io.ReadAll(req.Body)
+	runtime.EventsEmit(a.ctx, "oauth", string(accessToken))
 }
