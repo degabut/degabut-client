@@ -1,4 +1,4 @@
-import { AppDrawer, MobileAppDrawer, QuickAddModal } from "@components";
+import { AppDrawer, CatJam, MobileAppDrawer, QuickAddModal } from "@components";
 import { useQueue } from "@hooks";
 import { ContextMenuProvider, QueueProvider } from "@providers";
 import { Outlet, useLocation, useNavigate } from "solid-app-router";
@@ -59,6 +59,7 @@ const ProvidedApp: Component = () => {
 				</div>
 			</div>
 
+			<CatJam />
 			<QuickAddModal />
 		</div>
 	);

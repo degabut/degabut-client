@@ -1,6 +1,7 @@
 export * from "./AppDrawer";
 export * from "./AppMenuBar";
 export * from "./Button";
+export * from "./CatJam";
 export * from "./Icon";
 export * from "./Input";
 export * from "./Link";
