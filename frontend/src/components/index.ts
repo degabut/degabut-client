@@ -3,6 +3,7 @@ export * from "./AppMenuBar";
 export * from "./Button";
 export * from "./Icon";
 export * from "./Input";
+export * from "./Link";
 export * from "./Modal";
 export * from "./QuickAddModal";
 export * from "./Slider";

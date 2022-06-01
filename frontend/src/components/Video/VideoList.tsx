@@ -1,4 +1,5 @@
 import type { IGuildMember, IVideoCompact } from "@api";
+import { Link } from "@components";
 import { contextMenu } from "@directives";
 import { ContextMenuItem } from "@providers";
 import { secondsToTime } from "@utils";
@@ -36,9 +37,9 @@ export const VideoList: Component<Props> = (props) => {
 		>
 			<VideoThumbnail video={props.video} variant={props.variant} extraContainerClass="flex-shrink-0" />
 			<div class="flex flex-col flex-grow flex-shrink lg:space-y-1 pr-1 py-1 truncate">
-				<a href={youtubeUrl()} target="_blank" class="truncate">
+				<Link href={youtubeUrl()} target="_blank" class="truncate">
 					{props.video.title}
-				</a>
+				</Link>
 				<div class="flex flex-row space-x-3 text-sm">
 					<div class="text-neutral-400">{secondsToTime(props.video.duration)}</div>
 					{props.requestedBy && <div>Requested by {props.requestedBy.displayName}</div>}
@@ -54,9 +55,9 @@ export const VideoList: Component<Props> = (props) => {
 			<VideoThumbnail video={props.video} variant={props.variant} />
 			<div class="flex flex-col space-y-2 w-full truncate p-2">
 				<div class="flex flex-row items-center truncate">
-					<a href={youtubeUrl()} target="_blank" class=" flex-grow font-medium truncate">
+					<Link href={youtubeUrl()} target="_blank" class=" flex-grow font-medium truncate">
 						{props.video.title}
-					</a>
+					</Link>
 
 					<ContextMenuButton
 						contextMenu={getVideoContextMenu({ video: props.video, onAddToQueue: props.onAddToQueue })}

@@ -1,4 +1,5 @@
 import type { IVideoCompact } from "@api";
+import { Link } from "@components";
 import { contextMenu } from "@directives/contextMenu";
 import { Component, createMemo } from "solid-js";
 import { ChannelThumbnail, ContextMenuButton, VideoThumbnail } from "./components";
@@ -25,9 +26,9 @@ export const VideoCard: Component<Props> = (props) => {
 				<ChannelThumbnail video={props.video} />
 
 				<div class="flex flex-col flex-grow space-y-2 truncate">
-					<a href={youtubeUrl()} target="_blank" class="font-medium truncate" title={props.video.title}>
+					<Link href={youtubeUrl()} target="_blank" class="font-medium truncate" title={props.video.title}>
 						{props.video.title}
-					</a>
+					</Link>
 					<div>
 						<div class="flex flex-row space-x-2 text-sm items-center">{props.video.channel.name}</div>
 						<div class="text-neutral-400 text-sm">{props.video.viewCount?.toLocaleString("id")} views</div>

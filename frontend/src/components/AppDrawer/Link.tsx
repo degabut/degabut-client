@@ -1,4 +1,5 @@
-import { Link as SolidLink, useMatch } from "solid-app-router";
+import { RouterLink } from "@components";
+import { useMatch } from "solid-app-router";
 import { Component } from "solid-js";
 import { Icon, Icons } from "../Icon";
 
@@ -12,7 +13,7 @@ export const Link: Component<Props> = ({ icon, label, path }) => {
 	const isActive = useMatch(() => path);
 
 	return (
-		<SolidLink
+		<RouterLink
 			href={path}
 			class="flex flex-row fill-current items-center space-x-4 cursor-pointer px-6 py-3 transition-colors"
 			classList={{
@@ -22,6 +23,6 @@ export const Link: Component<Props> = ({ icon, label, path }) => {
 		>
 			<Icon name={icon} size="lg" />
 			<div>{label}</div>
-		</SolidLink>
+		</RouterLink>
 	);
 };

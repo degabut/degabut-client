@@ -1,8 +1,7 @@
 import { ITrack } from "@api";
-import { Button, Icon, Tabs, Video } from "@components";
+import { Button, Icon, Link, RouterLink, Tabs, Video } from "@components";
 import { TabLabel } from "@components/Tabs/TabLabel";
 import { useQueue } from "@hooks";
-import { Link } from "solid-app-router";
 import { Component, createEffect, createSignal, Show } from "solid-js";
 import { createStore } from "solid-js/store";
 import { QueuePlayHistory, QueueTrackList } from "./components";
@@ -48,9 +47,9 @@ export const Queue: Component = () => {
 						fallback={
 							<div class="my-4">
 								Nothing is playing,{" "}
-								<a href="/app/search" class="underline underline-offset-1">
+								<Link href="/app/search" class="underline underline-offset-1">
 									search for a song
-								</a>
+								</Link>
 							</div>
 						}
 					>
@@ -71,12 +70,12 @@ export const Queue: Component = () => {
 										<Icon name="forward" extraClass="w-4 h-4 fill-current" />
 										<div>Skip</div>
 									</Button>
-									<Link href={`/app/video/${track.video.id}`}>
+									<RouterLink href={`/app/video/${track.video.id}`}>
 										<Button rounded>
 											<Icon name="list" extraClass="w-4 h-4 fill-current" />
 											<div>Related</div>
 										</Button>
-									</Link>
+									</RouterLink>
 								</div>
 							</div>
 						)}
