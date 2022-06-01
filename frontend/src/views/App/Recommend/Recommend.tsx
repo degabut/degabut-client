@@ -1,10 +1,12 @@
-import { addTrackByVideoId, type IVideoCompact } from "@api";
+import { IVideoCompact } from "@api";
 import { Video } from "@components";
-import { useVideo } from "@hooks";
+import { useQueue, useVideo } from "@hooks";
 import { useRecommendations } from "@hooks/useRecommendations";
 import { Component, createEffect, createMemo, createSignal, For, Show } from "solid-js";
 
 export const Recommend: Component = () => {
+	const queue = useQueue();
+
 	const [randomMostPlayedVideoId, setRandomMostPlayedVideoId] = createSignal<string>("");
 	const [randomLastPlayedVideoId, setRandomLastPlayedVideoId] = createSignal<string>("");
 
@@ -41,17 +43,13 @@ export const Recommend: Component = () => {
 		return uniqueVideos;
 	});
 
-	const onAddToQueue = async (video: IVideoCompact) => {
-		await addTrackByVideoId(video.id);
-	};
-
 	return (
 		<div class="flex flex-col space-y-6">
 			<h1 class="text-2xl font-medium">Recommended For You</h1>
 
 			<Show when={!recommendations.data.loading} fallback={<div>Loading...</div>}>
 				<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 gap-x-6 gap-y-6 lg:gap-y-10">
-					<For each={videos()}>{(video) => <Video.Card video={video} onAddToQueue={onAddToQueue} />}</For>
+					<For each={videos()}>{(video) => <Video.Card video={video} onAddToQueue={queue.addTrack} />}</For>
 				</div>
 			</Show>
 		</div>

@@ -1,28 +1,24 @@
-import { addTrackByVideoId, ITrack, IVideoCompact, orderTrack, removeTrack } from "@api";
+import { ITrack } from "@api";
 import { Button, Icon, Tabs, Video } from "@components";
 import { TabLabel } from "@components/Tabs/TabLabel";
-import { queueStore } from "@stores";
+import { useQueue } from "@hooks";
 import { Link } from "solid-app-router";
-import { Component, createEffect, createMemo, createSignal, Show } from "solid-js";
+import { Component, createEffect, createSignal, Show } from "solid-js";
 import { createStore } from "solid-js/store";
 import { QueuePlayHistory, QueueTrackList } from "./components";
 
 export const Queue: Component = () => {
-	const { data: queue } = queueStore;
+	const queue = useQueue();
 
 	const [isDragging, setIsDragging] = createSignal(false);
-	const [isLoading, setIsLoading] = createSignal(false);
-	const [isTrackFreezed, setIsTrackFreezed] = createSignal(false);
 
-	const [tracks, setTracks] = createStore(queue()?.tracks.slice(1) || []);
-	const nowPlaying = createMemo(() => queue()?.tracks[0]);
+	const [tracks, setTracks] = createStore(queue.data()?.tracks.slice(1) || []);
 
-	createEffect(() => !isLoading() && queueStore.refetch());
-	createEffect(() => queue() && setIsTrackFreezed(false));
+	createEffect(() => !queue.isTrackLoading() && queue.refetch());
 
 	createEffect(() => {
-		if (!isDragging() && !isLoading() && !isTrackFreezed()) {
-			const newTracks = queue()?.tracks.slice(1) || [];
+		if (!isDragging() && !queue.isTrackLoading() && !queue.isTrackFreezed()) {
+			const newTracks = queue.data()?.tracks.slice(1) || [];
 
 			const newTrackIds = newTracks.map((t) => t.id).join(",");
 			const oldTrackIds = tracks.map((t) => t.id).join(",");
@@ -38,32 +34,17 @@ export const Queue: Component = () => {
 		updatedItems.splice(toIndex, 0, ...updatedItems.splice(fromIndex, 1));
 		setTracks(updatedItems);
 
-		await modifyTrack(() => orderTrack(trackId, toIndex + 1));
-	};
-
-	const onRemoveTrack = async (track: ITrack) => {
-		await modifyTrack(() => removeTrack(track.id));
-	};
-
-	const onAddToQueue = async (video: IVideoCompact) => {
-		await modifyTrack(() => addTrackByVideoId(video.id));
-	};
-
-	const modifyTrack = async (fn: () => Promise<unknown>) => {
-		setIsLoading(true);
-		setIsTrackFreezed(true);
-		await fn();
-		setIsLoading(false);
+		await queue.changeTrackOrder(trackId, toIndex);
 	};
 
 	return (
 		<>
 			<h1 class="text-2xl font-medium">Queue</h1>
 
-			{queue() && (
+			{queue.data() && (
 				<div class="flex flex-col space-y-8">
 					<Show
-						when={nowPlaying()}
+						when={queue.data()?.nowPlaying}
 						fallback={
 							<div class="my-4">
 								Nothing is playing,{" "}
@@ -78,11 +59,15 @@ export const Queue: Component = () => {
 								<div class="text-xl font-normal">Now Playing</div>
 								<Video.List
 									{...track}
-									onAddToQueue={onAddToQueue}
+									onAddToQueue={queue.addTrack}
 									extraContainerClass="!bg-transparent"
 								/>
 								<div class="flex flex-row space-x-4">
-									<Button rounded onClick={() => onRemoveTrack(track)} disabled={isTrackFreezed()}>
+									<Button
+										rounded
+										onClick={() => queue.removeTrack(track)}
+										disabled={queue.isTrackFreezed()}
+									>
 										<Icon name="forward" extraClass="w-4 h-4 fill-current" />
 										<div>Skip</div>
 									</Button>
@@ -109,12 +94,12 @@ export const Queue: Component = () => {
 								element: (
 									<QueueTrackList
 										tracks={tracks as ITrack[]}
-										isFreezed={isLoading() || isTrackFreezed()}
+										isFreezed={queue.isTrackLoading() || queue.isTrackFreezed()}
 										onDragTrackStart={() => setIsDragging(true)}
 										onDragTrackEnd={() => setIsDragging(false)}
 										onChangeTrackOrder={onChangeTrackOrder}
-										onRemoveTrack={onRemoveTrack}
-										onAddToQueue={onAddToQueue}
+										onRemoveTrack={queue.removeTrack}
+										onAddToQueue={queue.addTrack}
 									/>
 								),
 							},
@@ -125,8 +110,8 @@ export const Queue: Component = () => {
 								),
 								element: (
 									<QueuePlayHistory
-										tracks={queue()?.history.slice(1) || []}
-										onAddToQueue={onAddToQueue}
+										tracks={queue.data()?.history.slice(1) || []}
+										onAddToQueue={queue.addTrack}
 									/>
 								),
 							},

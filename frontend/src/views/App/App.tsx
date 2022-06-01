@@ -1,22 +1,25 @@
 import { AppDrawer, MobileAppDrawer, QuickAddModal } from "@components";
-import { ContextMenuProvider } from "@providers";
-import { queueStore } from "@stores";
+import { useQueue } from "@hooks";
+import { ContextMenuProvider, QueueProvider } from "@providers";
 import { Outlet, useLocation, useNavigate } from "solid-app-router";
-import { Component, onCleanup, onMount, Show } from "solid-js";
+import { Component, onMount, Show } from "solid-js";
 
 export const App: Component = () => {
-	let interval: NodeJS.Timer;
+	return (
+		<QueueProvider>
+			<ProvidedApp />
+		</QueueProvider>
+	);
+};
 
+const ProvidedApp: Component = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const queue = useQueue();
 
 	onMount(async () => {
 		if (location.pathname === "/app") navigate("/app/queue");
-		interval = setInterval(queueStore.refetch, 3000);
-		await queueStore.refetch();
 	});
-
-	onCleanup(() => clearInterval(interval));
 
 	return (
 		<div class="h-full bg-gradient-to-b from-neutral-800 to-neutral-900">
@@ -29,10 +32,10 @@ export const App: Component = () => {
 					<div class="absolute top-0 left-0 lg:hidden w-full h-32 bg-gradient-to-b from-gray-800 to-transparent" />
 
 					<Show
-						when={queueStore.data()}
+						when={queue.data()}
 						fallback={
 							<div class="flex flex-col flex-grow items-center justify-center w-full h-full space-y-4">
-								{queueStore.data.loading ? (
+								{queue.isLoading() ? (
 									<div class="text-4xl">Loading Queue...</div>
 								) : (
 									<>

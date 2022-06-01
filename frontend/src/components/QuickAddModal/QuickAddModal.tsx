@@ -1,10 +1,11 @@
 import { addTrackByKeyword } from "@api";
 import { Button, Input } from "@components";
 import { Modal } from "@components/Modal";
-import { queueStore } from "@stores";
+import { useQueue } from "@hooks";
 import { Component, createSignal, onMount } from "solid-js";
 
 export const QuickAddModal: Component = () => {
+	const queue = useQueue();
 	const [isModalOpen, setIsModalOpen] = createSignal(false);
 	const [keyword, setKeyword] = createSignal("");
 	const [isLoading, setIsLoading] = createSignal(false);
@@ -21,7 +22,7 @@ export const QuickAddModal: Component = () => {
 				setIsModalOpen(false);
 			}
 
-			if (tagName !== "INPUT" && tagName !== "TEXTAREA" && queueStore.data() && !isModalOpen() && e.key === "p") {
+			if (tagName !== "INPUT" && tagName !== "TEXTAREA" && queue.data() && !isModalOpen() && e.key === "p") {
 				e.preventDefault();
 				openModal();
 			}

@@ -3,7 +3,7 @@ import { IS_BROWSER } from "../constants";
 import { client } from "./axios";
 
 export const auth = {
-	setAccessToken: async (accessToken: string): Promise<void> => {
+	setAccessToken: (accessToken: string): void => {
 		if (!IS_BROWSER) SetAccessToken(accessToken);
 		localStorage.setItem("access_token", accessToken);
 

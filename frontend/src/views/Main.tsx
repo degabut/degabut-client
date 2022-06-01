@@ -1,4 +1,3 @@
-import { client } from "@api";
 import { AppMenuBar } from "@components";
 import { Landing, Login, OAuth } from "@views";
 import { App } from "@views/App";
@@ -6,7 +5,7 @@ import { Queue } from "@views/App/Queue";
 import { Recommend } from "@views/App/Recommend";
 import { Search } from "@views/App/Search";
 import { VideoDetail } from "@views/App/VideoDetail";
-import { Route, Routes, useLocation, useNavigate } from "solid-app-router";
+import { Route, Routes } from "solid-app-router";
 import { Component, onMount } from "solid-js";
 import { IS_DESKTOP } from "../constants";
 

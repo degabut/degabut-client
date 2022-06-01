@@ -1,16 +1,16 @@
 import { Icon } from "@components";
 import { VideoThumbnail } from "@components/Video/components";
-import { queueStore } from "@stores";
+import { useQueue } from "@hooks";
 import { Link as SolidLink } from "solid-app-router";
-import { Component, createMemo, Show } from "solid-js";
+import { Component, Show } from "solid-js";
 import { MobileLink } from "./MobileLink";
 
 export const MobileAppDrawer: Component = () => {
-	const nowPlaying = createMemo(() => queueStore.data()?.tracks[0] || null);
+	const queue = useQueue();
 
 	return (
 		<div class="flex flex-col w-full h-full">
-			<Show when={nowPlaying()}>
+			<Show when={queue.data()?.nowPlaying}>
 				{({ video }) => (
 					<div class="bg-neutral-900 w-full p-1.5">
 						<SolidLink

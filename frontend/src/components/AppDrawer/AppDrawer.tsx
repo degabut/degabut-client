@@ -1,7 +1,7 @@
 import { Icon } from "@components";
-import { queueStore } from "@stores";
+import { useQueue } from "@hooks";
 import { Link as SolidLink } from "solid-app-router";
-import { Component, createMemo, Show } from "solid-js";
+import { Component, Show } from "solid-js";
 import { Link } from "./Link";
 
 const MusicNoteIcon: Component<{ extraClass: string }> = (props) => (
@@ -9,7 +9,7 @@ const MusicNoteIcon: Component<{ extraClass: string }> = (props) => (
 );
 
 export const AppDrawer: Component = () => {
-	const nowPlaying = createMemo(() => queueStore.data()?.tracks[0] || null);
+	const queue = useQueue();
 
 	return (
 		<div class="relative flex flex-col h-full w-[16rem] bg-black overflow-y-auto overflow-x-hidden">
@@ -25,7 +25,7 @@ export const AppDrawer: Component = () => {
 			</div>
 
 			<div class="flex flex-col p-4 space-y-4">
-				<Show when={nowPlaying()}>
+				<Show when={queue.data()?.nowPlaying}>
 					{({ video, requestedBy }) => (
 						<SolidLink href="/app/queue" class="flex flex-col space-y-3 cursor-pointer" title={video.title}>
 							<div class="text-lg font-medium">Now Playing</div>

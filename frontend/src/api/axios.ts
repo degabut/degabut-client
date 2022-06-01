@@ -1,23 +1,20 @@
 import axios from "axios";
+import { auth } from "./auth";
 
 const client = axios.create({
 	baseURL: import.meta.env.VITE_API_BASE_URL,
-	validateStatus: () => true,
 });
 
-client.interceptors.request.use((req) => {
-	if (!req.headers) req.headers = {};
-	if (localStorage.getItem("access_token")) {
-		req.headers.Authorization = `Bearer ${localStorage.getItem("access_token")}`;
+client.interceptors.request.use(async (req) => {
+	req.headers = client.defaults.headers.common || {};
+	if (!req.headers.Authorization) {
+		const token = await auth.getAccessToken();
+		if (token) {
+			req.headers.Authorization = `Bearer ${token}`;
+			auth.setAccessToken(token);
+		}
 	}
 	return req;
-});
-
-client.interceptors.response.use((res) => {
-	if (res.status === 403 || res.status === 401) {
-		if (window.location.pathname !== "/login") window.location.href = "/login";
-	}
-	return res;
 });
 
 export { client };
