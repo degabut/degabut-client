@@ -21,10 +21,10 @@ type Pan struct {
 }
 
 type SetUserVoiceSettingsCommandArgs struct {
-	UserId string `json:"user_id"`
-	Volume int    `json:"volume"`
-	Mute   bool   `json:"mute"`
-	Pan    Pan    `json:"pan"`
+	UserId string  `json:"user_id"`
+	Volume float32 `json:"volume"`
+	Mute   bool    `json:"mute"`
+	Pan    Pan     `json:"pan"`
 }
 
 type SetActivityCommandArgs struct {
