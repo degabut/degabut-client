@@ -11,7 +11,7 @@ import { IS_DESKTOP } from "../constants";
 
 export const Main: Component = () => {
 	onMount(() => {
-		if (IS_DESKTOP) document.addEventListener("contextmenu", (e) => e.preventDefault());
+		if (IS_DESKTOP && import.meta.env.PROD) document.addEventListener("contextmenu", (e) => e.preventDefault());
 	});
 
 	return (
