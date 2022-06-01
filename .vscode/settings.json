@@ -1,13 +1,16 @@
 {
-	"[typescriptreact]": {
-		"editor.codeActionsOnSave": {
-			"source.organizeImports": true
-		}
-	},
-	"[typescript]": {
-		"editor.codeActionsOnSave": {
-			"source.organizeImports": true
-		}
-	},
-	"tailwindCSS.experimental.classRegex": ["\"([^\"]+?)\"\\s*:", "[a-zA-Z]*Class=\"(.*)\""]
+  "[typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "tailwindCSS.experimental.classRegex": [
+    "\"([^\"]+?)\"\\s*:",
+    "[a-zA-Z]*Class=\"(.*)\""
+  ]
 }
