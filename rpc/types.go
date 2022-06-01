@@ -1,4 +1,4 @@
-package client
+package rpc
 
 type Handshake struct {
 	V        string `json:"v"`
