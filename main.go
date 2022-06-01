@@ -11,10 +11,9 @@ import (
 //go:embed frontend/dist
 var assets embed.FS
 
-func main() {
-	// TODO: read from dotenv
-	clientId := ""
+var clientId string
 
+func main() {
 	// Create an instance of the app structure
 	app := NewApp()
 	rpc := rpc.NewClient(clientId)
