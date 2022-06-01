@@ -1,20 +1,29 @@
 import { auth } from "@api";
 import * as models from "@go/models";
 import * as rpc from "@go/rpc/Client";
-import { createContext, onMount, ParentComponent } from "solid-js";
+import { createContext, onCleanup, onMount, ParentComponent } from "solid-js";
+import { IS_BROWSER } from "../constants";
+import { QueueContextStore } from "./QueueProvider";
 
 export type RPCContextStore = {
-	setListeningActivity: (title: string, channelName: string) => Promise<void>;
+	startActivityUpdater: (queue: QueueContextStore) => Promise<void>;
 };
 
 export const RPCContext = createContext<RPCContextStore>({
-	setListeningActivity: async () => {},
+	startActivityUpdater: async () => {},
 });
 
 export const RPCProvider: ParentComponent = (props) => {
+	if (IS_BROWSER) return props.children;
+
+	let activityUpdaterTimeout: NodeJS.Timeout;
+
 	onMount(async () => {
 		const token = await auth.getAccessToken();
 		rpc.Authenticate(token);
+	});
+	onCleanup(() => {
+		clearTimeout(activityUpdaterTimeout);
 	});
 
 	const setListeningActivity = async (title: string, channelName: string) => {
@@ -28,8 +37,16 @@ export const RPCProvider: ParentComponent = (props) => {
 		} as models.rpc.Activity);
 	};
 
-	const store = {
-		setListeningActivity,
+	const startActivityUpdater = async (queue: QueueContextStore) => {
+		activityUpdaterTimeout = setTimeout(() => {
+			const nowPlaying = queue.data()?.nowPlaying;
+			if (!nowPlaying) return;
+			setListeningActivity(nowPlaying.video.title, nowPlaying.video.channel.name);
+		}, 15000);
+	};
+
+	const store: RPCContextStore = {
+		startActivityUpdater,
 	};
 
 	return <RPCContext.Provider value={store}>{props.children}</RPCContext.Provider>;

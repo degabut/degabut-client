@@ -1,13 +1,16 @@
 import { AppDrawer, CatJam, MobileAppDrawer, QuickAddModal } from "@components";
-import { useQueue } from "@hooks";
-import { ContextMenuProvider, QueueProvider } from "@providers";
+import { useQueue, useRPC } from "@hooks";
+import { ContextMenuProvider, QueueProvider, RPCProvider } from "@providers";
 import { Outlet, useLocation, useNavigate } from "solid-app-router";
 import { Component, onMount, Show } from "solid-js";
+import { IS_DESKTOP } from "../../constants";
 
 export const App: Component = () => {
 	return (
 		<QueueProvider>
-			<ProvidedApp />
+			<RPCProvider>
+				<ProvidedApp />
+			</RPCProvider>
 		</QueueProvider>
 	);
 };
@@ -16,9 +19,11 @@ const ProvidedApp: Component = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const queue = useQueue();
+	const rpc = useRPC();
 
 	onMount(async () => {
 		if (location.pathname === "/app") navigate("/app/queue");
+		if (IS_DESKTOP) rpc.startActivityUpdater(queue);
 	});
 
 	return (
