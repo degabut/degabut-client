@@ -23,6 +23,7 @@ export default defineConfig({
 			"@views": path.resolve("./src/views"),
 			"@utils": path.resolve("./src/utils"),
 			"@runtime": path.resolve("./wailsjs/runtime/runtime"),
+			"@go": path.resolve("./wailsjs/go"),
 		},
 	},
 });

@@ -29,7 +29,8 @@
 			"@components/*": ["./src/components/*"],
 			"@views": ["./src/views"],
 			"@views/*": ["./src/views/*"],
-			"@runtime": ["./wailsjs/runtime/runtime.d.ts"]
+			"@runtime": ["./wailsjs/runtime/runtime.d.ts"],
+			"@go/*": ["./wailsjs/go/*"]
 		}
 	}
 }
