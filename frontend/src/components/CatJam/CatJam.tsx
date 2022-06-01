@@ -1,17 +1,18 @@
-import { Component, onMount } from "solid-js";
+import { Component, onCleanup, onMount } from "solid-js";
 
 export const CatJam: Component = () => {
-	onMount(() => {
-		document.addEventListener("keydown", (e) => {
-			const target = e.target as Element | null;
-			const tagName = target?.tagName.toUpperCase();
+	onMount(() => document.addEventListener("keydown", onKeyDown));
+	onCleanup(() => document.removeEventListener("keydown", onKeyDown));
 
-			if (tagName !== "INPUT" && tagName !== "TEXTAREA" && e.key === "j") {
-				e.preventDefault();
-				jam();
-			}
-		});
-	});
+	const onKeyDown = (e: KeyboardEvent) => {
+		const target = e.target as Element | null;
+		const tagName = target?.tagName.toUpperCase();
+
+		if (tagName !== "INPUT" && tagName !== "TEXTAREA" && e.key === "j") {
+			e.preventDefault();
+			jam();
+		}
+	};
 
 	const jam = () => {
 		const element = document.createElement("img");
@@ -22,7 +23,7 @@ export const CatJam: Component = () => {
 		element.className = "fixed w-16 h-16 pointer-events-none z-[1000]";
 
 		const x = random(0, screenWidth);
-		const speed = random(6, 12);
+		const speed = random(6, 18);
 
 		element.style.transform = `translate(${x}px, 0px)`;
 		element.style.transition = `opacity 3s linear, transform ${speed}s linear`;
