@@ -1,0 +1,33 @@
+name: build
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.14"
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.18.2"
+      - name: Setup
+        run: | 
+          npm install -g pnpm
+          xcode-select --install
+          go install github.com/wailsapp/wails/v2/cmd/wails@latest
+      - name: Frontend env
+        run: |
+          touch ./frontend/.env
+          echo VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} >> ./frontend/.env
+          echo VITE_OAUTH_URL=${{ secrets.VITE_OAUTH_URL }} >> ./frontend/.env
+          cat ./frontend/.env
+      - name: Build
+        run: wails build -ldflags "-X main.clientId=${{ secrets.CLIENT_ID }}"
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/degabut.app
