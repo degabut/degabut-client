@@ -24,12 +24,11 @@ jobs:
           echo VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} >> ./frontend/.env
           echo VITE_OAUTH_URL=${{ secrets.VITE_OAUTH_URL }} >> ./frontend/.env
           cat ./frontend/.env
+          mkdir ./frontend/dist
+          touch ./frontend/dist/index.html
       - name: Build
         run: |
           wails generate module
-          cd frontend
-          pnpm build
-          cd ../
           wails build -ldflags "-X main.clientId=${{ secrets.CLIENT_ID }}"
       - name: Release
         uses: softprops/action-gh-release@v1
