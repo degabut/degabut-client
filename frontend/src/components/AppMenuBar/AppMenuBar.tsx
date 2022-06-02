@@ -1,7 +1,7 @@
 import { Icon, Icons } from "@components";
 import { doubleClick } from "@directives";
+import { Quit, WindowMaximise, WindowMinimise, WindowUnmaximise } from "@runtime";
 import { Component, JSX, onMount, splitProps } from "solid-js";
-import { Quit, WindowMaximise, WindowMinimise, WindowUnmaximise } from "../../../wailsjs/runtime/runtime";
 
 doubleClick;
 
