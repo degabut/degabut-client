@@ -77,12 +77,10 @@ func (c *Client) SetActivity(args Activity) error {
 func NewClient(clientId string) (*Client, error) {
 	socket, err := ipc.NewConnection()
 
-	if err != nil {
-		return nil, err
+	if err == nil {
+		payload, _ := json.Marshal(Handshake{"1", clientId})
+		socket.Send(0, string(payload))
 	}
-
-	payload, _ := json.Marshal(Handshake{"1", clientId})
-	socket.Send(0, string(payload))
 
 	return &Client{
 		socket: *socket,
