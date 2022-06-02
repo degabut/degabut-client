@@ -27,6 +27,9 @@ jobs:
       - name: Build
         run: |
           wails generate module
+          cd frontend
+          pnpm build
+          cd ../
           wails build -ldflags "-X main.clientId=${{ secrets.CLIENT_ID }}"
       - name: Release
         uses: softprops/action-gh-release@v1
