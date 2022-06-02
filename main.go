@@ -11,7 +11,7 @@ import (
 //go:embed frontend/dist
 var assets embed.FS
 
-var clientId string = "959912740460314626"
+var clientId string
 
 func main() {
 	// Create an instance of the app structure
