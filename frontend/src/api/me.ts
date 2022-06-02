@@ -6,12 +6,29 @@ export interface IQueue {
 	history: ITrack[];
 	autoplay: boolean;
 	loopType: string;
+	voiceChannel: VoiceChannel;
+}
+
+export interface VoiceChannel {
+	id: string;
+	name: string;
+	members: Member[];
+}
+
+export interface Member {
+	id: string;
+	displayName: string;
+	nickname: null | string;
+	username: string;
+	discriminator: string;
+	avatar: null | string;
 }
 
 export interface ITrack {
 	id: string;
 	video: IVideoCompact;
 	requestedBy: IGuildMember;
+	playedAt: string | null;
 }
 
 export interface IGuildMember {
