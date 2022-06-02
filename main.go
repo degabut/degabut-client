@@ -16,7 +16,7 @@ var clientId string
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
-	rpc := rpc.NewClient(clientId)
+	rpc, _ := rpc.NewClient(clientId)
 
 	// Create application with options
 	err := wails.Run(&options.App{
