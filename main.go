@@ -11,7 +11,7 @@ import (
 //go:embed frontend/dist
 var assets embed.FS
 
-var clientId string
+var clientId string = "959912740460314626"
 
 func main() {
 	// Create an instance of the app structure
@@ -20,15 +20,14 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:            "Degabut",
-		Width:            1048,
-		Height:           768,
-		MinWidth:         1048,
-		MinHeight:        768,
-		Frameless:        true,
-		WindowStartState: options.Minimised,
-		Assets:           assets,
-		OnStartup:        app.startup,
+		Title:     "Degabut",
+		Width:     1048,
+		Height:    768,
+		MinWidth:  1048,
+		MinHeight: 768,
+		Frameless: true,
+		Assets:    assets,
+		OnStartup: app.startup,
 		Bind: []interface{}{
 			app,
 			rpc,
