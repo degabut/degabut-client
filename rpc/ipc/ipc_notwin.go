@@ -11,7 +11,7 @@ import (
 func NewConnection() (*IPCSock, error) {
 	sock, err := net.DialTimeout("unix", GetIpcPath()+"/discord-ipc-0", time.Second*2)
 	if err != nil {
-		return nil err
+		return nil, err
 	}
 
 	return &IPCSock{sock}, nil
