@@ -25,7 +25,9 @@ jobs:
           echo VITE_OAUTH_URL=${{ secrets.VITE_OAUTH_URL }} >> ./frontend/.env
           cat ./frontend/.env
       - name: Build
-        run: wails build -ldflags "-X main.clientId=${{ secrets.CLIENT_ID }}"
+        run: |
+          wails generate module
+          wails build -ldflags "-X main.clientId=${{ secrets.CLIENT_ID }}"
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
