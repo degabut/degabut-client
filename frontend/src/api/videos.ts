@@ -41,7 +41,9 @@ export async function searchVideos(keyword: string): Promise<IVideoCompact[]> {
 	else return [];
 }
 
-export async function getVideo(id: string): Promise<IVideo> {
+export async function getVideo(id: string): Promise<IVideo | null> {
+	if (!id) return null;
+
 	const response = await client.get("/videos/" + id);
 	if (response.status === 401) throw new Error("Unauthorized");
 	if (response.status !== 200) throw new Error(response.data.message);
