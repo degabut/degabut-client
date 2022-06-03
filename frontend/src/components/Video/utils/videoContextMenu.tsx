@@ -31,7 +31,7 @@ export const getVideoContextMenu = (props: Props) => {
 					<div class="font-medium text-center">{props.video.title}</div>
 					<div class="flex flex-row space-x-4 text-sm text-neutral-400">
 						<div class="">{props.video.channel.name}</div>
-						<div class="">{props.video.viewCount} views</div>
+						<div class="">{props.video.viewCount?.toLocaleString("id")} views</div>
 					</div>
 				</div>
 			</div>
