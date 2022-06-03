@@ -5,6 +5,7 @@ import { Component, createSignal, onMount } from "solid-js";
 
 type Props = {
 	track: ITrack;
+	isActive: boolean;
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
 	onRemove?: (track: ITrack) => void;
 };
@@ -59,6 +60,7 @@ export const SortableVideo: Component<Props> = (props) => {
 							onClick: () => props.onRemove?.(props.track),
 						},
 					]}
+					extraTitleClass={props.isActive ? "text-brand-600" : undefined}
 					onAddToQueue={props.onAddToQueue}
 					variant="small"
 				/>

@@ -14,12 +14,8 @@ import {
 	ParentComponent,
 } from "solid-js";
 
-type QueueStoreData = {
-	nowPlaying: ITrack | null;
-} & IQueue;
-
 export type QueueContextStore = {
-	data: Accessor<QueueStoreData | null>;
+	data: Accessor<IQueue | null>;
 	isLoading: Accessor<boolean>;
 	isTrackLoading: Accessor<boolean>;
 	isTrackFreezed: Accessor<boolean>;
@@ -57,7 +53,7 @@ export const QueueProvider: ParentComponent = (props) => {
 	});
 
 	const changeTrackOrder = async (trackId: string, toIndex: number) => {
-		await modifyTrack(() => api.orderTrack(trackId, toIndex + 1));
+		await modifyTrack(() => api.orderTrack(trackId, toIndex));
 	};
 
 	const removeTrack = async (track: ITrack) => {
@@ -84,18 +80,9 @@ export const QueueProvider: ParentComponent = (props) => {
 	createEffect(() => queue() && setIsTrackFreezed(false));
 
 	const isLoading = createMemo(() => queue.loading);
-	const data = createMemo(() => {
-		const queueData = queue();
-
-		if (!queueData) return null;
-		return {
-			...queueData,
-			nowPlaying: queueData?.tracks[0] || null,
-		};
-	});
 
 	const store: QueueContextStore = {
-		data,
+		data: () => queue() || null,
 		isLoading,
 		isTrackLoading,
 		isTrackFreezed,

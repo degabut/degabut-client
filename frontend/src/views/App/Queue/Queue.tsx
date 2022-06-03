@@ -11,13 +11,13 @@ export const Queue: Component = () => {
 
 	const [isDragging, setIsDragging] = createSignal(false);
 
-	const [tracks, setTracks] = createStore(queue.data()?.tracks.slice(1) || []);
+	const [tracks, setTracks] = createStore(queue.data()?.tracks || []);
 
 	createEffect(() => !queue.isTrackLoading() && queue.refetch());
 
 	createEffect(() => {
 		if (!isDragging() && !queue.isTrackLoading() && !queue.isTrackFreezed()) {
-			const newTracks = queue.data()?.tracks.slice(1) || [];
+			const newTracks = queue.data()?.tracks || [];
 
 			const newTrackIds = newTracks.map((t) => t.id).join(",");
 			const oldTrackIds = tracks.map((t) => t.id).join(",");
@@ -93,6 +93,7 @@ export const Queue: Component = () => {
 								element: (
 									<QueueTrackList
 										tracks={tracks as ITrack[]}
+										nowPlaying={queue.data()?.nowPlaying || null}
 										isFreezed={queue.isTrackLoading() || queue.isTrackFreezed()}
 										onDragTrackStart={() => setIsDragging(true)}
 										onDragTrackEnd={() => setIsDragging(false)}

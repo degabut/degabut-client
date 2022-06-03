@@ -7,6 +7,7 @@ type OnDragEnd = Parameters<typeof DragDropProvider>[0]["onDragEnd"];
 
 type Props = {
 	tracks: ITrack[];
+	nowPlaying?: ITrack | null;
 	isFreezed: boolean;
 	onRemoveTrack?: (track: ITrack) => void;
 	onDragTrackStart?: () => void;
@@ -41,6 +42,7 @@ export const QueueTrackList: Component<Props> = (props) => {
 							<For each={props.tracks}>
 								{(track) => (
 									<SortableVideo
+										isActive={track.id === props.nowPlaying?.id}
 										track={track as ITrack}
 										onRemove={props.onRemoveTrack}
 										onAddToQueue={props.onAddToQueue}

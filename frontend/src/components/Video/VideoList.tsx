@@ -16,6 +16,7 @@ type Props = {
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
 	extraContextMenuItems?: ContextMenuItem[];
 	extraContainerClass?: string;
+	extraTitleClass?: string;
 };
 
 export const VideoList: Component<Props> = (props) => {
@@ -37,7 +38,7 @@ export const VideoList: Component<Props> = (props) => {
 		>
 			<VideoThumbnail video={props.video} variant={props.variant} extraContainerClass="flex-shrink-0" />
 			<div class="flex flex-col flex-grow flex-shrink md:space-y-1 pr-1 py-1 truncate">
-				<Link href={youtubeUrl()} target="_blank" class="truncate">
+				<Link href={youtubeUrl()} target="_blank" class={`truncate ${props.extraTitleClass}`}>
 					{props.video.title}
 				</Link>
 				<div class="flex flex-row space-x-3 text-sm">
@@ -55,7 +56,11 @@ export const VideoList: Component<Props> = (props) => {
 			<VideoThumbnail video={props.video} variant={props.variant} />
 			<div class="flex flex-col space-y-2 w-full truncate p-2">
 				<div class="flex flex-row items-center truncate">
-					<Link href={youtubeUrl()} target="_blank" class=" flex-grow font-medium truncate">
+					<Link
+						href={youtubeUrl()}
+						target="_blank"
+						class={`flex-grow font-medium truncate ${props.extraTitleClass}`}
+					>
 						{props.video.title}
 					</Link>
 

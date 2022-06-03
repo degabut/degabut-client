@@ -5,7 +5,9 @@ export interface IQueue {
 	tracks: ITrack[];
 	history: ITrack[];
 	autoplay: boolean;
+	shuffle: boolean;
 	loopType: string;
+	nowPlaying: ITrack | null;
 	voiceChannel: VoiceChannel;
 }
 
