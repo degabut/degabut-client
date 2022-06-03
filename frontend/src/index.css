@@ -16,7 +16,7 @@ html {
 }
 
 ::-webkit-scrollbar {
-	@apply w-1 lg:w-2 h-1 lg:h-2;
+	@apply w-1 md:w-2 h-1 md:h-2;
 }
 
 ::-webkit-scrollbar-track {

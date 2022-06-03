@@ -26,7 +26,7 @@ export const Search: Component = () => {
 	};
 
 	return (
-		<div class="flex flex-col space-y-4 lg:space-y-6">
+		<div class="flex flex-col space-y-4 md:space-y-6">
 			<Input
 				type="text"
 				placeholder="Never gonna give you up"

@@ -31,11 +31,11 @@ export const Tabs: Component<Props> = (props) => {
 				<For each={props.items}>
 					{(item) => (
 						<div
-							class="flex-grow lg:flex-grow-0 cursor-pointer bg-neutral-800"
+							class="flex-grow md:flex-grow-0 cursor-pointer bg-neutral-800"
 							onClick={() => onChange(item)}
 						>
 							<div
-								class="px-2 lg:px-12 py-2"
+								class="px-2 md:px-12 py-2"
 								classList={{
 									"border-b-neutral-100 border-t-bg-neutral-800 bg-white/10":
 										item.id === activeItem().id,

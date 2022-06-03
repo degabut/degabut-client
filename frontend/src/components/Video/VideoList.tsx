@@ -32,11 +32,11 @@ export const VideoList: Component<Props> = (props) => {
 
 	return props.variant === "small" ? (
 		<div
-			class={`flex flex-row items-center space-x-1.5 lg:space-x-3 w-full hover:bg-white/5 ${props.extraContainerClass}`}
+			class={`flex flex-row items-center space-x-1.5 md:space-x-3 w-full hover:bg-white/5 ${props.extraContainerClass}`}
 			use:contextMenu={contextMenuProps()}
 		>
 			<VideoThumbnail video={props.video} variant={props.variant} extraContainerClass="flex-shrink-0" />
-			<div class="flex flex-col flex-grow flex-shrink lg:space-y-1 pr-1 py-1 truncate">
+			<div class="flex flex-col flex-grow flex-shrink md:space-y-1 pr-1 py-1 truncate">
 				<Link href={youtubeUrl()} target="_blank" class="truncate">
 					{props.video.title}
 				</Link>
@@ -49,7 +49,7 @@ export const VideoList: Component<Props> = (props) => {
 		</div>
 	) : (
 		<div
-			class={`flex flex-col sm:flex-row sm:space-x-2 space-y-2 lg:space-y-0 hover:bg-white/5 ${props.extraContainerClass}`}
+			class={`flex flex-col sm:flex-row sm:space-x-2 space-y-2 md:space-y-0 hover:bg-white/5 ${props.extraContainerClass}`}
 			use:contextMenu={contextMenuProps()}
 		>
 			<VideoThumbnail video={props.video} variant={props.variant} />

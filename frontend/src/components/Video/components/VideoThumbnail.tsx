@@ -20,7 +20,7 @@ export const VideoThumbnail: Component<Props> = (props) => {
 			<img
 				src={thumbnail()?.url}
 				alt={props.video.title}
-				class="h-12 w-12 lg:w-[6rem] lg:h-[3.375rem] object-cover"
+				class="h-12 w-12 md:w-[6rem] md:h-[3.375rem] object-cover"
 			/>
 		</Link>
 	) : (

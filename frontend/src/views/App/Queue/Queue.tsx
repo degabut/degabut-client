@@ -54,7 +54,7 @@ export const Queue: Component = () => {
 						}
 					>
 						{(track) => (
-							<div class="mt-4 lg:mt-8 space-y-4">
+							<div class="mt-4 md:mt-8 space-y-4">
 								<div class="text-xl font-normal">Now Playing</div>
 								<Video.List
 									{...track}
@@ -82,7 +82,7 @@ export const Queue: Component = () => {
 					</Show>
 
 					<Tabs
-						extraContainerClass="pt-4 lg:pt-8"
+						extraContainerClass="pt-4 md:pt-8"
 						extraTabsClass="w-full sticky top-0 z-30"
 						items={[
 							{

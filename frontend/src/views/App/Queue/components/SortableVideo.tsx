@@ -40,7 +40,7 @@ export const SortableVideo: Component<Props> = (props) => {
 	return (
 		<div class="flex justify-end items-stretch" classList={{ "opacity-50": sortable.isActiveDraggable }}>
 			<div ref={draggerElement} use:sortable class="touch-none flex items-center cursor-pointer">
-				<div class="mx-2 lg:ml-0">
+				<div class="mx-2 md:ml-0">
 					<Icon name="sortArrows" extraClass="fill-neutral-500 w-4 h-4" />
 				</div>
 			</div>
