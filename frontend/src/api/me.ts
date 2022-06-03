@@ -1,46 +1,6 @@
 import { client } from "./axios";
+import { IQueue } from "./queue";
 import { IVideoCompact } from "./videos";
-
-export interface IQueue {
-	tracks: ITrack[];
-	history: ITrack[];
-	autoplay: boolean;
-	shuffle: boolean;
-	loopType: string;
-	nowPlaying: ITrack | null;
-	voiceChannel: VoiceChannel;
-}
-
-export interface VoiceChannel {
-	id: string;
-	name: string;
-	members: Member[];
-}
-
-export interface Member {
-	id: string;
-	displayName: string;
-	nickname: null | string;
-	username: string;
-	discriminator: string;
-	avatar: null | string;
-}
-
-export interface ITrack {
-	id: string;
-	video: IVideoCompact;
-	requestedBy: IGuildMember;
-	playedAt: string | null;
-}
-
-export interface IGuildMember {
-	id: string;
-	displayName: string;
-	nickname: string;
-	username: string;
-	discriminator: string;
-	avatar: string;
-}
 
 type GetRecommendationsResult = {
 	mostPlayed: IVideoCompact[];

@@ -1,10 +1,10 @@
-import { ITrack } from "@api";
-import { Button, Icon, Link, RouterLink, Tabs, Video } from "@components";
+import { ITrack, LoopType } from "@api";
+import { Link, Tabs, Video } from "@components";
 import { TabLabel } from "@components/Tabs/TabLabel";
 import { useQueue } from "@hooks";
 import { Component, createEffect, createSignal, Show } from "solid-js";
 import { createStore } from "solid-js/store";
-import { QueuePlayHistory, QueueTrackList } from "./components";
+import { LoopToggleButton, QueuePlayHistory, QueueTrackList, ShuffleToggleButton, SkipButton } from "./components";
 
 export const Queue: Component = () => {
 	const queue = useQueue();
@@ -41,45 +41,52 @@ export const Queue: Component = () => {
 			<h1 class="text-2xl font-medium">Queue</h1>
 
 			{queue.data() && (
-				<div class="flex flex-col space-y-8">
-					<Show
-						when={queue.data()?.nowPlaying}
-						fallback={
-							<div class="my-4">
-								Nothing is playing,{" "}
-								<Link href="/app/search" class="underline underline-offset-1">
-									search for a song
-								</Link>
-							</div>
-						}
-					>
-						{(track) => (
-							<div class="mt-4 md:mt-8 space-y-4">
-								<div class="text-xl font-normal">Now Playing</div>
-								<Video.List
-									{...track}
-									onAddToQueue={queue.addTrack}
-									extraContainerClass="!bg-transparent"
-								/>
-								<div class="flex flex-row space-x-4">
-									<Button
-										rounded
+				<div class="flex flex-col space-y-6">
+					<div class="flex flex-col space-y-3">
+						<Show
+							when={queue.data()?.nowPlaying}
+							fallback={
+								<div class="my-4">
+									Nothing is playing,{" "}
+									<Link href="/app/search" class="underline underline-offset-1">
+										search for a song
+									</Link>
+								</div>
+							}
+						>
+							{(track) => (
+								<div class="mt-4 md:mt-8 space-y-4">
+									<div class="text-xl font-normal">Now Playing</div>
+									<Video.List
+										{...track}
+										onAddToQueue={queue.addTrack}
+										extraContainerClass="!bg-transparent"
+									/>
+								</div>
+							)}
+						</Show>
+
+						<div class="flex flex-row  items-center justify-evenly md:justify-start space-x-4">
+							<Show when={queue.data()?.nowPlaying}>
+								{(track) => (
+									<SkipButton
 										onClick={() => queue.removeTrack(track)}
 										disabled={queue.isTrackFreezed()}
-									>
-										<Icon name="forward" extraClass="w-4 h-4 fill-current" />
-										<div>Skip</div>
-									</Button>
-									<RouterLink href={`/app/video/${track.video.id}`}>
-										<Button rounded>
-											<Icon name="list" extraClass="w-4 h-4 fill-current" />
-											<div>Related</div>
-										</Button>
-									</RouterLink>
-								</div>
-							</div>
-						)}
-					</Show>
+									/>
+								)}
+							</Show>
+							<ShuffleToggleButton
+								defaultValue={!!queue.data()?.shuffle}
+								onChange={() => queue.toggleShuffle()}
+								disabled={queue.isQueueFreezed()}
+							/>
+							<LoopToggleButton
+								defaultValue={queue.data()?.loopType || LoopType.DISABLED}
+								onChange={(t) => queue.changeLoopType(t)}
+								disabled={queue.isQueueFreezed()}
+							/>
+						</div>
+					</div>
 
 					<Tabs
 						extraContainerClass="pt-4 md:pt-8"
