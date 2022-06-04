@@ -16,8 +16,8 @@ func (a *App) onTrayReady() {
 	systray.SetIcon(icon.Data)
 	systray.SetTitle("Degabut")
 
-	mQuit := systray.AddMenuItem("Quit", "Quit the whole app")
 	mShow := systray.AddMenuItem("Show", "Show the app")
+	mQuit := systray.AddMenuItem("Quit", "Quit the whole app")
 
 	go func() {
 		<-mQuit.ClickedCh
