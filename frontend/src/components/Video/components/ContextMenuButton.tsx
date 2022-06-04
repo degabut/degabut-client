@@ -13,7 +13,7 @@ export const ContextMenuButton: Component<Props> = (props) => {
 	return (
 		<div
 			use:buttonContextMenu={props.contextMenu}
-			class="flex flex-row items-center cursor-pointer text-neutral-400 fill-current pr-1 pl-2"
+			class="flex flex-row items-center cursor-pointer text-neutral-400 fill-current p-2"
 		>
 			<Icon name="ellipsis" extraClass="w-4 h-4" />
 		</div>
