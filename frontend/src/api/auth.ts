@@ -1,4 +1,4 @@
-import { GetAccessToken, SetAccessToken } from "../../wailsjs/go/main/App";
+import { GetAccessToken, SetAccessToken } from "@go/app/App";
 import { IS_BROWSER } from "../constants";
 import { client } from "./axios";
 
