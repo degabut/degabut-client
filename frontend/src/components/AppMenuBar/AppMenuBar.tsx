@@ -1,6 +1,6 @@
 import { Icon, Icons } from "@components";
 import { doubleClick } from "@directives";
-import { Quit, WindowMaximise, WindowMinimise, WindowUnmaximise } from "@runtime";
+import { WindowHide, WindowMaximise, WindowMinimise, WindowUnmaximise } from "@runtime";
 import { Component, JSX, onMount, splitProps } from "solid-js";
 
 doubleClick;
@@ -50,7 +50,7 @@ export const AppMenuBar = () => {
 			<div class="flex flex-row items-stretch">
 				<AppIcon icon="minus" onClick={() => WindowMinimise()} />
 				<AppIcon icon="squareLine" onClick={toggleMaximize} />
-				<AppIcon icon="closeLine" onClick={() => Quit()} />
+				<AppIcon icon="closeLine" onClick={() => WindowHide()} />
 			</div>
 		</div>
 	);

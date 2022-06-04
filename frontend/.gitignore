@@ -1,3 +1,6 @@
+node_modules
+dist
+
 public/netlify.toml
 .netlify
 package.json.md5
