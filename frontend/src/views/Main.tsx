@@ -15,7 +15,7 @@ export const Main: Component = () => {
 	});
 
 	return (
-		<div class="flex flex-col w-screen h-screen">
+		<div class="flex flex-col h-full">
 			{IS_DESKTOP && <AppMenuBar />}
 			<div class="flex-grow overflow-x-auto overflow-y-auto w-full">
 				<Routes>

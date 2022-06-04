@@ -37,7 +37,7 @@ export const Queue: Component = () => {
 	};
 
 	return (
-		<>
+		<div class="max-w-7xl">
 			<h1 class="text-2xl font-medium">Queue</h1>
 
 			{queue.data() && (
@@ -126,6 +126,6 @@ export const Queue: Component = () => {
 					/>
 				</div>
 			)}
-		</>
+		</div>
 	);
 };

@@ -24,7 +24,7 @@ export const OAuth: Component = () => {
 	});
 
 	return (
-		<div class="h-full flex flex-row items-center justify-center bg-gradient-to-b from-neutral-800 to-neutral-900">
+		<div class="flex flex-row items-center justify-center h-full">
 			<div class="text-xl">You can close this tab now :)</div>
 		</div>
 	);

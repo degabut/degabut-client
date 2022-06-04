@@ -27,8 +27,8 @@ const ProvidedApp: Component = () => {
 	});
 
 	return (
-		<div class="h-full bg-gradient-to-b from-neutral-800 to-neutral-900">
-			<div class="flex flex-col md:flex-row  h-full">
+		<>
+			<div class="flex flex-col md:flex-row h-full">
 				<div class="md:block hidden z-30">
 					<AppDrawer />
 				</div>
@@ -66,6 +66,6 @@ const ProvidedApp: Component = () => {
 
 			<CatJam />
 			<QuickAddModal />
-		</div>
+		</>
 	);
 };

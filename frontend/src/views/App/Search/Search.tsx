@@ -26,7 +26,7 @@ export const Search: Component = () => {
 	};
 
 	return (
-		<div class="flex flex-col space-y-4 md:space-y-6">
+		<div class="flex flex-col space-y-4 md:space-y-6 max-w-7xl">
 			<Input
 				type="text"
 				placeholder="Never gonna give you up"
@@ -45,7 +45,7 @@ export const Search: Component = () => {
 				</Switch>
 			</div>
 
-			<div class="space-y-8 max-w-[86rem]">
+			<div class="space-y-8">
 				<For each={videos()}>{(video) => <Video.List video={video} onAddToQueue={onAddToQueue} />}</For>
 			</div>
 		</div>

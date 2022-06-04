@@ -9,15 +9,13 @@ type Props = {
 };
 
 export const QueuePlayHistory: Component<Props> = (props) => {
-	return (
+	return !props.tracks.length ? (
+		<div>Empty</div>
+	) : (
 		<div class="space-y-4">
-			{!props.tracks.length && <div>Empty</div>}
-
-			<div class="space-y-4">
-				<For each={props.tracks}>
-					{(track) => <Video.List variant="small" {...track} onAddToQueue={props.onAddToQueue} />}
-				</For>
-			</div>
+			<For each={props.tracks}>
+				{(track) => <Video.List variant="small" {...track} onAddToQueue={props.onAddToQueue} />}
+			</For>
 		</div>
 	);
 };
