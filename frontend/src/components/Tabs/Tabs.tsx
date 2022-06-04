@@ -35,7 +35,7 @@ export const Tabs: Component<Props> = (props) => {
 							onClick={() => onChange(item)}
 						>
 							<div
-								class="px-2 md:px-12 py-2"
+								class="px-2 md:px-12 py-3 md:py-2"
 								classList={{
 									"border-b-neutral-100 border-t-bg-neutral-800 bg-white/10":
 										item.id === activeItem().id,
