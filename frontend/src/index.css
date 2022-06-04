@@ -4,10 +4,10 @@
 
 body {
 	font-family: "Poppins", sans-serif;
-	@apply m-0;
-	@apply text-neutral-100;
-	@apply font-light;
 	@apply h-full;
+	@apply m-0;
+	@apply text-neutral-100 font-light;
+	@apply select-none;
 }
 
 html {
