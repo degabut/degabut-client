@@ -1,4 +1,5 @@
-build
+build/*
+!build/appicon.png
 
 .env*
 !.env.example
