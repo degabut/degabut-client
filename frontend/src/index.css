@@ -17,6 +17,15 @@ html {
 	scrollbar-color: rgb(82 82 82), transparent;
 }
 
+html::after {
+	content: "";
+	background: url("/img/bg.png");
+	background-size: auto 100%;
+	@apply md:block hidden;
+	@apply bg-no-repeat bg-[right_-6rem_top];
+	@apply opacity-[7.5%] top-0 bottom-0 right-0 left-0 absolute -z-50;
+}
+
 #root {
 	@apply h-full;
 }
