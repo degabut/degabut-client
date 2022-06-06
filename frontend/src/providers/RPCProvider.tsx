@@ -1,30 +1,33 @@
-import { auth } from "@api";
+import { auth, IQueue } from "@api";
 import * as models from "@go/models";
 import * as rpc from "@go/rpc/Client";
-import { createContext, onCleanup, onMount, ParentComponent } from "solid-js";
+import { useQueue } from "@hooks";
+import { createContext, createEffect, onMount, ParentComponent } from "solid-js";
 import { IS_BROWSER } from "../constants";
-import { QueueContextStore } from "./QueueProvider";
 
-export type RPCContextStore = {
-	startActivityUpdater: (queue: QueueContextStore) => Promise<void>;
-};
-
-export const RPCContext = createContext<RPCContextStore>({
-	startActivityUpdater: async () => {},
-});
+export const RPCContext = createContext();
 
 export const RPCProvider: ParentComponent = (props) => {
 	if (IS_BROWSER) return props.children;
-
-	let activityUpdaterTimer: NodeJS.Timer;
-	let queue: QueueContextStore | undefined;
+	const queue = useQueue();
+	let previousQueue: IQueue | undefined;
 
 	onMount(async () => {
 		const token = await auth.getAccessToken();
 		rpc.Authenticate(token);
 	});
-	onCleanup(() => {
-		clearInterval(activityUpdaterTimer);
+
+	createEffect(() => {
+		const queueData = queue.data();
+		if (!queueData) return;
+
+		if (
+			queueData.nowPlaying?.id !== previousQueue?.nowPlaying?.id ||
+			queueData.voiceChannel.members.length !== previousQueue?.voiceChannel.members.length
+		) {
+			previousQueue = queueData;
+			updateListeningActivity();
+		}
 	});
 
 	const updateListeningActivity = async () => {
@@ -67,15 +70,5 @@ export const RPCProvider: ParentComponent = (props) => {
 		}
 	};
 
-	const startActivityUpdater = async (q: QueueContextStore) => {
-		queue = q;
-		activityUpdaterTimer = setInterval(updateListeningActivity, 7500);
-		updateListeningActivity();
-	};
-
-	const store: RPCContextStore = {
-		startActivityUpdater,
-	};
-
-	return <RPCContext.Provider value={store}>{props.children}</RPCContext.Provider>;
+	return <RPCContext.Provider value={{}}>{props.children}</RPCContext.Provider>;
 };
