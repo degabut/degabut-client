@@ -1,4 +1,4 @@
-import { AppDrawer, CatJam, MobileAppDrawer, QuickAddModal } from "@components";
+import { AppDrawer, CatJam, Icon, MobileAppDrawer, QuickAddModal } from "@components";
 import { useQueue } from "@hooks";
 import { ContextMenuProvider, QueueProvider, RPCProvider } from "@providers";
 import { Outlet, useLocation, useNavigate } from "solid-app-router";
@@ -11,6 +11,15 @@ export const App: Component = () => {
 				<ProvidedApp />
 			</RPCProvider>
 		</QueueProvider>
+	);
+};
+
+const NoQueue: Component = () => {
+	return (
+		<div class="flex flex-col flex-grow items-center justify-center w-full h-full space-y-4">
+			<Icon name="musicOff" extraClass="fill-neutral-400 opacity-10" />
+			<div class="text-4xl">No Queue Found</div>
+		</div>
 	);
 };
 
@@ -31,23 +40,9 @@ const ProvidedApp: Component = () => {
 				</div>
 
 				<div class="relative h-full flex-grow flex flex-col overflow-y-auto overflow-x-hidden">
-					<div class="absolute top-0 left-0 md:hidden w-full h-32 bg-gradient-to-b from-gray-800 to-transparent" />
+					<div class="absolute top-0 left-0 md:hidden w-full h-48 bg-gradient-to-b from-gray-800 to-transparent" />
 
-					<Show
-						when={queue.data()}
-						fallback={
-							<div class="flex flex-col flex-grow items-center justify-center w-full h-full space-y-4">
-								{queue.isLoading() ? (
-									<div class="text-4xl">Loading Queue...</div>
-								) : (
-									<>
-										<div class="text-4xl">No Queue Found :(</div>
-										<div class="text-xl">Join to voice channel where Degabut is</div>
-									</>
-								)}
-							</div>
-						}
-					>
+					<Show when={queue.data() || queue.isInitialLoading()} fallback={<NoQueue />}>
 						<ContextMenuProvider>
 							<div class="z-10 py-8 px-2 md:px-8 pb-32">
 								<Outlet />

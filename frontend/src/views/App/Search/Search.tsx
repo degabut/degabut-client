@@ -3,7 +3,11 @@ import { Input, Video } from "@components";
 import { searchStore } from "@stores";
 import { debounce } from "@utils";
 import { useSearchParams } from "solid-app-router";
-import { Component, For, Match, onMount, Switch } from "solid-js";
+import { Component, For, onMount, Show } from "solid-js";
+
+const SearchResultSkeleton: Component = () => {
+	return <For each={Array(5)}>{() => <Video.ListSkeleton />}</For>;
+};
 
 export const Search: Component = () => {
 	const [query, setQuery] = useSearchParams<{ keyword: string }>();
@@ -35,18 +39,10 @@ export const Search: Component = () => {
 				onInput={debounce(onInput, 250)}
 			/>
 
-			<div class="text-neutral-100">
-				<Switch>
-					<Match when={videos.loading}>Loading...</Match>
-					<Match when={videos()?.length}>
-						Search Result for "<span class="font-medium">{keyword()}</span>"
-					</Match>
-					<Match when={!keyword()}>Enter keyword</Match>
-				</Switch>
-			</div>
-
 			<div class="space-y-8">
-				<For each={videos()}>{(video) => <Video.List video={video} onAddToQueue={onAddToQueue} />}</For>
+				<Show when={!videos.loading} fallback={<SearchResultSkeleton />}>
+					<For each={videos()}>{(video) => <Video.List video={video} onAddToQueue={onAddToQueue} />}</For>
+				</Show>
 			</div>
 		</div>
 	);

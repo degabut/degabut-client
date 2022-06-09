@@ -1,9 +1,25 @@
 import { ITrack, IVideoCompact } from "@api";
+import { Icon, RouterLink } from "@components";
 import { closestCenter, DragDropProvider, DragDropSensors, SortableProvider } from "@thisbeyond/solid-dnd";
 import { Component, For } from "solid-js";
 import { SortableVideo } from "./SortableVideo";
 
 type OnDragEnd = Parameters<typeof DragDropProvider>[0]["onDragEnd"];
+
+const EmptyTrack: Component = () => {
+	return (
+		<div class="flex flex-col space-y-8 justify-center items-center mt-12">
+			<Icon name="snooze" extraClass="fill-neutral-400 opacity-10" />
+			<div class="text-xl text-center">
+				Queue is empty,{" "}
+				<RouterLink href="/app/search" class="underline underline-offset-1">
+					search for a song
+				</RouterLink>
+				?
+			</div>
+		</div>
+	);
+};
 
 type Props = {
 	tracks: ITrack[];
@@ -32,7 +48,7 @@ export const QueueTrackList: Component<Props> = (props) => {
 
 	return (
 		<div class="space-y-4">
-			{!props.tracks.length && <div>Empty</div>}
+			{!props.tracks.length && <EmptyTrack />}
 
 			<div classList={{ "opacity-50 pointer-events-none": props.isFreezed }}>
 				<DragDropProvider onDragStart={onDragStart} onDragEnd={onDragEnd} collisionDetector={closestCenter}>

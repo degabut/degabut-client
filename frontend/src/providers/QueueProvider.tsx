@@ -17,6 +17,7 @@ import {
 export type QueueContextStore = {
 	data: Accessor<IQueue | null>;
 	isLoading: Accessor<boolean>;
+	isInitialLoading: Accessor<boolean>;
 	isQueueFreezed: Accessor<boolean>;
 	isTrackLoading: Accessor<boolean>;
 	isTrackFreezed: Accessor<boolean>;
@@ -30,6 +31,7 @@ export type QueueContextStore = {
 
 export const QueueContext = createContext<QueueContextStore>({
 	data: () => null,
+	isInitialLoading: () => true,
 	isLoading: () => false,
 	isQueueFreezed: () => false,
 	isTrackLoading: () => false,
@@ -48,6 +50,7 @@ export const QueueProvider: ParentComponent = (props) => {
 	const [isQueueFreezed, setIsQueueFreezed] = createSignal(false);
 	const [isTrackLoading, setIsTrackLoading] = createSignal(false);
 	const [isTrackFreezed, setIsTrackFreezed] = createSignal(false);
+	const [isInitialLoading, setIsInitialLoading] = createSignal(true);
 
 	const [queue, { refetch }] = createResource([], async () => {
 		try {
@@ -56,6 +59,8 @@ export const QueueProvider: ParentComponent = (props) => {
 			if (err instanceof AxiosError && (err.response?.status === 403 || err.response?.status === 401)) {
 				navigate("/login");
 			}
+		} finally {
+			setIsInitialLoading(false);
 		}
 	});
 
@@ -97,6 +102,7 @@ export const QueueProvider: ParentComponent = (props) => {
 	const store: QueueContextStore = {
 		data: () => queue() || null,
 		isLoading,
+		isInitialLoading,
 		isQueueFreezed,
 		isTrackLoading,
 		isTrackFreezed,

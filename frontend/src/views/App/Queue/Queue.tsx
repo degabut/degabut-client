@@ -1,10 +1,17 @@
 import { ITrack, LoopType } from "@api";
-import { Link, Tabs, Video } from "@components";
+import { Tabs, Video } from "@components";
 import { TabLabel } from "@components/Tabs/TabLabel";
 import { useQueue } from "@hooks";
 import { Component, createEffect, createSignal, Show } from "solid-js";
 import { createStore } from "solid-js/store";
-import { LoopToggleButton, QueuePlayHistory, QueueTrackList, ShuffleToggleButton, SkipButton } from "./components";
+import {
+	LoopToggleButton,
+	QueuePlayHistory,
+	QueueTrackList,
+	QueueTrackListSkeleton,
+	ShuffleToggleButton,
+	SkipButton,
+} from "./components";
 
 export const Queue: Component = () => {
 	const queue = useQueue();
@@ -40,92 +47,90 @@ export const Queue: Component = () => {
 		<div class="max-w-7xl">
 			<h1 class="text-2xl font-medium">Queue</h1>
 
-			{queue.data() && (
-				<div class="flex flex-col space-y-6">
-					<div class="flex flex-col space-y-3">
-						<Show
-							when={queue.data()?.nowPlaying}
-							fallback={
-								<div class="my-4">
-									Nothing is playing,{" "}
-									<Link href="/app/search" class="underline underline-offset-1">
-										search for a song
-									</Link>
-								</div>
-							}
-						>
+			<div class="flex flex-col space-y-6">
+				<div class="flex flex-col space-y-3">
+					<Show when={queue.data()?.nowPlaying} fallback={<div />}>
+						{(track) => (
+							<div class="mt-4 md:mt-8 space-y-4">
+								<div class="text-xl font-normal">Now Playing</div>
+								<Video.List
+									{...track}
+									onAddToQueue={queue.addTrack}
+									extraContainerClass="!bg-transparent"
+								/>
+							</div>
+						)}
+					</Show>
+
+					<div class="flex flex-row  items-center justify-evenly md:justify-start space-x-4">
+						<Show when={queue.data()?.nowPlaying}>
 							{(track) => (
-								<div class="mt-4 md:mt-8 space-y-4">
-									<div class="text-xl font-normal">Now Playing</div>
-									<Video.List
-										{...track}
-										onAddToQueue={queue.addTrack}
-										extraContainerClass="!bg-transparent"
-									/>
-								</div>
+								<SkipButton
+									onClick={() => queue.removeTrack(track)}
+									disabled={queue.isTrackFreezed()}
+								/>
 							)}
 						</Show>
-
-						<div class="flex flex-row  items-center justify-evenly md:justify-start space-x-4">
-							<Show when={queue.data()?.nowPlaying}>
-								{(track) => (
-									<SkipButton
-										onClick={() => queue.removeTrack(track)}
-										disabled={queue.isTrackFreezed()}
-									/>
-								)}
-							</Show>
-							<ShuffleToggleButton
-								defaultValue={!!queue.data()?.shuffle}
-								onChange={() => queue.toggleShuffle()}
-								disabled={queue.isQueueFreezed()}
-							/>
-							<LoopToggleButton
-								defaultValue={queue.data()?.loopType || LoopType.DISABLED}
-								onChange={(t) => queue.changeLoopType(t)}
-								disabled={queue.isQueueFreezed()}
-							/>
-						</div>
+						<ShuffleToggleButton
+							defaultValue={!!queue.data()?.shuffle}
+							onChange={() => queue.toggleShuffle()}
+							disabled={queue.isQueueFreezed()}
+						/>
+						<LoopToggleButton
+							defaultValue={queue.data()?.loopType || LoopType.DISABLED}
+							onChange={(t) => queue.changeLoopType(t)}
+							disabled={queue.isQueueFreezed()}
+						/>
 					</div>
-
-					<Tabs
-						extraContainerClass="pt-4 md:pt-8"
-						extraTabsClass="w-full sticky top-0 z-30"
-						items={[
-							{
-								id: "trackList",
-								label: ({ isActive }) => (
-									<TabLabel icon="audioPlaylist" label="Track List" isActive={isActive} />
-								),
-								element: (
-									<QueueTrackList
-										tracks={tracks as ITrack[]}
-										nowPlaying={queue.data()?.nowPlaying || null}
-										isFreezed={queue.isTrackLoading() || queue.isTrackFreezed()}
-										onDragTrackStart={() => setIsDragging(true)}
-										onDragTrackEnd={() => setIsDragging(false)}
-										onChangeTrackOrder={onChangeTrackOrder}
-										onRemoveTrack={queue.removeTrack}
-										onAddToQueue={queue.addTrack}
-									/>
-								),
-							},
-							{
-								id: "queueHistory",
-								label: ({ isActive }) => (
-									<TabLabel icon="history" label="History" isActive={isActive} />
-								),
-								element: (
-									<QueuePlayHistory
-										tracks={queue.data()?.history.slice(1) || []}
-										onAddToQueue={queue.addTrack}
-									/>
-								),
-							},
-						]}
-					/>
 				</div>
-			)}
+
+				<Tabs
+					extraContainerClass="pt-4 md:pt-8"
+					extraTabsClass="w-full sticky top-0 z-30"
+					items={[
+						{
+							id: "trackList",
+							label: ({ isActive }) => (
+								<TabLabel icon="audioPlaylist" label="Track List" isActive={isActive} />
+							),
+							element: (
+								<>
+									{queue.isInitialLoading() ? (
+										<QueueTrackListSkeleton />
+									) : (
+										<QueueTrackList
+											tracks={tracks as ITrack[]}
+											nowPlaying={queue.data()?.nowPlaying || null}
+											isFreezed={queue.isTrackLoading() || queue.isTrackFreezed()}
+											onDragTrackStart={() => setIsDragging(true)}
+											onDragTrackEnd={() => setIsDragging(false)}
+											onChangeTrackOrder={onChangeTrackOrder}
+											onRemoveTrack={queue.removeTrack}
+											onAddToQueue={queue.addTrack}
+										/>
+									)}
+								</>
+							),
+						},
+						{
+							id: "queueHistory",
+							label: ({ isActive }) => <TabLabel icon="history" label="History" isActive={isActive} />,
+							element: (
+								<>
+									{queue.isInitialLoading() ? (
+										<QueueTrackListSkeleton />
+									) : (
+										<QueuePlayHistory
+											tracks={queue.data()?.history.slice(1) || []}
+											onAddToQueue={queue.addTrack}
+										/>
+									)}
+								</>
+							),
+						},
+					]}
+				/>
+			</div>
 		</div>
 	);
 };
