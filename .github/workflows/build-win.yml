@@ -1,0 +1,45 @@
+name: build
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.14"
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.18.2"
+      - name: Setup
+        run: | 
+          npm install -g pnpm
+          go install github.com/wailsapp/wails/v2/cmd/wails@latest
+      - name: Set Version
+        run: |
+          Set-Variable -Name VERSION -Value (Get-Content package.json | ConvertFrom-Json).version
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "VERSION=$VERSION"
+      - name: Frontend env
+        run: |
+          shell: cmd
+          cd > ./frontend/.env
+          echo VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} >> ./frontend/.env
+          echo VITE_OAUTH_URL=${{ secrets.VITE_OAUTH_URL }} >> ./frontend/.env
+          cat ./frontend/.env
+          mkdir ./frontend/dist
+          cd > ./frontend/dist/index.html
+      - name: Build
+        run: |
+          wails generate module
+          wails build -ldflags "-X main.clientId=${{ secrets.CLIENT_ID }}"
+      - name: Zip
+        run: Compress-Archive .\build\bin\degabut.exe degabut_${{env.VERSION}}.zip
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "${VERSION}"
+          files: "degabut-${{env.VERSION}}.zip"
