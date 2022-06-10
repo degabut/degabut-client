@@ -25,13 +25,12 @@ jobs:
           echo "VERSION=$VERSION"
       - name: Frontend env
         run: |
-          cd > ./frontend/.env
-          echo VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} >> ./frontend/.env
-          echo VITE_OAUTH_URL=${{ secrets.VITE_OAUTH_URL }} >> ./frontend/.env
+          New-Item -Path "./frontend" -Name ".env"
+          Add-Content -Path ./frontend/.env -Value "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" 
+          Add-Content -Path ./frontend/.env -Value "VITE_OAUTH_URL=${{ secrets.VITE_OAUTH_URL }}"
           cat ./frontend/.env
           mkdir ./frontend/dist
-          cd > ./frontend/dist/index.html
-          shell: cmd
+          New-Item -Path "./frontend/dist" -Name "index.html"
       - name: Build
         run: |
           wails generate module
