@@ -31,6 +31,9 @@ jobs:
           cat ./frontend/.env
           mkdir ./frontend/dist
           New-Item -Path "./frontend/dist" -Name "index.html"
+      - name: Make Icon
+        working-directory: ./app/icon
+        run: .\make_icon.bat icon.ico
       - name: Build
         run: |
           wails generate module
