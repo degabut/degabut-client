@@ -1,14 +1,14 @@
 @ECHO OFF
 
-IF "%GOBIN%"=="" GOTO NOGO
-IF NOT EXIST %GOPATH%\2goarray.exe GOTO INSTALL
+IF "%GOPATH%"=="" GOTO NOGO
+IF NOT EXIST %GOPATH%\bin\2goarray.exe GOTO INSTALL
 :POSTINSTALL
 IF "%1"=="" GOTO NOICO
 IF NOT EXIST %1 GOTO BADFILE
 ECHO Creating icon_windows.go
 ECHO //+build windows > icon_windows.go
 ECHO. >> icon_windows.go
-TYPE %1 | %GOPATH%\2goarray Data icon >> icon_windows.go
+TYPE %1 | %GOPATH%\bin\2goarray Data icon >> icon_windows.go
 GOTO DONE
 
 :CREATEFAIL
@@ -26,7 +26,7 @@ ECHO Failure running go install github.com/cratonica/2goarray@latest.  Ensure th
 GOTO DONE
 
 :NOGO
-ECHO GOBIN environment variable not set
+ECHO GOPATH environment variable not set
 GOTO DONE
 
 :NOICO

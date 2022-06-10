@@ -1,11 +1,11 @@
 #/bin/sh
 
-if [ -z "$GOBIN" ]; then
-    echo GOBIN environment variable not set
+if [ -z "$GOPATH" ]; then
+    echo GOPATH environment variable not set
     exit
 fi
 
-if [ ! -e "$GOBIN/2goarray" ]; then
+if [ ! -e "$GOPATH/bin/2goarray" ]; then
     echo "Installing 2goarray..."
     go install github.com/cratonica/2goarray@latest
     if [ $? -ne 0 ]; then
@@ -28,7 +28,7 @@ OUTPUT=icon_notwin.go
 echo Generating $OUTPUT
 echo "//+build linux darwin" > $OUTPUT
 echo >> $OUTPUT
-cat "$1" | $GOBIN/2goarray Data icon >> $OUTPUT
+cat "$1" | $GOPATH/bin/2goarray Data icon >> $OUTPUT
 if [ $? -ne 0 ]; then
     echo Failure generating $OUTPUT
     exit
