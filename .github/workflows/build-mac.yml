@@ -4,7 +4,7 @@ on:
     branches:
       - "main"
 jobs:
-  build-mac:
+  build:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -26,8 +26,17 @@ jobs:
           cat ./frontend/.env
           mkdir ./frontend/dist
           touch ./frontend/dist/index.html
+      - name: Get Version
+        run: |
+          VERSION=$(echo $(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1))
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "VERSION=$VERSION"
+      - name: Make Icon
+        working-directory: ./app/icon
+        run: .\make_icon.sh icon.png
       - name: Build
         run: |
+          ./app/
           wails generate module
           wails build -ldflags "-X main.clientId=${{ secrets.CLIENT_ID }}"
           zip -vr degabut.zip build/bin/Degabut.app -X
