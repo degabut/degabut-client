@@ -1,8 +1,8 @@
 package app
 
 import (
+	"github.com/degabut/degabut-client/app/icon"
 	"github.com/getlantern/systray"
-	"github.com/suspiciouslookingowl/degabut-web/app/icon"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 

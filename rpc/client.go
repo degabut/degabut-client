@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/suspiciouslookingowl/degabut-web/rpc/ipc"
+	"github.com/degabut/degabut-client/rpc/ipc"
 )
 
 type Client struct {

@@ -6,8 +6,8 @@ import (
 	"net"
 	"os"
 
-	"github.com/suspiciouslookingowl/degabut-web/app"
-	"github.com/suspiciouslookingowl/degabut-web/rpc"
+	"github.com/degabut/degabut-client/app"
+	"github.com/degabut/degabut-client/rpc"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 )

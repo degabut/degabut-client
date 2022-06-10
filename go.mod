@@ -1,4 +1,4 @@
-module github.com/suspiciouslookingowl/degabut-web
+module github.com/degabut/degabut-client
 
 go 1.18
 
