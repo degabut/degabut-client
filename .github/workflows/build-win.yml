@@ -21,7 +21,7 @@ jobs:
       - name: Set Version
         run: |
           Set-Variable -Name VERSION -Value (Get-Content package.json | ConvertFrom-Json).version
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $env:GITHUB_ENV
           echo "VERSION=$VERSION"
       - name: Frontend env
         run: |
