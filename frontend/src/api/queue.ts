@@ -60,8 +60,16 @@ export const orderTrack = async (trackId: string, to: number): Promise<void> => 
 	await client.patch(`/me/queue/tracks/${trackId}/order`, { to });
 };
 
+export const skipTrack = async (): Promise<void> => {
+	await client.post("/me/queue/skip");
+};
+
 export const removeTrack = async (trackId: string): Promise<void> => {
 	await client.delete(`/me/queue/tracks/${trackId}`);
+};
+
+export const clearQueue = async (excludeNowPlaying = false): Promise<void> => {
+	await client.delete("/me/queue/tracks", { params: { excludeNowPlaying } });
 };
 
 export const changeLoopType = async (loopType: LoopType): Promise<void> => {

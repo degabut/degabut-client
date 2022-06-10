@@ -64,12 +64,7 @@ export const Queue: Component = () => {
 
 					<div class="flex flex-row  items-center justify-evenly md:justify-start space-x-4">
 						<Show when={queue.data()?.nowPlaying}>
-							{(track) => (
-								<SkipButton
-									onClick={() => queue.removeTrack(track)}
-									disabled={queue.isTrackFreezed()}
-								/>
-							)}
+							{() => <SkipButton onClick={() => queue.skipTrack()} disabled={queue.isTrackFreezed()} />}
 						</Show>
 						<ShuffleToggleButton
 							defaultValue={!!queue.data()?.shuffle}

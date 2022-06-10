@@ -22,6 +22,7 @@ export type QueueContextStore = {
 	isTrackLoading: Accessor<boolean>;
 	isTrackFreezed: Accessor<boolean>;
 	changeTrackOrder: (trackId: string, toIndex: number) => Promise<void>;
+	skipTrack: () => Promise<void>;
 	removeTrack: (track: ITrack) => Promise<void>;
 	addTrack: (video: IVideoCompact) => Promise<void>;
 	refetch: () => IQueue | Promise<IQueue | null | undefined> | null | undefined;
@@ -37,6 +38,7 @@ export const QueueContext = createContext<QueueContextStore>({
 	isTrackLoading: () => false,
 	isTrackFreezed: () => false,
 	changeTrackOrder: async () => {},
+	skipTrack: async () => {},
 	removeTrack: async () => {},
 	addTrack: async () => {},
 	toggleShuffle: async () => {},
@@ -67,6 +69,7 @@ export const QueueProvider: ParentComponent = (props) => {
 	const toggleShuffle = () => modifyQueue(() => api.toggleShuffle());
 	const changeLoopType = (loopType: LoopType) => modifyQueue(() => api.changeLoopType(loopType));
 	const changeTrackOrder = (trackId: string, toIndex: number) => modifyTrack(() => api.orderTrack(trackId, toIndex));
+	const skipTrack = () => modifyTrack(() => api.skipTrack());
 	const removeTrack = (track: ITrack) => modifyTrack(() => api.removeTrack(track.id));
 	const addTrack = (video: IVideoCompact) => modifyTrack(() => api.addTrackByVideoId(video.id));
 
@@ -108,6 +111,7 @@ export const QueueProvider: ParentComponent = (props) => {
 		isTrackFreezed,
 		refetch,
 		changeTrackOrder,
+		skipTrack,
 		removeTrack,
 		addTrack,
 		toggleShuffle,
