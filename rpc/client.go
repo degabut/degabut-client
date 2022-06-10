@@ -9,7 +9,7 @@ import (
 
 type Client struct {
 	logged bool
-	socket ipc.Socket
+	socket *ipc.Socket
 }
 
 // Login sends a handshake in the socket and returns an error or nil
@@ -83,6 +83,6 @@ func NewClient(clientId string) (*Client, error) {
 	}
 
 	return &Client{
-		socket: *socket,
+		socket: socket,
 	}, nil
 }
