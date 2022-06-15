@@ -79,9 +79,20 @@ export const QueueProvider: ParentComponent = (props) => {
 	const modifyTrack = async (fn: () => Promise<unknown>) => {
 		setIsTrackLoading(true);
 		setIsTrackFreezed(true);
-		await fn();
-		refetch();
-		setIsTrackLoading(false);
+
+		try {
+			await fn();
+		} catch (err) {
+			// TODO handle error properly
+			if (err instanceof AxiosError) {
+				alert(err.response?.data.message);
+			} else {
+				alert(err);
+			}
+		} finally {
+			refetch();
+			setIsTrackLoading(false);
+		}
 	};
 
 	const modifyQueue = async (fn: () => Promise<unknown>) => {
