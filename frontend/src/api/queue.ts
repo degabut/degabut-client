@@ -64,6 +64,10 @@ export const skipTrack = async (): Promise<void> => {
 	await client.post("/me/queue/skip");
 };
 
+export const playTrack = async (trackId: string): Promise<void> => {
+	await client.post(`/me/queue/tracks/${trackId}/play`);
+};
+
 export const removeTrack = async (trackId: string): Promise<void> => {
 	await client.delete(`/me/queue/tracks/${trackId}`);
 };

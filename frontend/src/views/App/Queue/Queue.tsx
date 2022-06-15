@@ -100,6 +100,7 @@ export const Queue: Component = () => {
 											onDragTrackStart={() => setIsDragging(true)}
 											onDragTrackEnd={() => setIsDragging(false)}
 											onChangeTrackOrder={onChangeTrackOrder}
+											onPlayTrack={queue.playTrack}
 											onRemoveTrack={queue.removeTrack}
 											onAddToQueue={queue.addTrack}
 										/>

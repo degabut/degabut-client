@@ -1,13 +1,14 @@
 import { ITrack, IVideoCompact } from "@api";
 import { Icon, Video, VideoContextMenuItem } from "@components";
 import { createSortable } from "@thisbeyond/solid-dnd";
-import { Component, createSignal, onMount } from "solid-js";
+import { Component, createMemo, createSignal, onMount } from "solid-js";
 
 type Props = {
 	track: ITrack;
 	isActive: boolean;
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
 	onRemove?: (track: ITrack) => void;
+	onPlay?: (track: ITrack) => void;
 };
 
 type Pos = {
@@ -26,6 +27,24 @@ export const SortableVideo: Component<Props> = (props) => {
 		});
 
 		observer.observe(draggerElement, { attributes: true, attributeFilter: ["style"] });
+	});
+
+	const extraContextMenuItems = createMemo(() => {
+		const contextMenu = [
+			{
+				element: () => <VideoContextMenuItem icon="trashBin" label="Remove from Queue" iconSize="large" />,
+				onClick: () => props.onRemove?.(props.track),
+			},
+		];
+
+		if (!props.isActive) {
+			contextMenu.unshift({
+				element: () => <VideoContextMenuItem icon="play" label="Play" iconSize="large" />,
+				onClick: () => props.onPlay?.(props.track),
+			});
+		}
+
+		return contextMenu;
 	});
 
 	const onDragMove = () => {
@@ -52,14 +71,7 @@ export const SortableVideo: Component<Props> = (props) => {
 			>
 				<Video.List
 					{...props.track}
-					extraContextMenuItems={[
-						{
-							element: () => (
-								<VideoContextMenuItem icon="trashBin" label="Remove from Queue" iconSize="large" />
-							),
-							onClick: () => props.onRemove?.(props.track),
-						},
-					]}
+					extraContextMenuItems={extraContextMenuItems()}
 					extraTitleClass={props.isActive ? "text-brand-600" : undefined}
 					onAddToQueue={props.onAddToQueue}
 					variant="small"

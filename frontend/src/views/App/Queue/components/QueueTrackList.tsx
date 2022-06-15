@@ -25,6 +25,7 @@ type Props = {
 	tracks: ITrack[];
 	nowPlaying?: ITrack | null;
 	isFreezed: boolean;
+	onPlayTrack?: (track: ITrack) => void;
 	onRemoveTrack?: (track: ITrack) => void;
 	onDragTrackStart?: () => void;
 	onDragTrackEnd?: () => void;
@@ -62,6 +63,7 @@ export const QueueTrackList: Component<Props> = (props) => {
 										track={track as ITrack}
 										onRemove={props.onRemoveTrack}
 										onAddToQueue={props.onAddToQueue}
+										onPlay={props.onPlayTrack}
 									/>
 								)}
 							</For>
