@@ -31,6 +31,7 @@ type Props = {
 	onDragTrackEnd?: () => void;
 	onChangeTrackOrder?: (fromIndex: number, toIndex: number, id: string) => void;
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
+	onAddToQueueAndPlay?: (video: IVideoCompact) => Promise<void>;
 };
 
 export const QueueTrackList: Component<Props> = (props) => {
@@ -63,6 +64,7 @@ export const QueueTrackList: Component<Props> = (props) => {
 										track={track as ITrack}
 										onRemove={props.onRemoveTrack}
 										onAddToQueue={props.onAddToQueue}
+										onAddToQueueAndPlay={props.onAddToQueueAndPlay}
 										onPlay={props.onPlayTrack}
 									/>
 								)}

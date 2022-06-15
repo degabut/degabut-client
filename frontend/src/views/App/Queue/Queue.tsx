@@ -56,6 +56,7 @@ export const Queue: Component = () => {
 								<Video.List
 									{...track}
 									onAddToQueue={queue.addTrack}
+									onAddToQueueAndPlay={queue.addAndPlayTrack}
 									extraContainerClass="!bg-transparent"
 								/>
 							</div>
@@ -103,6 +104,7 @@ export const Queue: Component = () => {
 											onPlayTrack={queue.playTrack}
 											onRemoveTrack={queue.removeTrack}
 											onAddToQueue={queue.addTrack}
+											onAddToQueueAndPlay={queue.addAndPlayTrack}
 										/>
 									)}
 								</>
@@ -119,6 +121,7 @@ export const Queue: Component = () => {
 										<QueuePlayHistory
 											tracks={queue.data()?.history.slice(1) || []}
 											onAddToQueue={queue.addTrack}
+											onAddToQueueAndPlay={queue.addAndPlayTrack}
 										/>
 									)}
 								</>

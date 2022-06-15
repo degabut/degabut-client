@@ -64,7 +64,15 @@ export const Recommend: Component = () => {
 				ref={containerElement}
 				class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 gap-x-6 gap-y-6 md:gap-y-10"
 			>
-				<For each={videos()}>{(video) => <Video.Card video={video} onAddToQueue={queue.addTrack} />}</For>
+				<For each={videos()}>
+					{(video) => (
+						<Video.Card
+							video={video}
+							onAddToQueue={queue.addTrack}
+							onAddToQueueAndPlay={queue.addAndPlayTrack}
+						/>
+					)}
+				</For>
 				<Show when={recommendations.data.loading || video.data.loading}>
 					<For each={Array(10)}>{() => <Video.CardSkeleton />}</For>
 				</Show>

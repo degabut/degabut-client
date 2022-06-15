@@ -6,6 +6,7 @@ import { VideoContextMenuItem } from "../components";
 type Props = {
 	video: IVideoCompact;
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
+	onAddToQueueAndPlay?: (video: IVideoCompact) => Promise<void>;
 };
 
 export const getVideoContextMenu = (props: Props) => {
@@ -16,6 +17,10 @@ export const getVideoContextMenu = (props: Props) => {
 			{
 				element: () => <VideoContextMenuItem icon="plus" label="Add to Queue" />,
 				onClick: () => props.onAddToQueue?.(props.video),
+			},
+			{
+				element: () => <VideoContextMenuItem icon="play" label="Add to Queue and Play" />,
+				onClick: () => props.onAddToQueueAndPlay?.(props.video),
 			},
 			{
 				element: () => <VideoContextMenuItem icon="list" label="Related" />,

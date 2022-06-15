@@ -1,5 +1,5 @@
-import { addTrackByVideoId, type IVideoCompact } from "@api";
 import { Input, Video } from "@components";
+import { useQueue } from "@hooks";
 import { searchStore } from "@stores";
 import { debounce } from "@utils";
 import { useSearchParams } from "solid-app-router";
@@ -10,6 +10,7 @@ const SearchResultSkeleton: Component = () => {
 };
 
 export const Search: Component = () => {
+	const queue = useQueue();
 	const [query, setQuery] = useSearchParams<{ keyword: string }>();
 	const { keyword, setKeyword, data: videos } = searchStore;
 	let searchInput!: HTMLInputElement;
@@ -18,10 +19,6 @@ export const Search: Component = () => {
 		setKeyword(query.keyword || "");
 		searchInput.focus();
 	});
-
-	const onAddToQueue = async (video: IVideoCompact) => {
-		await addTrackByVideoId(video.id);
-	};
 
 	const onInput = (ev: InputEvent) => {
 		const value = (ev.target as HTMLInputElement).value;
@@ -41,7 +38,15 @@ export const Search: Component = () => {
 
 			<div class="space-y-8">
 				<Show when={!videos.loading} fallback={<SearchResultSkeleton />}>
-					<For each={videos()}>{(video) => <Video.List video={video} onAddToQueue={onAddToQueue} />}</For>
+					<For each={videos()}>
+						{(video) => (
+							<Video.List
+								video={video}
+								onAddToQueue={queue.addTrack}
+								onAddToQueueAndPlay={queue.addAndPlayTrack}
+							/>
+						)}
+					</For>
 				</Show>
 			</div>
 		</div>

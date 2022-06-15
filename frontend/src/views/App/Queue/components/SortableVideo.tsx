@@ -7,6 +7,7 @@ type Props = {
 	track: ITrack;
 	isActive: boolean;
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
+	onAddToQueueAndPlay?: (video: IVideoCompact) => Promise<void>;
 	onRemove?: (track: ITrack) => void;
 	onPlay?: (track: ITrack) => void;
 };
@@ -74,6 +75,7 @@ export const SortableVideo: Component<Props> = (props) => {
 					extraContextMenuItems={extraContextMenuItems()}
 					extraTitleClass={props.isActive ? "text-brand-600" : undefined}
 					onAddToQueue={props.onAddToQueue}
+					onAddToQueueAndPlay={props.onAddToQueueAndPlay}
 					variant="small"
 				/>
 			</div>

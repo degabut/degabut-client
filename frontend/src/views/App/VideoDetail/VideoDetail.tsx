@@ -14,7 +14,11 @@ export const VideoDetail: Component = () => {
 	return (
 		<Show when={video.data() && !video.data.loading} fallback={"Loading..."}>
 			<div class="flex flex-col">
-				<Video.List video={video.data() as IVideo} onAddToQueue={queue.addTrack} />
+				<Video.List
+					video={video.data() as IVideo}
+					onAddToQueue={queue.addTrack}
+					onAddToQueueAndPlay={queue.addAndPlayTrack}
+				/>
 
 				<div class="my-3 w-full border-b border-neutral-600" />
 
@@ -22,7 +26,13 @@ export const VideoDetail: Component = () => {
 
 				<div class="space-y-8">
 					<For each={video.data()?.related || []}>
-						{(video) => <Video.List video={video} onAddToQueue={queue.addTrack} />}
+						{(video) => (
+							<Video.List
+								video={video}
+								onAddToQueue={queue.addTrack}
+								onAddToQueueAndPlay={queue.addAndPlayTrack}
+							/>
+						)}
 					</For>
 				</div>
 			</div>

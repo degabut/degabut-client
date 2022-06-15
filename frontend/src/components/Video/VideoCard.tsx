@@ -10,6 +10,7 @@ contextMenu;
 type Props = {
 	video: IVideoCompact;
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
+	onAddToQueueAndPlay?: (video: IVideoCompact) => Promise<void>;
 };
 
 export const VideoCard: Component<Props> = (props) => {
@@ -18,7 +19,11 @@ export const VideoCard: Component<Props> = (props) => {
 	return (
 		<div
 			class="flex flex-col space-y-3"
-			use:contextMenu={getVideoContextMenu({ video: props.video, onAddToQueue: props.onAddToQueue })}
+			use:contextMenu={getVideoContextMenu({
+				video: props.video,
+				onAddToQueue: props.onAddToQueue,
+				onAddToQueueAndPlay: props.onAddToQueueAndPlay,
+			})}
 		>
 			<VideoThumbnail video={props.video} />
 
@@ -37,7 +42,11 @@ export const VideoCard: Component<Props> = (props) => {
 
 				<div class="mt-0.5">
 					<ContextMenuButton
-						contextMenu={getVideoContextMenu({ video: props.video, onAddToQueue: props.onAddToQueue })}
+						contextMenu={getVideoContextMenu({
+							video: props.video,
+							onAddToQueue: props.onAddToQueue,
+							onAddToQueueAndPlay: props.onAddToQueueAndPlay,
+						})}
 					/>
 				</div>
 			</div>

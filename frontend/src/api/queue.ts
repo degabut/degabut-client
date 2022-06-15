@@ -48,12 +48,14 @@ export interface IGuildMember {
 	avatar: string;
 }
 
-export const addTrackByVideoId = async (videoId: string): Promise<void> => {
-	await client.post("/me/queue/tracks", { videoId });
+export const addTrackByVideoId = async (videoId: string): Promise<ITrack> => {
+	const response = await client.post("/me/queue/tracks", { videoId });
+	return response.data;
 };
 
-export const addTrackByKeyword = async (keyword: string): Promise<void> => {
-	await client.post("/me/queue/tracks", { keyword });
+export const addTrackByKeyword = async (keyword: string): Promise<ITrack> => {
+	const response = await client.post("/me/queue/tracks", { keyword });
+	return response.data;
 };
 
 export const orderTrack = async (trackId: string, to: number): Promise<void> => {

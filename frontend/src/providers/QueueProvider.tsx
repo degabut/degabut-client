@@ -26,6 +26,7 @@ export type QueueContextStore = {
 	playTrack: (track: ITrack) => Promise<void>;
 	removeTrack: (track: ITrack) => Promise<void>;
 	addTrack: (video: IVideoCompact) => Promise<void>;
+	addAndPlayTrack: (video: IVideoCompact) => Promise<void>;
 	refetch: () => IQueue | Promise<IQueue | null | undefined> | null | undefined;
 	toggleShuffle: () => Promise<void>;
 	changeLoopType: (loopType: LoopType) => Promise<void>;
@@ -43,6 +44,7 @@ export const QueueContext = createContext<QueueContextStore>({
 	playTrack: async () => {},
 	removeTrack: async () => {},
 	addTrack: async () => {},
+	addAndPlayTrack: async () => {},
 	toggleShuffle: async () => {},
 	changeLoopType: async () => {},
 	refetch: () => null,
@@ -75,6 +77,15 @@ export const QueueProvider: ParentComponent = (props) => {
 	const playTrack = (track: ITrack) => modifyTrack(() => api.playTrack(track.id));
 	const removeTrack = (track: ITrack) => modifyTrack(() => api.removeTrack(track.id));
 	const addTrack = (video: IVideoCompact) => modifyTrack(() => api.addTrackByVideoId(video.id));
+	const addAndPlayTrack = (video: IVideoCompact) =>
+		modifyTrack(async () => {
+			const track = await api.addTrackByVideoId(video.id);
+			try {
+				await api.playTrack(track.id);
+			} catch {
+				// ignore error
+			}
+		});
 
 	const modifyTrack = async (fn: () => Promise<unknown>) => {
 		setIsTrackLoading(true);
@@ -129,6 +140,7 @@ export const QueueProvider: ParentComponent = (props) => {
 		playTrack,
 		removeTrack,
 		addTrack,
+		addAndPlayTrack,
 		toggleShuffle,
 		changeLoopType,
 	};
