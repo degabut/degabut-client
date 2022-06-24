@@ -1,6 +1,6 @@
 import { Input, InputProps } from "@components";
 import { clickOutside } from "@directives";
-import { createEffect, createSignal, For, JSX, onMount, Show } from "solid-js";
+import { createEffect, createSignal, For, JSX, onCleanup, onMount, Show } from "solid-js";
 
 clickOutside;
 
@@ -21,6 +21,10 @@ export function Select<Item = unknown>(props: Props<Item>) {
 	onMount(() => {
 		document.addEventListener("keydown", onKeyDown);
 		if (props.focusOnMount) input.focus();
+	});
+
+	onCleanup(() => {
+		document.removeEventListener("keydown", onKeyDown);
 	});
 
 	const onKeyDown = (e: KeyboardEvent) => {
