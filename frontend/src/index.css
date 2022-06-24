@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: abeatbykai;
+	src: url("/font/abeatbykai.otf") format("opentype");
+}
+
 body {
 	font-family: "Poppins", sans-serif;
 	@apply h-full;
@@ -28,6 +33,10 @@ html::after {
 
 #root {
 	@apply h-full;
+}
+
+.font-brand {
+	font-family: "abeatbykai";
 }
 
 ::-webkit-scrollbar {
