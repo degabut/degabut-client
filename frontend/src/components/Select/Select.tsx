@@ -1,5 +1,8 @@
 import { Input, InputProps } from "@components";
+import { clickOutside } from "@directives";
 import { createEffect, createSignal, For, JSX, onMount, Show } from "solid-js";
+
+clickOutside;
 
 type Props<Item = unknown> = {
 	inputProps: InputProps;
@@ -11,6 +14,7 @@ type Props<Item = unknown> = {
 
 export function Select<Item = unknown>(props: Props<Item>) {
 	const [selectedIndex, setSelectedIndex] = createSignal(0);
+	const [isShowOptionList, setIsShowOptionList] = createSignal(false);
 	let input!: HTMLInputElement;
 	let optionList!: HTMLDivElement;
 
@@ -35,6 +39,7 @@ export function Select<Item = unknown>(props: Props<Item>) {
 	createEffect(() => {
 		if (!props.options.length) return;
 		setSelectedIndex(0);
+		setIsShowOptionList(true);
 	});
 
 	createEffect(() => {
@@ -56,10 +61,10 @@ export function Select<Item = unknown>(props: Props<Item>) {
 	});
 
 	return (
-		<div class="relative w-full space-y-4">
-			<Input {...props.inputProps} ref={input} />
+		<div class="relative w-full space-y-4" use:clickOutside={() => setIsShowOptionList(false)}>
+			<Input {...props.inputProps} ref={input} onFocus={() => setIsShowOptionList(true)} />
 
-			<Show when={props.options.length}>
+			<Show when={props.options.length && isShowOptionList()}>
 				<div ref={optionList} class="absolute w-full h-64 bg-neutral-800 overflow-y-scroll">
 					<For each={props.options}>
 						{(item, index) => (
