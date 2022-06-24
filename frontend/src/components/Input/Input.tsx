@@ -1,10 +1,10 @@
 import { Component, JSX } from "solid-js";
 
-type Props = JSX.InputHTMLAttributes<HTMLInputElement> & {
+export type InputProps = JSX.InputHTMLAttributes<HTMLInputElement> & {
 	rounded?: boolean;
 };
 
-export const Input: Component<Props> = (props) => {
+export const Input: Component<InputProps> = (props) => {
 	return (
 		<input
 			{...props}
