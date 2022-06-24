@@ -6,10 +6,11 @@ type IUseVideosProps = {
 };
 
 export const useVideos = ({ keyword }: IUseVideosProps) => {
-	const [data, { refetch }] = createResource(keyword, searchVideos);
+	const [data, { refetch, mutate }] = createResource(keyword, searchVideos);
 
 	return {
 		data,
 		refetch,
+		mutate,
 	};
 };

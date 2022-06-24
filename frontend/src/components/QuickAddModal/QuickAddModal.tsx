@@ -60,7 +60,11 @@ export const QuickAddModal: Component = () => {
 		}
 	};
 
-	const debouncedSetVideosKeyword = debounce(setVideosKeyword, 500);
+	const debouncedSetVideosKeyword = debounce((v: string) => {
+		setVideosKeyword(v);
+		videos.mutate([]);
+	}, 250);
+
 	const onInput = (e: InputEvent) => {
 		const value = (e.target as HTMLInputElement).value;
 		setKeyword(value);
@@ -74,7 +78,7 @@ export const QuickAddModal: Component = () => {
 
 	const onSubmit = async (e: Event) => {
 		e.preventDefault();
-		if (!keyword() || (videos.data()?.length && videos.data.loading)) return;
+		if (!keyword() || videos.data()?.length) return;
 		addVideo();
 	};
 
