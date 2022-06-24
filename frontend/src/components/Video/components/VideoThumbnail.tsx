@@ -6,6 +6,7 @@ import { Component, createMemo } from "solid-js";
 type Props = {
 	video: IVideoCompact;
 	variant?: "small" | "normal";
+	extraClass?: string;
 	extraContainerClass?: string;
 };
 
@@ -20,13 +21,13 @@ export const VideoThumbnail: Component<Props> = (props) => {
 			<img
 				src={thumbnail()?.url}
 				alt={props.video.title}
-				class="h-12 w-12 md:w-[6rem] md:h-[3.375rem] object-cover"
+				class={`h-12 w-12 md:w-[6rem] md:h-[3.375rem] object-cover ${props.extraClass}`}
 			/>
 		</Link>
 	) : (
 		<Link class={`relative flex bg-black ${props.extraContainerClass}`} href={youtubeUrl()} target="_blank">
 			<div class="sm:w-[16rem] sm:h-[10rem] mx-auto">
-				<img src={thumbnail()?.url} alt={props.video.title} class="h-full object-cover " />
+				<img src={thumbnail()?.url} alt={props.video.title} class={`h-full object-cover ${props.extraClass}`} />
 			</div>
 			<div class="absolute bottom-0 right-0 text-sm bg-black/90 py-1 px-2">
 				{secondsToTime(props.video.duration)}
