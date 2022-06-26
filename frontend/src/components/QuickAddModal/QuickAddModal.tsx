@@ -15,6 +15,7 @@ const VideoOption: Component<VideoOptionProps> = (props) => {
 		<div
 			class="flex flex-row space-x-2 cursor-pointer items-center p-1.5"
 			classList={{ "bg-white bg-opacity-10": props.isSelected }}
+			title={props.video.title + "\n" + props.video.channel.name}
 		>
 			<VideoThumbnail
 				video={props.video}
