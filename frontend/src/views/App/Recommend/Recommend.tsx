@@ -47,7 +47,9 @@ export const Recommend: Component = () => {
 		const mostPlayed = recommendations.data()?.mostPlayed || [];
 		const lastPlayed = recommendations.data()?.lastPlayed || [];
 
-		const videos = [...mostPlayed, ...lastPlayed.slice(0, 3), ...relatedVideos()];
+		const mostLastPlayed = mostPlayed.filter((v) => lastPlayed.some((l) => l.id === v.id));
+
+		const videos = [...mostLastPlayed, ...mostPlayed, ...lastPlayed, ...relatedVideos()];
 		const uniqueVideos = videos.reduce((acc, curr) => {
 			if (acc.find((v) => v.id === curr.id)) return acc;
 			return [...acc, curr];
