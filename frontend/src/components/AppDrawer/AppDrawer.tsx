@@ -15,9 +15,7 @@ export const AppDrawer: Component = () => {
 		<div class="relative flex flex-col h-full w-[16rem] bg-black overflow-y-auto overflow-x-hidden">
 			<MusicNoteIcon extraClass="absolute top-0 left-2" />
 
-			<div class="px-6 font-semibold text-2xl truncate py-8" title="Regular Voice">
-				Degabut
-			</div>
+			<div class="px-6 font-brand font-semibold text-3xl truncate py-8 ">degabut</div>
 			<div class="flex-grow text-lg">
 				<Link icon="audioPlaylist" label="Queue" path="/app/queue" />
 				<Link icon="search" label="Search" path="/app/search" />

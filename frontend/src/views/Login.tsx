@@ -27,7 +27,7 @@ export const Login: Component = () => {
 		<div class="flex items-center justify-center h-full">
 			<div class="flex flex-col items-center sm:bg-neutral-900 bg-transparent sm:px-16 sm:py-24 rounded-2xl">
 				<img src="/android-chrome-512x512.png" class="w-32 h-32" />
-				<div class="text-4xl font-brand mt-6 tracking-wide">degabut</div>
+				<div class="text-4xl font-brand mt-6 font-semibold">degabut</div>
 				<div class="mt-24">
 					<Link
 						href={import.meta.env.VITE_OAUTH_URL}

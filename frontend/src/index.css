@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: abeatbykai;
-	src: url("/font/abeatbykai.otf") format("opentype");
+	font-family: opificio;
+	src: url("/font/opificio.ttf");
 }
 
 body {
@@ -36,7 +36,7 @@ html::after {
 }
 
 .font-brand {
-	font-family: "abeatbykai";
+	font-family: "opificio";
 }
 
 ::-webkit-scrollbar {
