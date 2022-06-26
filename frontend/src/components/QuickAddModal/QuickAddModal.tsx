@@ -111,8 +111,8 @@ export const QuickAddModal: Component = () => {
 						disabled: isLoading(),
 						onInput: onInput,
 						placeholder: "Never gonna give you up",
+						focusOnMount: true,
 					}}
-					focusOnMount
 					options={videoOptions()}
 					onSelect={(v) => addVideo(v.id)}
 				>

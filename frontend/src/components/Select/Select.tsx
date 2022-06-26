@@ -7,7 +7,6 @@ clickOutside;
 type Props<Item = unknown> = {
 	inputProps: InputProps;
 	options: Item[];
-	focusOnMount?: boolean;
 	children: (item: Item, isSelected: boolean) => JSX.Element;
 	onSelect: (item: Item, index: number) => void;
 };
@@ -15,12 +14,10 @@ type Props<Item = unknown> = {
 export function Select<Item = unknown>(props: Props<Item>) {
 	const [selectedIndex, setSelectedIndex] = createSignal(0);
 	const [isShowOptionList, setIsShowOptionList] = createSignal(false);
-	let input!: HTMLInputElement;
 	let optionList!: HTMLDivElement;
 
 	onMount(() => {
 		document.addEventListener("keydown", onKeyDown);
-		if (props.focusOnMount) input.focus();
 	});
 
 	onCleanup(() => {
@@ -66,7 +63,7 @@ export function Select<Item = unknown>(props: Props<Item>) {
 
 	return (
 		<div class="relative w-full space-y-4" use:clickOutside={() => setIsShowOptionList(false)}>
-			<Input {...props.inputProps} ref={input} onFocus={() => setIsShowOptionList(true)} />
+			<Input {...props.inputProps} onFocus={() => setIsShowOptionList(true)} />
 
 			<Show when={props.options.length && isShowOptionList()}>
 				<div ref={optionList} class="absolute w-full h-64 bg-neutral-800 overflow-y-scroll">

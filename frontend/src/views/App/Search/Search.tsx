@@ -13,11 +13,9 @@ export const Search: Component = () => {
 	const queue = useQueue();
 	const [query, setQuery] = useSearchParams<{ keyword: string }>();
 	const { keyword, setKeyword, data: videos } = searchStore;
-	let searchInput!: HTMLInputElement;
 
 	onMount(() => {
 		setKeyword(query.keyword || "");
-		searchInput.focus();
 	});
 
 	const onInput = (ev: InputEvent) => {
@@ -31,7 +29,7 @@ export const Search: Component = () => {
 			<Input
 				type="text"
 				placeholder="Never gonna give you up"
-				ref={searchInput}
+				focusOnMount
 				value={keyword()}
 				onInput={debounce(onInput, 250)}
 			/>
