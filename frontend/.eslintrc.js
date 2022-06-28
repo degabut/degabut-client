@@ -17,5 +17,6 @@ module.exports = {
 		quotes: ["error", "double"],
 		semi: ["error", "always"],
 		"@typescript-eslint/no-empty-function": ["off"],
+		"no-mixed-spaces-and-tabs": ["off"],
 	},
 };

@@ -1,7 +1,6 @@
 import { IVideoCompact } from "@api";
 import { Video } from "@components";
-import { useQueue, useVideo } from "@hooks";
-import { useRecommendations } from "@hooks/useRecommendations";
+import { useQueue, useVideo, useVideos } from "@hooks";
 import { Component, createEffect, createMemo, createSignal, For, onCleanup, onMount, Show } from "solid-js";
 
 export const Recommend: Component = () => {
@@ -12,7 +11,8 @@ export const Recommend: Component = () => {
 
 	const queue = useQueue();
 	const video = useVideo({ videoId: () => relatedTargetVideoIds()[0] });
-	const recommendations = useRecommendations();
+	const lastPlayedVideos = useVideos({ last: 10 });
+	const mostPlayedVideos = useVideos({ days: 30, count: 10 });
 
 	onMount(() => document.addEventListener("scroll", trimRelatedTargetVideosIds, true));
 	onCleanup(() => document.removeEventListener("scroll", trimRelatedTargetVideosIds, true));
@@ -36,16 +36,17 @@ export const Recommend: Component = () => {
 	});
 
 	createEffect(() => {
-		const data = recommendations.data();
-		if (!data) return;
-		const videoIds = [...data.mostPlayed, ...data.lastPlayed].map((v) => v.id);
+		const lastPlayed = lastPlayedVideos.data();
+		const mostPlayed = mostPlayedVideos.data();
+		if (!lastPlayed || !mostPlayed) return;
+		const videoIds = [...mostPlayed, ...lastPlayed].map((v) => v.id);
 		setRelatedTargetVideoIds(videoIds);
 		setTimeout(trimRelatedTargetVideosIds, 0);
 	});
 
 	const videos = createMemo(() => {
-		const mostPlayed = recommendations.data()?.mostPlayed || [];
-		const lastPlayed = recommendations.data()?.lastPlayed || [];
+		const mostPlayed = mostPlayedVideos.data() || [];
+		const lastPlayed = lastPlayedVideos.data() || [];
 
 		const mostLastPlayed = mostPlayed.filter((v) => lastPlayed.some((l) => l.id === v.id));
 
@@ -75,7 +76,7 @@ export const Recommend: Component = () => {
 						/>
 					)}
 				</For>
-				<Show when={recommendations.data.loading || video.data.loading}>
+				<Show when={lastPlayedVideos.data.loading || mostPlayedVideos.data.loading || video.data.loading}>
 					<For each={Array(10)}>{() => <Video.CardSkeleton />}</For>
 				</Show>
 			</div>

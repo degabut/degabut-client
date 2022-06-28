@@ -2,13 +2,17 @@ import { client } from "./axios";
 import { IQueue } from "./queue";
 import { IVideoCompact } from "./videos";
 
-type GetRecommendationsResult = {
-	mostPlayed: IVideoCompact[];
-	lastPlayed: IVideoCompact[];
+export type GetLastPlayedParams = {
+	last: number;
 };
 
-export async function getRecommendations(): Promise<GetRecommendationsResult> {
-	const response = await client.get("/me/videos/recommendations");
+export type GetMostPlayedParams = {
+	days: number;
+	count: number;
+};
+
+export async function getVideoHistory(params: GetLastPlayedParams | GetMostPlayedParams): Promise<IVideoCompact[]> {
+	const response = await client.get("/me/videos", { params });
 	if (response.status === 200) return response.data;
 	throw new Error();
 }
