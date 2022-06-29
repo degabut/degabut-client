@@ -1,4 +1,3 @@
-import { AppMenuBar } from "@components";
 import { Landing, Login, OAuth } from "@views";
 import { App } from "@views/App";
 import { Queue } from "@views/App/Queue";
@@ -16,7 +15,7 @@ export const Main: Component = () => {
 
 	return (
 		<div class="flex flex-col h-full">
-			{IS_DESKTOP && <AppMenuBar />}
+			{/* {IS_DESKTOP && <AppMenuBar />} */}
 			<div class="flex-grow overflow-x-auto overflow-y-auto w-full">
 				<Routes>
 					<Route path="/" element={<Landing />} />

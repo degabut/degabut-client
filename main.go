@@ -35,7 +35,7 @@ func main() {
 		Height:    768,
 		MinWidth:  1048,
 		MinHeight: 768,
-		Frameless: true,
+		// Frameless: true,
 		Assets:    assets,
 		OnStartup: app.Startup,
 		OnShutdown: func(ctx context.Context) {
