@@ -40,10 +40,8 @@ jobs:
         run: |
           wails generate module
           wails build -ldflags "-X main.clientId=${{ secrets.CLIENT_ID }}"
-      - name: Zip
-        run: Compress-Archive .\build\bin\degabut.exe degabut_${{env.VERSION}}.zip
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: "${{env.VERSION}}"
-          files: "degabut_${{env.VERSION}}.zip"
+          files: .\build\bin\degabut.exe
