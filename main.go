@@ -36,8 +36,9 @@ func main() {
 		MinWidth:  1048,
 		MinHeight: 768,
 		// Frameless: true,
-		Assets:    assets,
-		OnStartup: app.Startup,
+		HideWindowOnClose: true,
+		Assets:            assets,
+		OnStartup:         app.Startup,
 		OnShutdown: func(ctx context.Context) {
 			l.Close()
 		},
