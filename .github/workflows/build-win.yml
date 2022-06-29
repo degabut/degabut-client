@@ -39,7 +39,7 @@ jobs:
       - name: Build
         run: |
           wails generate module
-          wails build -ldflags "-X main.clientId=${{ secrets.CLIENT_ID }}"
+          wails build -ldflags "-X main.clientId=${{ secrets.CLIENT_ID }} -X github.com/degabut/degabut-client/app.version=${{env.VERSION}} -X github.com/degabut/degabut-client/app.metaUrl=${{ secrets.META_URL }} -X github.com/degabut/degabut-client/app.binaryUrl=${{ secrets.BINARY_URL }}"
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
