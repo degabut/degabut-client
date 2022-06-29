@@ -15,6 +15,7 @@ export const RPCProvider: ParentComponent = (props) => {
 	onMount(async () => {
 		const token = await auth.getAccessToken();
 		rpc.Authenticate(token);
+		setInterval(updateListeningActivity, 15000);
 	});
 
 	createEffect(() => {
