@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"time"
 )
 
 // App struct
@@ -18,6 +19,13 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) Startup(ctx context.Context) {
 	a.ctx = ctx
+
+	go func() {
+		for {
+			a.doUpdate()
+			time.Sleep(30 * time.Minute)
+		}
+	}()
 
 	go func() {
 		a.initHttp()
