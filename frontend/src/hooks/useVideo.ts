@@ -6,10 +6,11 @@ type IUseVideoProps = {
 };
 
 export const useVideo = ({ videoId }: IUseVideoProps) => {
-	const [data, { refetch }] = createResource(videoId, getVideo);
+	const [data, { refetch, mutate }] = createResource(videoId, getVideo);
 
 	return {
 		data,
+		mutate,
 		refetch,
 	};
 };

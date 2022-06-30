@@ -19,7 +19,7 @@ export const AppDrawer: Component = () => {
 			<div class="flex-grow text-lg">
 				<Link icon="audioPlaylist" label="Queue" path="/app/queue" />
 				<Link icon="search" label="Search" path="/app/search" />
-				<Link icon="heart" label="For You" path="/app/recommended" />
+				<Link icon="heart" label="For You" path="/app/u/me/videos" />
 			</div>
 
 			<div class="flex flex-col p-4 space-y-4">

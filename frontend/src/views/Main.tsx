@@ -37,7 +37,7 @@ export const Main: Component = () => {
 							<Route path="/" element={<Queue />} />
 							<Route path="/queue" element={<Queue />} />
 							<Route path="/video/:id" element={<VideoDetail />} />
-							<Route path="/recommended" element={<Recommend />} />
+							<Route path="/u/:id/videos" element={<Recommend />} />
 							<Route path="/search" element={<Search />} />
 						</Route>
 					</Routes>

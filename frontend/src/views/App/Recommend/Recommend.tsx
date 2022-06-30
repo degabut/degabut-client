@@ -1,18 +1,22 @@
 import { IVideoCompact } from "@api";
 import { Video } from "@components";
 import { useQueue, useVideo, useVideos } from "@hooks";
+import { useParams } from "solid-app-router";
 import { Component, createEffect, createMemo, createSignal, For, onCleanup, onMount, Show } from "solid-js";
 
 export const Recommend: Component = () => {
+	const params = useParams<{ id: string }>();
 	let containerElement!: HTMLDivElement;
 
 	const [relatedTargetVideoIds, setRelatedTargetVideoIds] = createSignal<string[]>([]);
 	const [relatedVideos, setRelatedVideos] = createSignal<IVideoCompact[]>([]);
+	const [lastPlayedParams, setLastPlayedParams] = createSignal({ userId: params.id, last: 10 });
+	const [mostPlayedParams, setMostPlayedParams] = createSignal({ userId: params.id, days: 30, count: 10 });
 
 	const queue = useQueue();
 	const video = useVideo({ videoId: () => relatedTargetVideoIds()[0] });
-	const lastPlayedVideos = useVideos({ userId: "me", last: 10 });
-	const mostPlayedVideos = useVideos({ userId: "me", days: 30, count: 10 });
+	const lastPlayedVideos = useVideos(lastPlayedParams);
+	const mostPlayedVideos = useVideos(mostPlayedParams);
 
 	onMount(() => document.addEventListener("scroll", trimRelatedTargetVideosIds, true));
 	onCleanup(() => document.removeEventListener("scroll", trimRelatedTargetVideosIds, true));
@@ -44,6 +48,20 @@ export const Recommend: Component = () => {
 		setTimeout(trimRelatedTargetVideosIds, 0);
 	});
 
+	createEffect(() => {
+		if (!params.id) return;
+
+		lastPlayedVideos.mutate([]);
+		mostPlayedVideos.mutate([]);
+		setRelatedVideos([]);
+		setLastPlayedParams((v) => ({ ...v, userId: params.id }));
+		setMostPlayedParams((v) => ({ ...v, userId: params.id }));
+	});
+
+	const targetUser = createMemo(() => {
+		return queue.data()?.voiceChannel.members.find((m) => m.id === params.id);
+	});
+
 	const videos = createMemo(() => {
 		const mostPlayed = mostPlayedVideos.data() || [];
 		const lastPlayed = lastPlayedVideos.data() || [];
@@ -61,7 +79,11 @@ export const Recommend: Component = () => {
 
 	return (
 		<div class="flex flex-col space-y-6">
-			<h1 class="text-2xl font-medium">Recommended For You</h1>
+			<h1 class="text-2xl font-medium">
+				<Show when={targetUser()} fallback="Recommended For You">
+					{(user) => `${user.displayName}#${user.discriminator} recommendation`}
+				</Show>
+			</h1>
 
 			<div
 				ref={containerElement}

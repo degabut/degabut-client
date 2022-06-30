@@ -9,7 +9,13 @@ export type ContextMenuItem = {
 	onClick?: () => void;
 };
 
-export type ShowParams = { x: number; y: number; items: ContextMenuItem[]; header?: JSX.Element };
+export type ShowParams = {
+	x: number;
+	y: number;
+	items: ContextMenuItem[];
+	header?: JSX.Element;
+	extraContainerClass?: string;
+};
 export type ContextMenuDirectiveParams = Omit<ShowParams, "x" | "y">;
 
 type ContextMenuContextStore = {
@@ -68,7 +74,9 @@ export const ContextMenuProvider: ParentComponent = (props) => {
 							left: params().x + "px",
 							top: params().y + "px",
 						}}
-						class="hidden md:block fixed bg-black z-50 min-w-[12rem] w-max"
+						class={`hidden md:block fixed bg-black z-50 min-w-[12rem] w-max ${
+							params().extraContainerClass
+						}`}
 					>
 						<For each={params().items}>
 							{(item) => (
@@ -82,7 +90,9 @@ export const ContextMenuProvider: ParentComponent = (props) => {
 					<div class="block md:hidden fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-80 z-50">
 						<div
 							use:clickOutside={() => setIsShowContextMenu(false)}
-							class="absolute bottom-0 w-full bg-neutral-900 pb-8 z-50 min-h-[50vh] max-h-full overflow-y-auto"
+							class={`absolute bottom-0 w-full bg-neutral-900 pb-8 z-50 min-h-[50vh] max-h-full overflow-y-auto ${
+								params().extraContainerClass
+							}`}
 						>
 							<div class="px-2">{params().header}</div>
 							<For each={params().items}>

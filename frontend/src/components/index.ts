@@ -10,4 +10,5 @@ export * from "./QuickAddModal";
 export * from "./Select";
 export * from "./Slider";
 export * from "./Tabs";
+export * from "./UserListDrawer";
 export * from "./Video";

@@ -1,4 +1,4 @@
-import { AppDrawer, CatJam, Icon, MobileAppDrawer, QuickAddModal } from "@components";
+import { AppDrawer, CatJam, Icon, MobileAppDrawer, QuickAddModal, UserListDrawer } from "@components";
 import { useQueue } from "@hooks";
 import { ContextMenuProvider, QueueProvider, RPCProvider } from "@providers";
 import { Outlet, useLocation, useNavigate } from "solid-app-router";
@@ -8,7 +8,9 @@ export const App: Component = () => {
 	return (
 		<QueueProvider>
 			<RPCProvider>
-				<ProvidedApp />
+				<ContextMenuProvider>
+					<ProvidedApp />
+				</ContextMenuProvider>
 			</RPCProvider>
 		</QueueProvider>
 	);
@@ -43,12 +45,14 @@ const ProvidedApp: Component = () => {
 					<div class="absolute top-0 left-0 md:hidden w-full h-48 bg-gradient-to-b from-gray-800 to-transparent" />
 
 					<Show when={queue.data() || queue.isInitialLoading()} fallback={<NoQueue />}>
-						<ContextMenuProvider>
-							<div class="z-10 py-8 px-2 md:px-8 pb-32">
-								<Outlet />
-							</div>
-						</ContextMenuProvider>
+						<div class="z-10 py-8 px-2 md:px-8 pb-32">
+							<Outlet />
+						</div>
 					</Show>
+				</div>
+
+				<div class="lg:block hidden z-30">
+					<UserListDrawer />
 				</div>
 
 				<div class="md:hidden block w-full z-30">

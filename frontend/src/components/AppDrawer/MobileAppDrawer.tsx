@@ -33,7 +33,7 @@ export const MobileAppDrawer: Component = () => {
 			<div class="flex flex-row flex-wrap bg-black items-center h-full">
 				<MobileLink icon="audioPlaylist" label="Queue" path="/app/queue" />
 				<MobileLink icon="search" label="Search" path="/app/search" />
-				<MobileLink icon="heart" label="For You" path="/app/recommended" />
+				<MobileLink icon="heart" label="For You" path="/app/u/me/videos" />
 			</div>
 		</div>
 	);
