@@ -1,27 +1,34 @@
-import { GetMostPlayedParams, getVideoHistory, IVideoCompact, searchVideos } from "@api";
-import { Accessor, createResource, ResourceReturn } from "solid-js";
-import { ResourceOptions } from "solid-js/types/reactive/signal";
+import { getVideoHistory, searchVideos } from "@api";
+import { Accessor, createResource } from "solid-js";
 
-type IUseVideosProps =
+type PropsValue =
 	| {
-			keyword: Accessor<string> | string;
+			keyword: string;
 	  }
 	| {
-			last: Accessor<number> | number;
+			userId: string;
+			last: number;
 	  }
-	| Accessor<GetMostPlayedParams>
-	| GetMostPlayedParams;
+	| {
+			userId: string;
+			days: number;
+			count: number;
+	  };
+
+type IUseVideosProps = Accessor<PropsValue> | PropsValue;
 
 export const useVideos = (props: IUseVideosProps) => {
-	let resource: ResourceReturn<IVideoCompact[] | undefined, ResourceOptions<IVideoCompact[]>>;
-
-	if ("keyword" in props) {
-		resource = createResource(props.keyword, (keyword) => searchVideos(keyword));
-	} else if ("last" in props) {
-		resource = createResource(props.last, (last) => getVideoHistory({ last }));
-	} else {
-		resource = createResource(props, (params) => getVideoHistory(params));
-	}
+	const resource = createResource(props, (value) => {
+		if ("userId" in value) {
+			if ("last" in value) {
+				return getVideoHistory(value.userId, { last: value.last });
+			} else {
+				return getVideoHistory(value.userId, { count: value.count, days: value.days });
+			}
+		} else {
+			return searchVideos(value.keyword);
+		}
+	});
 
 	const [data, { refetch, mutate }] = resource;
 

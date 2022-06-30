@@ -11,8 +11,8 @@ export const Recommend: Component = () => {
 
 	const queue = useQueue();
 	const video = useVideo({ videoId: () => relatedTargetVideoIds()[0] });
-	const lastPlayedVideos = useVideos({ last: 10 });
-	const mostPlayedVideos = useVideos({ days: 30, count: 10 });
+	const lastPlayedVideos = useVideos({ userId: "me", last: 10 });
+	const mostPlayedVideos = useVideos({ userId: "me", days: 30, count: 10 });
 
 	onMount(() => document.addEventListener("scroll", trimRelatedTargetVideosIds, true));
 	onCleanup(() => document.removeEventListener("scroll", trimRelatedTargetVideosIds, true));
