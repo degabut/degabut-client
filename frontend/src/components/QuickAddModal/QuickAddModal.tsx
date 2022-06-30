@@ -40,7 +40,7 @@ export const QuickAddModal: Component = () => {
 	const [isLoading, setIsLoading] = createSignal(false);
 	const [keyword, setKeyword] = createSignal("");
 	const [videosKeyword, setVideosKeyword] = createSignal("");
-	const videos = useVideos({ keyword: videosKeyword });
+	const videos = useVideos(videosKeyword);
 
 	onMount(() => {
 		document.addEventListener("keydown", onKeyDown);
