@@ -1,5 +1,5 @@
-import { Icon } from "@components";
-import { useQueue } from "@hooks";
+import { Drawer, Icon } from "@components";
+import { useApp, useQueue } from "@hooks";
 import { Link as SolidLink } from "solid-app-router";
 import { Component, Show } from "solid-js";
 import { Link } from "./Link";
@@ -9,23 +9,33 @@ const MusicNoteIcon: Component<{ extraClass: string }> = (props) => (
 );
 
 export const AppDrawer: Component = () => {
+	const app = useApp();
 	const queue = useQueue();
 
+	const onLinkClick = () => {
+		if (window.innerWidth <= 768) app.setIsMenuOpen(false);
+	};
+
 	return (
-		<div class="relative flex flex-col h-full w-[16rem] bg-black overflow-y-auto overflow-x-hidden">
+		<Drawer isOpen={app.isMenuOpen()} handleClose={() => app.setIsMenuOpen(false)}>
 			<MusicNoteIcon extraClass="absolute top-0 left-2" />
 
-			<div class="px-6 font-brand font-semibold text-3xl truncate py-8 ">degabut</div>
+			<div class="px-6 font-brand font-semibold text-3xl truncate py-8">degabut</div>
 			<div class="flex-grow text-lg">
-				<Link icon="audioPlaylist" label="Queue" path="/app/queue" />
-				<Link icon="search" label="Search" path="/app/search" />
-				<Link icon="heart" label="For You" path="/app/u/me/videos" />
+				<Link icon="audioPlaylist" label="Queue" path="/app/queue" onClick={onLinkClick} />
+				<Link icon="search" label="Search" path="/app/search" onClick={onLinkClick} />
+				<Link icon="heart" label="For You" path="/app/u/me/videos" onClick={onLinkClick} />
 			</div>
 
-			<div class="flex flex-col p-4 space-y-4">
+			<div class="hidden md:block">
 				<Show when={queue.data()?.nowPlaying}>
 					{({ video, requestedBy }) => (
-						<SolidLink href="/app/queue" class="flex flex-col space-y-3 cursor-pointer" title={video.title}>
+						<SolidLink
+							href="/app/queue"
+							class=" flex flex-col p-4 space-y-3 cursor-pointer"
+							title={video.title}
+							onClick={onLinkClick}
+						>
 							<div class="text-lg font-medium">Now Playing</div>
 							<div class="flex flex-row space-x-2">
 								<img class="object-cover h-16 w-16" src={video.thumbnails[0].url} alt={video.title} />
@@ -43,6 +53,6 @@ export const AppDrawer: Component = () => {
 			</div>
 
 			<MusicNoteIcon extraClass="absolute bottom-2 right-2" />
-		</div>
+		</Drawer>
 	);
 };

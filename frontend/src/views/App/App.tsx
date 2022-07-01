@@ -1,18 +1,21 @@
-import { AppDrawer, CatJam, Icon, MobileAppDrawer, QuickAddModal, UserListDrawer } from "@components";
+import { AppDrawer, AppHeader, CatJam, Icon, MobileAppDrawer, QuickAddModal, UserListDrawer } from "@components";
 import { useQueue } from "@hooks";
 import { ContextMenuProvider, QueueProvider, RPCProvider } from "@providers";
+import { AppProvider } from "@providers/AppProvider";
 import { Outlet, useLocation, useNavigate } from "solid-app-router";
 import { Component, onMount, Show } from "solid-js";
 
 export const App: Component = () => {
 	return (
-		<QueueProvider>
-			<RPCProvider>
-				<ContextMenuProvider>
-					<ProvidedApp />
-				</ContextMenuProvider>
-			</RPCProvider>
-		</QueueProvider>
+		<AppProvider>
+			<QueueProvider>
+				<RPCProvider>
+					<ContextMenuProvider>
+						<ProvidedApp />
+					</ContextMenuProvider>
+				</RPCProvider>
+			</QueueProvider>
+		</AppProvider>
 	);
 };
 
@@ -37,23 +40,23 @@ const ProvidedApp: Component = () => {
 	return (
 		<>
 			<div class="flex flex-col md:flex-row h-full">
-				<div class="md:block hidden z-30">
-					<AppDrawer />
+				<AppDrawer />
+
+				<div class="relative h-full flex-grow flex flex-col overflow-x-hidden">
+					<div class="flex-shrink-0">
+						<AppHeader />
+					</div>
+
+					<div class="overflow-y-auto">
+						<Show when={queue.data() || queue.isInitialLoading()} fallback={<NoQueue />}>
+							<div class="z-10 py-8 px-2 md:px-8 pb-32">
+								<Outlet />
+							</div>
+						</Show>
+					</div>
 				</div>
 
-				<div class="relative h-full flex-grow flex flex-col overflow-y-auto overflow-x-hidden">
-					<div class="absolute top-0 left-0 md:hidden w-full h-48 bg-gradient-to-b from-gray-800 to-transparent" />
-
-					<Show when={queue.data() || queue.isInitialLoading()} fallback={<NoQueue />}>
-						<div class="z-10 py-8 px-2 md:px-8 pb-32">
-							<Outlet />
-						</div>
-					</Show>
-				</div>
-
-				<div class="lg:block hidden z-30">
-					<UserListDrawer />
-				</div>
+				<UserListDrawer />
 
 				<div class="md:hidden block w-full z-30">
 					<MobileAppDrawer />

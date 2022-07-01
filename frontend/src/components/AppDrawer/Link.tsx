@@ -7,22 +7,24 @@ type Props = {
 	icon: Icons;
 	label: string;
 	path: string;
+	onClick: () => void;
 };
 
-export const Link: Component<Props> = ({ icon, label, path }) => {
-	const isActive = useMatch(() => path);
+export const Link: Component<Props> = (props) => {
+	const isActive = useMatch(() => props.path);
 
 	return (
 		<RouterLink
-			href={path}
+			href={props.path}
 			class="flex flex-row fill-current items-center space-x-4 cursor-pointer px-6 py-3 transition-colors"
 			classList={{
 				"text-neutral-400 hover:bg-white/5": !isActive(),
 				"text-neutral-100 bg-white/10 font-medium": !!isActive(),
 			}}
+			onClick={props.onClick}
 		>
-			<Icon name={icon} size="lg" />
-			<div>{label}</div>
+			<Icon name={props.icon} size="lg" />
+			<div>{props.label}</div>
 		</RouterLink>
 	);
 };

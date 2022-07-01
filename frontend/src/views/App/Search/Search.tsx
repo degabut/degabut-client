@@ -1,5 +1,5 @@
 import { Input, Video } from "@components";
-import { useQueue } from "@hooks";
+import { useApp, useQueue } from "@hooks";
 import { searchStore } from "@stores";
 import { debounce } from "@utils";
 import { useSearchParams } from "solid-app-router";
@@ -10,11 +10,13 @@ const SearchResultSkeleton: Component = () => {
 };
 
 export const Search: Component = () => {
+	const app = useApp();
 	const queue = useQueue();
 	const [query, setQuery] = useSearchParams<{ keyword: string }>();
 	const { keyword, setKeyword, data: videos } = searchStore;
 
 	onMount(() => {
+		app.setTitle("Search");
 		setKeyword(query.keyword || "");
 	});
 

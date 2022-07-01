@@ -1,8 +1,8 @@
 import { ITrack, LoopType } from "@api";
 import { Tabs, Video } from "@components";
 import { TabLabel } from "@components/Tabs/TabLabel";
-import { useQueue } from "@hooks";
-import { Component, createEffect, createSignal, Show } from "solid-js";
+import { useApp, useQueue } from "@hooks";
+import { Component, createEffect, createSignal, onMount, Show } from "solid-js";
 import { createStore } from "solid-js/store";
 import {
 	LoopToggleButton,
@@ -14,11 +14,14 @@ import {
 } from "./components";
 
 export const Queue: Component = () => {
+	const app = useApp();
 	const queue = useQueue();
 
 	const [isDragging, setIsDragging] = createSignal(false);
 
 	const [tracks, setTracks] = createStore(queue.data()?.tracks || []);
+
+	onMount(() => app.setTitle("Queue"));
 
 	createEffect(() => !queue.isTrackLoading() && queue.refetch());
 
@@ -45,13 +48,11 @@ export const Queue: Component = () => {
 
 	return (
 		<div class="max-w-7xl">
-			<h1 class="text-2xl font-medium">Queue</h1>
-
 			<div class="flex flex-col space-y-6">
 				<div class="flex flex-col space-y-3">
 					<Show when={queue.data()?.nowPlaying} fallback={<div />}>
 						{(track) => (
-							<div class="mt-4 md:mt-8 space-y-4">
+							<div class="space-y-4">
 								<div class="text-xl font-normal">Now Playing</div>
 								<Video.List
 									{...track}
@@ -63,7 +64,7 @@ export const Queue: Component = () => {
 						)}
 					</Show>
 
-					<div class="flex flex-row  items-center justify-evenly md:justify-start space-x-4">
+					<div class="flex flex-row items-center justify-evenly md:justify-start space-x-4">
 						<Show when={queue.data()?.nowPlaying}>
 							{() => <SkipButton onClick={() => queue.skipTrack()} disabled={queue.isTrackFreezed()} />}
 						</Show>

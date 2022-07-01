@@ -1,16 +1,22 @@
+import { Drawer } from "@components";
 import { contextMenu } from "@directives";
-import { useQueue } from "@hooks";
+import { useApp, useQueue } from "@hooks";
 import { useNavigate } from "solid-app-router";
 import { Component, For } from "solid-js";
 
 contextMenu;
 
 export const UserListDrawer: Component = () => {
+	const app = useApp();
 	const queue = useQueue();
 	const navigate = useNavigate();
 
 	return (
-		<div class="relative flex flex-col h-full w-[16rem] bg-black">
+		<Drawer
+			isOpen={app.isMemberOpen()}
+			handleClose={() => app.setIsMemberOpen(false)}
+			extraContainerClass="right-0"
+		>
 			<div class="text-xl font-bold truncate px-4 py-6">{queue.data()?.voiceChannel.name}</div>
 			<div class="overflow-y-auto overflow-x-hidden">
 				<For each={queue.data()?.voiceChannel.members || []}>
@@ -35,6 +41,6 @@ export const UserListDrawer: Component = () => {
 					)}
 				</For>
 			</div>
-		</div>
+		</Drawer>
 	);
 };
