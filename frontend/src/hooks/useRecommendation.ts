@@ -11,12 +11,18 @@ type UseRecommendationParams = {
 export const useRecommendation = (params: UseRecommendationParams) => {
 	const [relatedTargetVideoIds, setRelatedTargetVideoIds] = createSignal<string[]>([]);
 	const [relatedVideos, setRelatedVideos] = createSignal<IVideoCompact[]>([]);
-	const [lastPlayedParams, setLastPlayedParams] = createSignal({ userId: params.userId(), last: 10 });
+	const [lastPlayedParams, setLastPlayedParams] = createSignal({ userId: params.userId(), last: 5 });
 	const [mostPlayedParams, setMostPlayedParams] = createSignal({ userId: params.userId(), days: 30, count: 10 });
+	const [recentMostPlayedParams, setRecentMostPlayedParams] = createSignal({
+		userId: params.userId(),
+		days: 7,
+		count: 5,
+	});
 
 	const video = useVideo({ videoId: () => relatedTargetVideoIds()[0] });
 	const lastPlayedVideos = useVideos(lastPlayedParams);
 	const mostPlayedVideos = useVideos(mostPlayedParams);
+	const recentMostPlayedVideos = useVideos(recentMostPlayedParams);
 
 	createEffect(() => {
 		const videos = video.data()?.related;
@@ -43,24 +49,29 @@ export const useRecommendation = (params: UseRecommendationParams) => {
 
 		lastPlayedVideos.mutate([]);
 		mostPlayedVideos.mutate([]);
+		recentMostPlayedVideos.mutate([]);
 		setRelatedVideos([]);
 		setLastPlayedParams((v) => ({ ...v, userId }));
 		setMostPlayedParams((v) => ({ ...v, userId }));
+		setRecentMostPlayedParams((v) => ({ ...v, userId }));
 	});
 
 	const videos = createMemo(() => {
-		if (mostPlayedVideos.data.loading || lastPlayedVideos.data.loading) return [];
+		if (mostPlayedVideos.data.loading || lastPlayedVideos.data.loading || recentMostPlayedVideos.data.loading) {
+			return [];
+		}
+
 		const mostPlayed = mostPlayedVideos.data() || [];
 		const lastPlayed = lastPlayedVideos.data() || [];
-
+		const recentMostPlayed = recentMostPlayedVideos.data() || [];
 		const mostLastPlayed = mostPlayed.filter((v) => lastPlayed.some((l) => l.id === v.id));
 
-		const videos = [...mostLastPlayed, ...mostPlayed, ...lastPlayed, ...relatedVideos()];
+		const videos = [...recentMostPlayed, ...mostLastPlayed, ...lastPlayed, ...mostPlayed, ...relatedVideos()];
+
 		const uniqueVideos = videos.reduce((acc, curr) => {
 			if (acc.find((v) => v.id === curr.id)) return acc;
 			return [...acc, curr];
 		}, [] as IVideoCompact[]);
-
 		return uniqueVideos;
 	});
 
