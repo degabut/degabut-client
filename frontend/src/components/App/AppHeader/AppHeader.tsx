@@ -8,11 +8,11 @@ export const AppHeader: Component = () => {
 	return (
 		<div class="flex flex-row items-center bg-neutral-900 h-16 md:h-14 px-2 md:px-4 py-2 space-x-2">
 			<div class="md:hidden cursor-pointer p-2" onClick={() => app.setIsMenuOpen((v) => !v)}>
-				<Icon name="list" size="md" extraClass="fill-white" />
+				<Icon name="menu" size="lg" extraClass="fill-white" />
 			</div>
 			<div class="flex-grow text-xl font-medium truncate px-2">{app?.title()}</div>
 			<div class="cursor-pointer p-2" onClick={() => app.setIsMemberOpen((v) => !v)}>
-				<Icon name="people" extraClass="fill-white w-5 h-5" />
+				<Icon name="people" size="lg" extraClass="fill-white" />
 			</div>
 		</div>
 	);

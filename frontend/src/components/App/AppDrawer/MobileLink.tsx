@@ -1,7 +1,7 @@
 import { RouterLink } from "@components";
 import { useMatch } from "solid-app-router";
 import { Component } from "solid-js";
-import { Icon, Icons } from "../Icon";
+import { Icon, Icons } from "../../Icon";
 
 type Props = {
 	icon: Icons;
