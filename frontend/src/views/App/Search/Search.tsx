@@ -1,9 +1,8 @@
 import { Input, Video } from "@components";
-import { useApp, useQueue } from "@hooks";
-import { searchStore } from "@stores";
+import { useApp, useQueue, useVideos } from "@hooks";
 import { debounce } from "@utils";
 import { useSearchParams } from "solid-app-router";
-import { Component, For, onMount, Show } from "solid-js";
+import { Component, createSignal, For, onMount, Show } from "solid-js";
 
 const SearchResultSkeleton: Component = () => {
 	return <For each={Array(5)}>{() => <Video.ListSkeleton />}</For>;
@@ -13,7 +12,8 @@ export const Search: Component = () => {
 	const app = useApp();
 	const queue = useQueue();
 	const [query, setQuery] = useSearchParams<{ keyword: string }>();
-	const { keyword, setKeyword, data: videos } = searchStore;
+	const [keyword, setKeyword] = createSignal("");
+	const videos = useVideos(keyword);
 
 	onMount(() => {
 		app.setTitle("Search");
@@ -31,14 +31,14 @@ export const Search: Component = () => {
 			<Input
 				type="text"
 				placeholder="Never gonna give you up"
-				focusOnMount
+				focusOnMount={!query.keyword}
 				value={keyword()}
 				onInput={debounce(onInput, 250)}
 			/>
 
 			<div class="space-y-8">
-				<Show when={!videos.loading} fallback={<SearchResultSkeleton />}>
-					<For each={videos()}>
+				<Show when={!videos.data.loading} fallback={<SearchResultSkeleton />}>
+					<For each={videos.data()}>
 						{(video) => (
 							<Video.List
 								video={video}
