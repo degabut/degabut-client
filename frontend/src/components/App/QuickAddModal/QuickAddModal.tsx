@@ -55,7 +55,13 @@ export const QuickAddModal: Component = () => {
 			setIsModalOpen(false);
 		}
 
-		if (tagName !== "INPUT" && tagName !== "TEXTAREA" && queue.data() && !isModalOpen() && e.key === "p") {
+		if (
+			tagName !== "INPUT" &&
+			tagName !== "TEXTAREA" &&
+			queue.data() &&
+			!isModalOpen() &&
+			e.key.toLowerCase() === "p"
+		) {
 			e.preventDefault();
 			setIsModalOpen(true);
 		}
