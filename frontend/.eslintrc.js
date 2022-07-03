@@ -4,7 +4,7 @@ module.exports = {
 		es2021: true,
 		node: true,
 	},
-	extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+	extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:solid/typescript"],
 	parser: "@typescript-eslint/parser",
 	parserOptions: {
 		ecmaVersion: "latest",
@@ -12,7 +12,7 @@ module.exports = {
 	},
 	plugins: ["@typescript-eslint"],
 	rules: {
-		indent: ["error", "tab"],
+		// indent: ["error", "tab"], // TODO: fix this, causes error at the moment
 		"linebreak-style": ["error", "unix"],
 		quotes: ["error", "double"],
 		semi: ["error", "always"],

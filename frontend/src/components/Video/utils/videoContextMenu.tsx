@@ -5,8 +5,8 @@ import { VideoContextMenuItem } from "../components";
 
 type Props = {
 	video: IVideoCompact;
-	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
-	onAddToQueueAndPlay?: (video: IVideoCompact) => Promise<void>;
+	onAddToQueue?: (video: IVideoCompact) => void;
+	onAddToQueueAndPlay?: (video: IVideoCompact) => void;
 };
 
 export const getVideoContextMenu = (props: Props) => {

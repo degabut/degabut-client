@@ -18,8 +18,9 @@ export const useRecommendation = (params: UseRecommendationParams) => {
 		days: 7,
 		count: 5,
 	});
+	const currentRelatedVideoId = createMemo(() => relatedTargetVideoIds()[0]);
 
-	const video = useVideo({ videoId: () => relatedTargetVideoIds()[0] });
+	const video = useVideo({ videoId: currentRelatedVideoId });
 	const lastPlayedVideos = useVideos(lastPlayedParams);
 	const mostPlayedVideos = useVideos(mostPlayedParams);
 	const recentMostPlayedVideos = useVideos(recentMostPlayedParams);

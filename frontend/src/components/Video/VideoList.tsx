@@ -13,8 +13,8 @@ type Props = {
 	video: IVideoCompact;
 	requestedBy?: IGuildMember;
 	variant?: "small" | "normal";
-	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
-	onAddToQueueAndPlay?: (video: IVideoCompact) => Promise<void>;
+	onAddToQueue?: (video: IVideoCompact) => void;
+	onAddToQueueAndPlay?: (video: IVideoCompact) => void;
 	extraContextMenuItems?: ContextMenuItem[];
 	extraContainerClass?: string;
 	extraTitleClass?: string;
@@ -36,51 +36,57 @@ export const VideoList: Component<Props> = (props) => {
 		};
 	});
 
-	return props.variant === "small" ? (
-		<div
-			class={`flex flex-row items-center space-x-1.5 md:space-x-3 w-full md:pr-2 hover:bg-white/5 ${props.extraContainerClass}`}
-			use:contextMenu={contextMenuProps()}
-		>
-			<VideoThumbnail video={props.video} variant={props.variant} extraContainerClass="flex-shrink-0" />
-			<div class="flex flex-col flex-grow flex-shrink md:space-y-1 py-1 truncate">
-				<Link href={youtubeUrl()} target="_blank" class={`truncate ${props.extraTitleClass}`}>
-					{props.video.title}
-				</Link>
-				<div class="flex flex-row space-x-3 text-sm">
-					<div class="text-neutral-400">{secondsToTime(props.video.duration)}</div>
-					{props.requestedBy && <div>Requested by {props.requestedBy.displayName}</div>}
-				</div>
-			</div>
-			<ContextMenuButton contextMenu={contextMenuProps()} />
-		</div>
-	) : (
-		<div
-			class={`flex flex-col sm:flex-row sm:space-x-2 space-y-2 md:space-y-0 hover:bg-white/5 ${props.extraContainerClass}`}
-			use:contextMenu={contextMenuProps()}
-		>
-			<VideoThumbnail video={props.video} variant={props.variant} />
-			<div class="flex flex-col space-y-2 w-full truncate p-2">
-				<div class="flex flex-row items-center truncate">
-					<Link
-						href={youtubeUrl()}
-						target="_blank"
-						class={`flex-grow font-medium truncate ${props.extraTitleClass}`}
-					>
-						{props.video.title}
-					</Link>
-
+	return (
+		<>
+			{props.variant === "small" ? (
+				<div
+					class={`flex flex-row items-center space-x-1.5 md:space-x-3 w-full md:pr-2 hover:bg-white/5 ${props.extraContainerClass}`}
+					use:contextMenu={contextMenuProps()}
+				>
+					<VideoThumbnail video={props.video} variant={props.variant} extraContainerClass="flex-shrink-0" />
+					<div class="flex flex-col flex-grow flex-shrink md:space-y-1 py-1 truncate">
+						<Link href={youtubeUrl()} target="_blank" class={`truncate ${props.extraTitleClass}`}>
+							{props.video.title}
+						</Link>
+						<div class="flex flex-row space-x-3 text-sm">
+							<div class="text-neutral-400">{secondsToTime(props.video.duration)}</div>
+							{props.requestedBy && <div>Requested by {props.requestedBy.displayName}</div>}
+						</div>
+					</div>
 					<ContextMenuButton contextMenu={contextMenuProps()} />
 				</div>
-				<div class="space-y-1">
-					<div class="text-neutral-400 text-sm">{props.video.viewCount?.toLocaleString("id")} views</div>
-					<div class="flex flex-row space-x-2 text-sm items-center">
-						<ChannelThumbnail video={props.video} />
-						<div>{props.video.channel.name}</div>
+			) : (
+				<div
+					class={`flex flex-col sm:flex-row sm:space-x-2 space-y-2 md:space-y-0 hover:bg-white/5 ${props.extraContainerClass}`}
+					use:contextMenu={contextMenuProps()}
+				>
+					<VideoThumbnail video={props.video} variant={props.variant} />
+					<div class="flex flex-col space-y-2 w-full truncate p-2">
+						<div class="flex flex-row items-center truncate">
+							<Link
+								href={youtubeUrl()}
+								target="_blank"
+								class={`flex-grow font-medium truncate ${props.extraTitleClass}`}
+							>
+								{props.video.title}
+							</Link>
+
+							<ContextMenuButton contextMenu={contextMenuProps()} />
+						</div>
+						<div class="space-y-1">
+							<div class="text-neutral-400 text-sm">
+								{props.video.viewCount?.toLocaleString("id")} views
+							</div>
+							<div class="flex flex-row space-x-2 text-sm items-center">
+								<ChannelThumbnail video={props.video} />
+								<div>{props.video.channel.name}</div>
+							</div>
+						</div>
+
+						{props.requestedBy && <div class="my-auto">Requested by {props.requestedBy.displayName}</div>}
 					</div>
 				</div>
-
-				{props.requestedBy && <div class="my-auto">Requested by {props.requestedBy.displayName}</div>}
-			</div>
-		</div>
+			)}
+		</>
 	);
 };

@@ -20,7 +20,7 @@ export const Link: Component<Props> = (props) => {
 				"text-neutral-400 hover:bg-white/5": !isActive(),
 				"text-neutral-100 bg-white/10 font-medium": !!isActive(),
 			}}
-			onClick={props.onClick}
+			onClick={() => props.onClick()}
 		>
 			<Icon name={props.icon} size="lg" />
 			<div>{props.label}</div>

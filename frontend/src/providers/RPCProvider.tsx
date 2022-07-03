@@ -8,7 +8,8 @@ import { IS_BROWSER } from "../constants";
 export const RPCContext = createContext();
 
 export const RPCProvider: ParentComponent = (props) => {
-	if (IS_BROWSER) return props.children;
+	// eslint-disable-next-line solid/components-return-once
+	if (IS_BROWSER) return <>{props.children}</>;
 	const queue = useQueue();
 	let previousQueue: IQueue | undefined;
 

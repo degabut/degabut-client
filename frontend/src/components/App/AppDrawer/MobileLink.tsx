@@ -9,12 +9,12 @@ type Props = {
 	path: string;
 };
 
-export const MobileLink: Component<Props> = ({ icon, label, path }) => {
-	const isActive = useMatch(() => path);
+export const MobileLink: Component<Props> = (props) => {
+	const isActive = useMatch(() => props.path);
 
 	return (
 		<RouterLink
-			href={path}
+			href={props.path}
 			class="flex flex-col flex-grow h-full space-y-1 py-2 fill-current items-center justify-center text-center cursor-pointer transition-colors "
 			classList={{
 				"text-neutral-400 hover:bg-white/5": !isActive(),
@@ -22,9 +22,9 @@ export const MobileLink: Component<Props> = ({ icon, label, path }) => {
 			}}
 		>
 			<div class="pt-1">
-				<Icon name={icon} size="md" />
+				<Icon name={props.icon} size="md" />
 			</div>
-			<div>{label}</div>
+			<div>{props.label}</div>
 		</RouterLink>
 	);
 };

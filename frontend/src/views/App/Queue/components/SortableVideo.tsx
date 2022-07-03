@@ -4,7 +4,7 @@ import { createSortable } from "@thisbeyond/solid-dnd";
 import { Component, createMemo, createSignal, onMount } from "solid-js";
 
 type Props = {
-	track: ITrack;
+	initialTrack: ITrack;
 	isActive: boolean;
 	onAddToQueue?: (video: IVideoCompact) => Promise<void>;
 	onAddToQueueAndPlay?: (video: IVideoCompact) => Promise<void>;
@@ -18,7 +18,7 @@ type Pos = {
 };
 
 export const SortableVideo: Component<Props> = (props) => {
-	const sortable = createSortable(props.track.id);
+	const sortable = createSortable(props.initialTrack.id);
 	let draggerElement!: HTMLDivElement;
 	const [dragPosition, setDragPosition] = createSignal<Pos>({ x: 0, y: 0 });
 
@@ -34,14 +34,14 @@ export const SortableVideo: Component<Props> = (props) => {
 		const contextMenu = [
 			{
 				element: () => <VideoContextMenuItem icon="trashBin" label="Remove from Queue" iconSize="large" />,
-				onClick: () => props.onRemove?.(props.track),
+				onClick: () => props.onRemove?.(props.initialTrack),
 			},
 		];
 
 		if (!props.isActive) {
 			contextMenu.unshift({
 				element: () => <VideoContextMenuItem icon="play" label="Play" iconSize="large" />,
-				onClick: () => props.onPlay?.(props.track),
+				onClick: () => props.onPlay?.(props.initialTrack),
 			});
 		}
 
@@ -71,11 +71,11 @@ export const SortableVideo: Component<Props> = (props) => {
 				style={{ transform: `translate3d(${dragPosition().x}px, ${dragPosition().y}px, 0px)` }}
 			>
 				<Video.List
-					{...props.track}
+					{...props.initialTrack}
 					extraContextMenuItems={extraContextMenuItems()}
 					extraTitleClass={props.isActive ? "text-brand-600" : undefined}
-					onAddToQueue={props.onAddToQueue}
-					onAddToQueueAndPlay={props.onAddToQueueAndPlay}
+					onAddToQueue={(v) => props.onAddToQueue?.(v)}
+					onAddToQueueAndPlay={(v) => props.onAddToQueueAndPlay?.(v)}
 					variant="small"
 				/>
 			</div>

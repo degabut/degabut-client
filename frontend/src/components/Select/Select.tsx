@@ -63,6 +63,8 @@ export function Select<Item = unknown>(props: Props<Item>) {
 
 	return (
 		<div class="relative w-full space-y-4" use:clickOutside={() => setIsShowOptionList(false)}>
+			{/* TODO: is this error expected? */}
+			{/* eslint-disable-next-line solid/reactivity */}
 			<Input {...props.inputProps} onFocus={() => setIsShowOptionList(true)} />
 
 			<Show when={props.options.length && isShowOptionList()}>

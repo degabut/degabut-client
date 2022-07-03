@@ -25,6 +25,7 @@ export const Icon: Component<Props> = (props) => {
 				"w-10 h-10": props.size === "3xl",
 				...props.extraClassList,
 			}}
+			// eslint-disable-next-line solid/no-innerhtml
 			innerHTML={icons[props.name]}
 		/>
 	);

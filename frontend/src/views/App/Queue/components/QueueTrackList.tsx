@@ -61,7 +61,7 @@ export const QueueTrackList: Component<Props> = (props) => {
 								{(track) => (
 									<SortableVideo
 										isActive={track.id === props.nowPlaying?.id}
-										track={track as ITrack}
+										initialTrack={track as ITrack}
 										onRemove={props.onRemoveTrack}
 										onAddToQueue={props.onAddToQueue}
 										onAddToQueueAndPlay={props.onAddToQueueAndPlay}

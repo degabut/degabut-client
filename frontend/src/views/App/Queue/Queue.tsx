@@ -87,8 +87,8 @@ export const Queue: Component = () => {
 					items={[
 						{
 							id: "trackList",
-							label: ({ isActive }) => (
-								<TabLabel icon="audioPlaylist" label="Track List" isActive={isActive} />
+							label: (props) => (
+								<TabLabel icon="audioPlaylist" label="Track List" isActive={props.isActive} />
 							),
 							element: (
 								<>
@@ -113,7 +113,7 @@ export const Queue: Component = () => {
 						},
 						{
 							id: "queueHistory",
-							label: ({ isActive }) => <TabLabel icon="history" label="History" isActive={isActive} />,
+							label: (props) => <TabLabel icon="history" label="History" isActive={props.isActive} />,
 							element: (
 								<>
 									{queue.isInitialLoading() ? (
