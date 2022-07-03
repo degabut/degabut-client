@@ -9,6 +9,6 @@ export const secondsToTime = (totalSeconds: number) => {
 
 	return [hours, minutes, seconds]
 		.map((v) => (v < 10 ? "0" + v : v))
-		.filter((v, i) => v !== "00" || i === 2)
+		.filter((v, i) => v !== "00" || i > 0)
 		.join(":");
 };
