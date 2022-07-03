@@ -26,7 +26,7 @@ export const VideoThumbnail: Component<Props> = (props) => {
 		</Link>
 	) : (
 		<Link class={`relative flex bg-black ${props.extraContainerClass}`} href={youtubeUrl()} target="_blank">
-			<div class="sm:w-[16rem] sm:h-[10rem] mx-auto">
+			<div class="flex justify-center mx-auto sm:w-[16rem] sm:h-[10rem]">
 				<img src={thumbnail()?.url} alt={props.video.title} class={`h-full object-cover ${props.extraClass}`} />
 			</div>
 			<div class="absolute bottom-0 right-0 text-sm bg-black/90 py-1 px-2">
