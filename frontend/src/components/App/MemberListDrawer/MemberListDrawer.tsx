@@ -52,7 +52,7 @@ export const MemberListDrawer: Component = () => {
 				<For each={queue.data()?.voiceChannel.members || []}>
 					{(member) => (
 						<div
-							class="flex flex-row items-center space-x-2 px-4 py-2 cursor-pointer hover:bg-white/5"
+							class="flex flex-row items-center space-x-3 px-4 py-2.5 cursor-pointer hover:bg-white/5"
 							use:contextMenu={{
 								header: () => <Header member={member} />,
 								extraContainerClass: "bg-neutral-900",
