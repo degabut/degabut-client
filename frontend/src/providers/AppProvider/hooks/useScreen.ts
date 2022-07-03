@@ -2,7 +2,7 @@ import { throttle } from "@utils";
 import { createSignal, onMount } from "solid-js";
 
 export const breakpoints = {
-	"3xl": 1920,
+	"3xl": 2048,
 	"2xl": 1536,
 	xl: 1280,
 	lg: 1024,
