@@ -18,14 +18,14 @@ export const VideoDetail: Component = () => {
 
 	return (
 		<Show when={video.data() && !video.data.loading} fallback={"Loading..."}>
-			<div class="flex flex-col">
+			<div class="flex flex-col max-w-7xl">
 				<Video.List
 					video={video.data() as IVideo}
 					onAddToQueue={queue.addTrack}
 					onAddToQueueAndPlay={queue.addAndPlayTrack}
 				/>
 
-				<div class="my-3 w-full border-b border-neutral-600" />
+				<div class="my-6 w-full border-b border-neutral-600" />
 
 				<div class="space-y-8">
 					<For each={video.data()?.related || []}>
