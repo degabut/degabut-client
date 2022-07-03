@@ -14,16 +14,16 @@ export interface IQueue {
 	shuffle: boolean;
 	loopType: LoopType;
 	nowPlaying: ITrack | null;
-	voiceChannel: VoiceChannel;
+	voiceChannel: IVoiceChannel;
 }
 
-export interface VoiceChannel {
+export interface IVoiceChannel {
 	id: string;
 	name: string;
-	members: Member[];
+	members: IMember[];
 }
 
-export interface Member {
+export interface IMember {
 	id: string;
 	displayName: string;
 	nickname: null | string;
