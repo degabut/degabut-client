@@ -2,9 +2,9 @@ import { AppDrawer, MobileAppDrawer } from "./AppDrawer";
 import { AppHeader } from "./AppHeader";
 import { AppMenuBar } from "./AppMenuBar";
 import { CatJam } from "./CatJam";
+import { MemberListDrawer } from "./MemberListDrawer";
 import { QuickAddModal } from "./QuickAddModal";
 import { UpdateModal } from "./UpdateModal";
-import { UserListDrawer } from "./UserListDrawer";
 
 export const App = {
 	Drawer: AppDrawer,
@@ -14,5 +14,5 @@ export const App = {
 	UpdateModal,
 	CatJam,
 	QuickAddModal,
-	UserListDrawer,
+	MemberListDrawer,
 };

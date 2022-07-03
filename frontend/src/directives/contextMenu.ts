@@ -9,15 +9,22 @@ export const contextMenu = (el: HTMLElement, accessor: Accessor<ContextMenuDirec
 
 		const onContextMenu = (e: MouseEvent) => {
 			e.preventDefault();
-			contextMenu.show({
-				x: e.pageX,
-				y: e.pageY,
-				...params,
-			});
+			setTimeout(() => {
+				contextMenu.show({
+					x: e.pageX,
+					y: e.pageY,
+					...params,
+				});
+			}, 0);
 		};
 
 		el.addEventListener("contextmenu", onContextMenu);
-		onCleanup(() => document.removeEventListener("contextmenu", onContextMenu));
+		if (params.openWithClick) el.addEventListener("click", onContextMenu);
+
+		onCleanup(() => {
+			el.removeEventListener("contextmenu", onContextMenu);
+			if (params.openWithClick) el.removeEventListener("click", onContextMenu);
+		});
 	}
 };
 

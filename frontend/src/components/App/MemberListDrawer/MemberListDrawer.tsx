@@ -6,7 +6,7 @@ import { Component, For } from "solid-js";
 
 contextMenu;
 
-export const UserListDrawer: Component = () => {
+export const MemberListDrawer: Component = () => {
 	const app = useApp();
 	const queue = useQueue();
 	const navigate = useNavigate();
@@ -31,6 +31,7 @@ export const UserListDrawer: Component = () => {
 										onClick: () => navigate(`/app/u/${member.id}/videos`),
 									},
 								],
+								openWithClick: true,
 							}}
 						>
 							<img src={member.avatar || undefined} class="w-8 h-8 rounded-full" />

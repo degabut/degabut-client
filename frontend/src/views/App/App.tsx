@@ -55,7 +55,7 @@ const ProvidedApp: Component = () => {
 					</div>
 				</div>
 
-				<App.UserListDrawer />
+				<App.MemberListDrawer />
 
 				<div class="md:hidden block w-full z-30">
 					<App.MobileDrawer />

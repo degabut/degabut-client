@@ -12,6 +12,7 @@ export type ContextMenuItem = {
 export type ShowParams = {
 	x: number;
 	y: number;
+	openWithClick?: boolean;
 	items: ContextMenuItem[];
 	header?: JSX.Element;
 	extraContainerClass?: string;
