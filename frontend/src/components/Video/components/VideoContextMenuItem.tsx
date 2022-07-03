@@ -14,8 +14,8 @@ export const VideoContextMenuItem: Component<Props> = (props) => {
 				name={props.icon}
 				extraClass="fill-current text-neutral-400"
 				extraClassList={{
-					"h-4 w-4": props.label !== "large",
-					"h-5 w-4": props.label === "large",
+					"h-4 w-4": props.iconSize !== "large",
+					"h-5 w-4": props.iconSize === "large",
 				}}
 			/>
 			<div>{props.label}</div>
