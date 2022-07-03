@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Accessor, createContext, createSignal, ParentComponent, Setter } from "solid-js";
+import { Accessor, createContext, createEffect, createSignal, ParentComponent, Setter } from "solid-js";
+import { breakpoints, defaultScreenValue, Screen, useScreen } from "./hooks";
 
 type AppContextStore = {
+	screen: Accessor<Screen>;
 	title: Accessor<string>;
 	setTitle: (title: string) => void;
 	isMenuOpen: Accessor<boolean>;
@@ -11,6 +13,7 @@ type AppContextStore = {
 };
 
 export const AppContext = createContext<AppContextStore>({
+	screen: () => defaultScreenValue,
 	title: () => "",
 	setTitle: () => {},
 	isMenuOpen: () => false,
@@ -21,29 +24,22 @@ export const AppContext = createContext<AppContextStore>({
 
 export const AppProvider: ParentComponent = (props) => {
 	let previousWidth = window.screenX;
-
-	// TODO: Add breakpoint constant
-	window.addEventListener("resize", () => {
-		if (window.innerWidth > 768) {
-			setIsMenuOpen(true);
-		}
-		if (window.innerWidth > 1024) {
-			setIsMemberOpen(true);
-		}
-		if (window.innerWidth <= 768 && previousWidth > 768) {
-			setIsMenuOpen(false);
-		}
-		if (window.innerWidth <= 1024 && previousWidth > 1024) {
-			setIsMemberOpen(false);
-		}
-		previousWidth = window.innerWidth;
-	});
+	const screen = useScreen();
 
 	const [isMenuOpen, setIsMenuOpen] = createSignal(window.innerWidth > 768);
 	const [isMemberOpen, setIsMemberOpen] = createSignal(window.innerWidth > 768);
 	const [title, setTitle] = createSignal("");
 
+	createEffect(() => {
+		if (screen().md) setIsMenuOpen(true);
+		if (screen().lg) setIsMemberOpen(true);
+		if (window.innerWidth <= breakpoints.md && previousWidth > breakpoints.md) setIsMenuOpen(false);
+		if (window.innerWidth <= breakpoints.lg && previousWidth > breakpoints.lg) setIsMemberOpen(false);
+		previousWidth = window.innerWidth;
+	});
+
 	const store = {
+		screen,
 		title,
 		setTitle,
 		isMenuOpen,

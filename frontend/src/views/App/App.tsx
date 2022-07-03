@@ -1,7 +1,6 @@
 import { App, Icon } from "@components";
 import { useQueue } from "@hooks";
-import { ContextMenuProvider, QueueProvider, RPCProvider } from "@providers";
-import { AppProvider } from "@providers/AppProvider";
+import { AppProvider, ContextMenuProvider, QueueProvider, RPCProvider } from "@providers";
 import { Outlet, useLocation, useNavigate } from "solid-app-router";
 import { Component, onMount, Show } from "solid-js";
 
