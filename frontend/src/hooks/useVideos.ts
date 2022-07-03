@@ -2,7 +2,6 @@ import { getVideoHistory, searchVideos } from "@api";
 import { Accessor, createResource } from "solid-js";
 
 type PropsValue =
-	| Accessor<string>
 	| string
 	| {
 			userId: string;
