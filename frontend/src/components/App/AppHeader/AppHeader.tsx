@@ -6,7 +6,7 @@ export const AppHeader: Component = () => {
 	const app = useApp();
 
 	return (
-		<div class="flex flex-row items-center bg-neutral-900 h-16 md:h-14 px-2 md:px-4 py-2 space-x-2">
+		<div class="flex flex-row items-center bg-neutral-900 h-16 md:h-14 px-4 py-2 space-x-2">
 			<div class="md:hidden cursor-pointer p-2" onClick={() => app.setIsMenuOpen((v) => !v)}>
 				<Icon name="menu" size="lg" extraClass="fill-white" />
 			</div>
