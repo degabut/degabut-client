@@ -75,7 +75,7 @@ export const ContextMenuProvider: ParentComponent = (props) => {
 							left: params().x + "px",
 							top: params().y + "px",
 						}}
-						class={`hidden md:block fixed bg-black z-[100] min-w-[12rem] w-max ${
+						class={`hidden md:block fixed bg-neutral-900 z-[100] min-w-[12rem] w-max ${
 							params().extraContainerClass
 						}`}
 					>
