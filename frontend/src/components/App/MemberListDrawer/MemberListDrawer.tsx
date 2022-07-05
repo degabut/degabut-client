@@ -41,6 +41,11 @@ export const MemberListDrawer: Component = () => {
 	const queue = useQueue();
 	const navigate = useNavigate();
 
+	const onClick = (member: IMember) => {
+		if (app.screen().lte.sm) app.setIsMemberOpen(false);
+		navigate(`/app/u/${member.id}/videos`);
+	};
+
 	return (
 		<Drawer
 			isOpen={app.isMemberOpen()}
@@ -59,7 +64,7 @@ export const MemberListDrawer: Component = () => {
 								items: [
 									{
 										element: () => <Item icon="heart" iconSize="lg" label="Recommendation" />,
-										onClick: () => navigate(`/app/u/${member.id}/videos`),
+										onClick: () => onClick(member),
 									},
 								],
 								openWithClick: true,
