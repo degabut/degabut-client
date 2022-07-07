@@ -1,7 +1,6 @@
 import { ITrack, IVideoCompact } from "@api";
-import { Icon, Video, VideoContextMenuItem } from "@components";
-import { createSortable } from "@thisbeyond/solid-dnd";
-import { Component, createMemo, createSignal, onMount } from "solid-js";
+import { Video, VideoContextMenuItem } from "@components";
+import { Component, createMemo } from "solid-js";
 
 type Props = {
 	initialTrack: ITrack;
@@ -18,17 +17,17 @@ type Pos = {
 };
 
 export const SortableVideo: Component<Props> = (props) => {
-	const sortable = createSortable(props.initialTrack.id);
-	let draggerElement!: HTMLDivElement;
-	const [dragPosition, setDragPosition] = createSignal<Pos>({ x: 0, y: 0 });
+	// const sortable = createSortable(props.initialTrack.id);
+	// let draggerElement!: HTMLDivElement;
+	// const [dragPosition, setDragPosition] = createSignal<Pos>({ x: 0, y: 0 });
 
-	onMount(() => {
-		const observer = new MutationObserver((mutations) => {
-			mutations.forEach(onDragMove);
-		});
+	// onMount(() => {
+	// 	const observer = new MutationObserver((mutations) => {
+	// 		mutations.forEach(onDragMove);
+	// 	});
 
-		observer.observe(draggerElement, { attributes: true, attributeFilter: ["style"] });
-	});
+	// 	observer.observe(draggerElement, { attributes: true, attributeFilter: ["style"] });
+	// });
 
 	const extraContextMenuItems = createMemo(() => {
 		const contextMenu = [
@@ -48,27 +47,30 @@ export const SortableVideo: Component<Props> = (props) => {
 		return contextMenu;
 	});
 
-	const onDragMove = () => {
-		const position = draggerElement.style.transform.split("(")[1]?.split(",", 2);
-		if (position) {
-			const [x, y] = position.map((p) => +p.replace(/[^0-9-]/g, ""));
-			setDragPosition({ x: +x, y: +y });
-		} else {
-			setDragPosition({ x: 0, y: 0 });
-		}
-	};
+	// const onDragMove = () => {
+	// 	const position = draggerElement.style.transform.split("(")[1]?.split(",", 2);
+	// 	if (position) {
+	// 		const [x, y] = position.map((p) => +p.replace(/[^0-9-]/g, ""));
+	// 		setDragPosition({ x: +x, y: +y });
+	// 	} else {
+	// 		setDragPosition({ x: 0, y: 0 });
+	// 	}
+	// };
 
 	return (
-		<div class="flex justify-end items-stretch" classList={{ "opacity-50": sortable.isActiveDraggable }}>
-			<div ref={draggerElement} use:sortable class="touch-none flex items-center cursor-pointer">
+		<div
+			class="flex justify-end items-stretch"
+			// classList={{ "opacity-50": sortable.isActiveDraggable }}
+		>
+			{/* <div ref={draggerElement} use:sortable class="touch-none flex items-center cursor-pointer">
 				<div class="mx-2 md:ml-0">
 					<Icon name="sortArrows" extraClass="fill-neutral-500 w-4 h-4" />
 				</div>
-			</div>
+			</div> */}
 
 			<div
 				class="truncate flex-grow"
-				style={{ transform: `translate3d(${dragPosition().x}px, ${dragPosition().y}px, 0px)` }}
+				// style={{ transform: `translate3d(${dragPosition().x}px, ${dragPosition().y}px, 0px)` }}
 			>
 				<Video.List
 					{...props.initialTrack}
